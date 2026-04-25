@@ -39,11 +39,6 @@
       margin-bottom: 10px;
     }
 
-    .header p {
-      color: #555;
-      font-size: 16px;
-    }
-
     .info {
       background: #f1f8ff;
       border-left: 5px solid #1976d2;
@@ -86,39 +81,41 @@
       font-size: 14px;
     }
 
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+
     .btn {
       text-decoration: none;
       background: #1976d2;
       color: white;
-      padding: 10px 16px;
+      padding: 10px 14px;
       border-radius: 10px;
       font-weight: bold;
-      white-space: nowrap;
+      font-size: 14px;
     }
 
     .btn:hover {
       background: #0d47a1;
     }
 
-    .footer {
-      margin-top: 30px;
-      text-align: center;
-      font-size: 14px;
-      color: #777;
+    .btn.view {
+      background: #4caf50;
+    }
+
+    .btn.view:hover {
+      background: #2e7d32;
     }
 
     @media (max-width: 600px) {
-      body {
-        padding: 15px;
-      }
-
-      .container {
-        padding: 20px;
-      }
-
       .file-card {
         flex-direction: column;
         align-items: flex-start;
+      }
+
+      .btn-group {
+        width: 100%;
       }
 
       .btn {
@@ -138,60 +135,84 @@
       <strong>Nama:</strong> Sufyan Tsaury<br />
       <strong>NIM:</strong> 2530311086<br />
       <strong>Mata Kuliah:</strong> Semua Mata Kuliah<br />
-      <strong>Keterangan:</strong> Halaman ini berisi kumpulan tugas dari berbagai mata kuliah yang dapat diunduh.
+      <strong>Keterangan:</strong> Halaman ini berisi kumpulan tugas dari berbagai mata kuliah.
     </div>
 
     <div class="file-list">
+
+      <!-- 1 -->
       <div class="file-card">
         <div class="file-name">
           <h3>📄 SUFYAN TSAURY_BAHASA INDONESIA_3 JURNAL</h3>
           <p>Bahasa Indonesia</p>
         </div>
-        <a class="btn" href="SUFYAN TSAURY_BAHASA INDONESIA_3 JURNAL.pdf" download>Download</a>
+        <div class="btn-group">
+          <a class="btn view" href="SUFYAN TSAURY_BAHASA INDONESIA_3 JURNAL.pdf" target="_blank">Lihat</a>
+          <a class="btn" href="SUFYAN TSAURY_BAHASA INDONESIA_3 JURNAL.pdf" download>Download</a>
+        </div>
       </div>
 
+      <!-- 2 -->
       <div class="file-card">
         <div class="file-name">
           <h3>📄 SUFYAN TSAURY_BAHASA INDONESIA_ARTIKEL</h3>
           <p>Bahasa Indonesia</p>
         </div>
-        <a class="btn" href="SUFYAN TSAURY_BAHASA INDONESIA_ARTIKEL.pdf" download>Download</a>
+        <div class="btn-group">
+          <a class="btn view" href="SUFYAN TSAURY_BAHASA INDONESIA_ARTIKEL.pdf" target="_blank">Lihat</a>
+          <a class="btn" href="SUFYAN TSAURY_BAHASA INDONESIA_ARTIKEL.pdf" download>Download</a>
+        </div>
       </div>
 
+      <!-- 3 -->
       <div class="file-card">
         <div class="file-name">
           <h3>📄 SUFYAN TSAURY_BAHASA INDONESIA_TABEL</h3>
           <p>Bahasa Indonesia</p>
         </div>
-        <a class="btn" href="SUFYAN TSAURY_BAHASA INDONESIA_TABEL.pdf" download>Download</a>
+        <div class="btn-group">
+          <a class="btn view" href="SUFYAN TSAURY_BAHASA INDONESIA_TABEL.pdf" target="_blank">Lihat</a>
+          <a class="btn" href="SUFYAN TSAURY_BAHASA INDONESIA_TABEL.pdf" download>Download</a>
+        </div>
       </div>
-      
+
+      <!-- 4 -->
       <div class="file-card">
         <div class="file-name">
           <h3>📄 SUFYAN TSAURY_HK_A_Bahasa Inggris</h3>
           <p>Bahasa Inggris</p>
         </div>
-        <a class="btn" href="SUFYAN TSAURY_HK_A_Bahasa Inggris.pdf" download>Download</a>
+        <div class="btn-group">
+          <a class="btn view" href="SUFYAN TSAURY_HK_A_Bahasa Inggris.pdf" target="_blank">Lihat</a>
+          <a class="btn" href="SUFYAN TSAURY_HK_A_Bahasa Inggris.pdf" download>Download</a>
+        </div>
       </div>
 
+      <!-- 5 -->
       <div class="file-card">
         <div class="file-name">
           <h3>📄 SUFYAN TSAURY_PKN_ESAI</h3>
           <p>Pendidikan Kewarganegaraan</p>
         </div>
-        <a class="btn" href="SUFYAN TSAURY_PKN_ESAI.pdf" download>Download</a>
+        <div class="btn-group">
+          <a class="btn view" href="SUFYAN TSAURY_PKN_ESAI.pdf" target="_blank">Lihat</a>
+          <a class="btn" href="SUFYAN TSAURY_PKN_ESAI.pdf" download>Download</a>
+        </div>
       </div>
-      
+
+      <!-- 6 -->
       <div class="file-card">
         <div class="file-name">
           <h3>📄 SUFYAN TSAURY_USHUL FIQIH_RESUME</h3>
           <p>Ushul Fiqih</p>
         </div>
-        <a class="btn" href="SUFYAN TSAURY_USHUL FIQIH_RESUME.pdf" download>Download</a>
+        <div class="btn-group">
+          <a class="btn view" href="SUFYAN TSAURY_USHUL FIQIH_RESUME.pdf" target="_blank">Lihat</a>
+          <a class="btn" href="SUFYAN TSAURY_USHUL FIQIH_RESUME.pdf" download>Download</a>
+        </div>
       </div>
 
     </div>
-
   </div>
 </body>
 </html>
