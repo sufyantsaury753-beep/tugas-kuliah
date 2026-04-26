@@ -114,6 +114,24 @@
       background: #2e7d32;
     }
 
+    .search-box {
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+}
+
+.search-box input:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
+}
+    
     @media (max-width: 600px) {
       .file-card {
         flex-direction: column;
@@ -151,6 +169,14 @@
       </a>
     </div>
 
+    <div class="search-box">
+  <input 
+    type="text" 
+    id="searchInput" 
+    placeholder="🔍 Cari mata kuliah atau nama file..."
+    onkeyup="cariFile()"
+  >
+</div>
     <div class="file-list">
 
       <div class="file-card">
@@ -221,5 +247,22 @@
 
     </div>
   </div>
+
+  <script>
+function cariFile() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const cards = document.getElementsByClassName("file-card");
+
+  for (let i = 0; i < cards.length; i++) {
+    const text = cards[i].innerText.toLowerCase();
+
+    if (text.includes(input)) {
+      cards[i].style.display = "flex";
+    } else {
+      cards[i].style.display = "none";
+    }
+  }
+}
+</script>
 </body>
 </html>
