@@ -37,7 +37,6 @@
     .header h1 {
       font-size: 32px;
       color: #0d47a1;
-      margin-bottom: 10px;
     }
 
     .info {
@@ -51,7 +50,7 @@
 
     .upload-box {
       text-align: center;
-      margin: 35px 0;
+      margin: 30px 0;
     }
 
     .file-list {
@@ -68,7 +67,6 @@
       align-items: center;
       gap: 15px;
       transition: 0.2s;
-      background: #fff;
     }
 
     .file-card:hover {
@@ -77,14 +75,13 @@
     }
 
     .file-name h3 {
-      color: #222;
-      margin-bottom: 5px;
-      font-size: 18px;
+      font-size: 17px;
+      margin-bottom: 4px;
     }
 
     .file-name p {
+      font-size: 13px;
       color: #666;
-      font-size: 14px;
     }
 
     .btn-group {
@@ -94,19 +91,11 @@
 
     .btn {
       text-decoration: none;
-      background: #1976d2;
-      color: white;
-      padding: 10px 14px;
+      padding: 9px 14px;
       border-radius: 10px;
+      font-size: 13px;
       font-weight: bold;
-      font-size: 14px;
-      border: none;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-
-    .btn:hover {
-      background: #0d47a1;
+      color: white;
     }
 
     .btn.view {
@@ -117,33 +106,15 @@
       background: #2e7d32;
     }
 
-    #viewer {
-      margin-top: 30px;
-      display: none;
+    .btn.download {
+      background: #1976d2;
     }
 
-    #viewer h2 {
-      margin-bottom: 12px;
-      color: #0d47a1;
-      font-size: 22px;
-    }
-
-    #pdfFrame {
-      width: 100%;
-      height: 600px;
-      border: 1px solid #ddd;
-      border-radius: 12px;
+    .btn.download:hover {
+      background: #0d47a1;
     }
 
     @media (max-width: 600px) {
-      body {
-        padding: 15px;
-      }
-
-      .container {
-        padding: 20px;
-      }
-
       .file-card {
         flex-direction: column;
         align-items: flex-start;
@@ -156,10 +127,6 @@
       .btn {
         width: 100%;
         text-align: center;
-      }
-
-      #pdfFrame {
-        height: 500px;
       }
     }
   </style>
@@ -174,8 +141,7 @@
     <div class="info">
       <strong>Nama:</strong> Sufyan Tsaury<br />
       <strong>NIM:</strong> 2530311086<br />
-      <strong>Mata Kuliah:</strong> Semua Mata Kuliah<br />
-      <strong>Keterangan:</strong> Halaman ini berisi kumpulan tugas dari berbagai mata kuliah.
+      <strong>Mata Kuliah:</strong> Semua Mata Kuliah
     </div>
 
     <div class="upload-box">
@@ -188,84 +154,71 @@
 
       <div class="file-card">
         <div class="file-name">
-          <h3>📄 SUFYAN TSAURY_BAHASA INDONESIA_3 JURNAL</h3>
+          <h3>📄 Jurnal Bahasa Indonesia</h3>
           <p>Bahasa Indonesia</p>
         </div>
         <div class="btn-group">
-          <button class="btn view" onclick="lihatPDF('SUFYAN TSAURY_BAHASA INDONESIA_3 JURNAL.pdf')">Lihat</button>
-          <a class="btn" href="SUFYAN TSAURY_BAHASA INDONESIA_3 JURNAL.pdf" download>Download</a>
+          <a class="btn view" href="SUFYAN TSAURY_BAHASA INDONESIA_3 JURNAL.pdf" target="_blank">Lihat</a>
+          <a class="btn download" href="SUFYAN TSAURY_BAHASA INDONESIA_3 JURNAL.pdf" download>Download</a>
         </div>
       </div>
 
       <div class="file-card">
         <div class="file-name">
-          <h3>📄 SUFYAN TSAURY_BAHASA INDONESIA_ARTIKEL</h3>
+          <h3>📄 Artikel Bahasa Indonesia</h3>
           <p>Bahasa Indonesia</p>
         </div>
         <div class="btn-group">
-          <button class="btn view" onclick="lihatPDF('SUFYAN TSAURY_BAHASA INDONESIA_ARTIKEL.pdf')">Lihat</button>
-          <a class="btn" href="SUFYAN TSAURY_BAHASA INDONESIA_ARTIKEL.pdf" download>Download</a>
+          <a class="btn view" href="SUFYAN TSAURY_BAHASA INDONESIA_ARTIKEL.pdf" target="_blank">Lihat</a>
+          <a class="btn download" href="SUFYAN TSAURY_BAHASA INDONESIA_ARTIKEL.pdf" download>Download</a>
         </div>
       </div>
 
       <div class="file-card">
         <div class="file-name">
-          <h3>📄 SUFYAN TSAURY_BAHASA INDONESIA_TABEL</h3>
+          <h3>📄 Tabel Bahasa Indonesia</h3>
           <p>Bahasa Indonesia</p>
         </div>
         <div class="btn-group">
-          <button class="btn view" onclick="lihatPDF('SUFYAN TSAURY_BAHASA INDONESIA_TABEL.pdf')">Lihat</button>
-          <a class="btn" href="SUFYAN TSAURY_BAHASA INDONESIA_TABEL.pdf" download>Download</a>
+          <a class="btn view" href="SUFYAN TSAURY_BAHASA INDONESIA_TABEL.pdf" target="_blank">Lihat</a>
+          <a class="btn download" href="SUFYAN TSAURY_BAHASA INDONESIA_TABEL.pdf" download>Download</a>
         </div>
       </div>
 
       <div class="file-card">
         <div class="file-name">
-          <h3>📄 SUFYAN TSAURY_HK_A_Bahasa Inggris</h3>
+          <h3>📄 Tugas Bahasa Inggris</h3>
           <p>Bahasa Inggris</p>
         </div>
         <div class="btn-group">
-          <button class="btn view" onclick="lihatPDF('SUFYAN TSAURY_HK_A_Bahasa Inggris.pdf')">Lihat</button>
-          <a class="btn" href="SUFYAN TSAURY_HK_A_Bahasa Inggris.pdf" download>Download</a>
+          <a class="btn view" href="SUFYAN TSAURY_HK_A_Bahasa Inggris.pdf" target="_blank">Lihat</a>
+          <a class="btn download" href="SUFYAN TSAURY_HK_A_Bahasa Inggris.pdf" download>Download</a>
         </div>
       </div>
 
       <div class="file-card">
         <div class="file-name">
-          <h3>📄 SUFYAN TSAURY_PKN_ESAI</h3>
+          <h3>📄 Esai PKN</h3>
           <p>Pendidikan Kewarganegaraan</p>
         </div>
         <div class="btn-group">
-          <button class="btn view" onclick="lihatPDF('SUFYAN TSAURY_PKN_ESAI.pdf')">Lihat</button>
-          <a class="btn" href="SUFYAN TSAURY_PKN_ESAI.pdf" download>Download</a>
+          <a class="btn view" href="SUFYAN TSAURY_PKN_ESAI.pdf" target="_blank">Lihat</a>
+          <a class="btn download" href="SUFYAN TSAURY_PKN_ESAI.pdf" download>Download</a>
         </div>
       </div>
 
       <div class="file-card">
         <div class="file-name">
-          <h3>📄 SUFYAN TSAURY_USHUL FIQIH_RESUME</h3>
+          <h3>📄 Resume Ushul Fiqih</h3>
           <p>Ushul Fiqih</p>
         </div>
         <div class="btn-group">
-          <button class="btn view" onclick="lihatPDF('SUFYAN TSAURY_USHUL FIQIH_RESUME.pdf')">Lihat</button>
-          <a class="btn" href="SUFYAN TSAURY_USHUL FIQIH_RESUME.pdf" download>Download</a>
+          <a class="btn view" href="SUFYAN TSAURY_USHUL FIQIH_RESUME.pdf" target="_blank">Lihat</a>
+          <a class="btn download" href="SUFYAN TSAURY_USHUL FIQIH_RESUME.pdf" download>Download</a>
         </div>
       </div>
 
     </div>
-
-    <div id="viewer">
-      <h2>Preview File</h2>
-      <iframe id="pdfFrame"></iframe>
-    </div>
   </div>
-
-  <script>
-    function lihatPDF(file) {
-      document.getElementById("viewer").style.display = "block";
-      document.getElementById("pdfFrame").src = file;
-      document.getElementById("viewer").scrollIntoView({ behavior: "smooth" });
-    }
-  </script>
 </body>
 </html>
