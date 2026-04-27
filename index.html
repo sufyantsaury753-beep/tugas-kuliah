@@ -21,7 +21,7 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 950px;
       margin: auto;
       background: white;
       padding: 30px;
@@ -37,7 +37,6 @@
     .header h1 {
       font-size: 32px;
       color: #0d47a1;
-      margin-bottom: 10px;
     }
 
     .info {
@@ -52,6 +51,36 @@
     .upload-box {
       text-align: center;
       margin: 30px 0;
+    }
+
+    .search-box {
+      margin-bottom: 25px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: #1976d2;
+      box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
+    }
+
+    .category {
+      margin-top: 35px;
+    }
+
+    .category h2 {
+      color: #0d47a1;
+      margin-bottom: 15px;
+      font-size: 22px;
+      border-bottom: 2px solid #e3f2fd;
+      padding-bottom: 8px;
     }
 
     .file-list {
@@ -100,6 +129,7 @@
       border-radius: 10px;
       font-weight: bold;
       font-size: 14px;
+      white-space: nowrap;
     }
 
     .btn:hover {
@@ -114,25 +144,25 @@
       background: #2e7d32;
     }
 
-    .search-box {
-  margin-bottom: 20px;
-}
+    .empty {
+      color: #777;
+      font-size: 14px;
+      font-style: italic;
+      background: #f8f9fa;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px dashed #ccc;
+    }
 
-.search-box input {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  font-size: 15px;
-  outline: none;
-}
-
-.search-box input:focus {
-  border-color: #1976d2;
-  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
-}
-    
     @media (max-width: 600px) {
+      body {
+        padding: 15px;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
       .file-card {
         flex-direction: column;
         align-items: flex-start;
@@ -170,121 +200,218 @@
     </div>
 
     <div class="search-box">
-  <input 
-    type="text" 
-    id="searchInput" 
-    placeholder="🔍 Cari mata kuliah atau nama file..."
-    onkeyup="cariFile()"
-  >
-</div>
-    <div class="file-list">
-
-      <div class="file-card">
-        <div class="file-name">
-          <h3>📄 SUFYAN TSAURY_BAHASA INDONESIA_3 JURNAL</h3>
-          <p>Bahasa Indonesia</p>
-        </div>
-        <div class="btn-group">
-          <a class="btn view" href="SUFYAN TSAURY_BAHASA INDONESIA_3 JURNAL.pdf" target="_blank">Lihat</a>
-          <a class="btn" href="SUFYAN TSAURY_BAHASA INDONESIA_3 JURNAL.pdf" download>Download</a>
-        </div>
-      </div>
-
-      <div class="file-card">
-        <div class="file-name">
-          <h3>📄 SUFYAN TSAURY_BAHASA INDONESIA_ARTIKEL</h3>
-          <p>Bahasa Indonesia</p>
-        </div>
-        <div class="btn-group">
-          <a class="btn view" href="SUFYAN TSAURY_BAHASA INDONESIA_ARTIKEL.pdf" target="_blank">Lihat</a>
-          <a class="btn" href="SUFYAN TSAURY_BAHASA INDONESIA_ARTIKEL.pdf" download>Download</a>
-        </div>
-      </div>
-
-      <div class="file-card">
-        <div class="file-name">
-          <h3>📄 SUFYAN TSAURY_BAHASA INDONESIA_TABEL</h3>
-          <p>Bahasa Indonesia</p>
-        </div>
-        <div class="btn-group">
-          <a class="btn view" href="SUFYAN TSAURY_BAHASA INDONESIA_TABEL.pdf" target="_blank">Lihat</a>
-          <a class="btn" href="SUFYAN TSAURY_BAHASA INDONESIA_TABEL.pdf" download>Download</a>
-        </div>
-      </div>
-
-      <div class="file-card">
-        <div class="file-name">
-          <h3>📄 SUFYAN TSAURY_HK_A_Bahasa Inggris</h3>
-          <p>Bahasa Inggris</p>
-        </div>
-        <div class="btn-group">
-          <a class="btn view" href="SUFYAN TSAURY_HK_A_Bahasa Inggris.pdf" target="_blank">Lihat</a>
-          <a class="btn" href="SUFYAN TSAURY_HK_A_Bahasa Inggris.pdf" download>Download</a>
-        </div>
-      </div>
-
-      <div class="file-card">
-        <div class="file-name">
-          <h3>📄 SUFYAN TSAURY_PKN_ESAI</h3>
-          <p>Pendidikan Kewarganegaraan</p>
-        </div>
-        <div class="btn-group">
-          <a class="btn view" href="SUFYAN TSAURY_PKN_ESAI.pdf" target="_blank">Lihat</a>
-          <a class="btn" href="SUFYAN TSAURY_PKN_ESAI.pdf" download>Download</a>
-        </div>
-      </div>
-
-      <div class="file-card">
-        <div class="file-name">
-          <h3>📄 SUFYAN TSAURY_USHUL FIQIH_RESUME</h3>
-          <p>Ushul Fiqih</p>
-        </div>
-        <div class="btn-group">
-          <a class="btn view" href="SUFYAN TSAURY_USHUL FIQIH_RESUME.pdf" target="_blank">Lihat</a>
-          <a class="btn" href="SUFYAN TSAURY_USHUL FIQIH_RESUME.pdf" download>Download</a>
-        </div>
-      </div>
-
-      <div class="file-card">
-        <div class="file-name">
-          <h3>📄 HASIL DISKUSI_PKN_KELOMPOK 7</h3>
-          <p>Pendidikan Kewarganegaraan</p>
-        </div>
-        <div class="btn-group">
-          <a class="btn view" href="HASIL DISKUSI_PKN_KELOMPOK 7.pdf" target="_blank">Lihat</a>
-          <a class="btn" href="HASIL DISKUSI_PKN_KELOMPOK 7.pdf" download>Download</a>
-        </div>
-      </div>
-
-      <div class="file-card">
-        <div class="file-name">
-          <h3>📄 HASIL DISKUSI_MSI_KELOMPOK 2</h3>
-          <p>Metodologi Studi Islam</p>
-        </div>
-        <div class="btn-group">
-          <a class="btn view" href="HASIL DISKUSI_MSI_KELOMPOK 2.pdf" target="_blank">Lihat</a>
-          <a class="btn" href="HASIL DISKUSI_MSI_KELOMPOK 2.pdf" download>Download</a>
-        </div>
-      </div>
-
+      <input 
+        type="text" 
+        id="searchInput" 
+        placeholder="🔍 Cari mata kuliah atau nama file..."
+        onkeyup="cariFile()"
+      >
     </div>
+
+    <!-- Bahasa Indonesia -->
+    <div class="category">
+      <h2>📘 Bahasa Indonesia</h2>
+      <div class="file-list">
+        <div class="file-card">
+          <div class="file-name">
+            <h3>📄 SUFYAN TSAURY_BAHASA INDONESIA_3 JURNAL</h3>
+            <p>Bahasa Indonesia</p>
+          </div>
+          <div class="btn-group">
+            <a class="btn view" href="SUFYAN TSAURY_BAHASA INDONESIA_3 JURNAL.pdf" target="_blank">Lihat</a>
+            <a class="btn" href="SUFYAN TSAURY_BAHASA INDONESIA_3 JURNAL.pdf" download>Download</a>
+          </div>
+        </div>
+
+        <div class="file-card">
+          <div class="file-name">
+            <h3>📄 SUFYAN TSAURY_BAHASA INDONESIA_ARTIKEL</h3>
+            <p>Bahasa Indonesia</p>
+          </div>
+          <div class="btn-group">
+            <a class="btn view" href="SUFYAN TSAURY_BAHASA INDONESIA_ARTIKEL.pdf" target="_blank">Lihat</a>
+            <a class="btn" href="SUFYAN TSAURY_BAHASA INDONESIA_ARTIKEL.pdf" download>Download</a>
+          </div>
+        </div>
+
+        <div class="file-card">
+          <div class="file-name">
+            <h3>📄 SUFYAN TSAURY_BAHASA INDONESIA_TABEL</h3>
+            <p>Bahasa Indonesia</p>
+          </div>
+          <div class="btn-group">
+            <a class="btn view" href="SUFYAN TSAURY_BAHASA INDONESIA_TABEL.pdf" target="_blank">Lihat</a>
+            <a class="btn" href="SUFYAN TSAURY_BAHASA INDONESIA_TABEL.pdf" download>Download</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bahasa Inggris -->
+    <div class="category">
+      <h2>📗 Bahasa Inggris</h2>
+      <div class="file-list">
+        <div class="file-card">
+          <div class="file-name">
+            <h3>📄 SUFYAN TSAURY_HK_A_Bahasa Inggris</h3>
+            <p>Bahasa Inggris</p>
+          </div>
+          <div class="btn-group">
+            <a class="btn view" href="SUFYAN TSAURY_HK_A_Bahasa Inggris.pdf" target="_blank">Lihat</a>
+            <a class="btn" href="SUFYAN TSAURY_HK_A_Bahasa Inggris.pdf" download>Download</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ushul Fiqih -->
+    <div class="category">
+      <h2>📙 Ushul Fiqih</h2>
+      <div class="file-list">
+        <div class="file-card">
+          <div class="file-name">
+            <h3>📄 SUFYAN TSAURY_USHUL FIQIH_RESUME</h3>
+            <p>Ushul Fiqih</p>
+          </div>
+          <div class="btn-group">
+            <a class="btn view" href="SUFYAN TSAURY_USHUL FIQIH_RESUME.pdf" target="_blank">Lihat</a>
+            <a class="btn" href="SUFYAN TSAURY_USHUL FIQIH_RESUME.pdf" download>Download</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fiqih Peradilan dan Hukum Acara -->
+    <div class="category">
+      <h2>📔 Fiqih Peradilan dan Hukum Acara</h2>
+      <div class="file-list">
+        <p class="empty">Belum ada file.</p>
+      </div>
+    </div>
+
+    <!-- Metodologi Studi Islam -->
+    <div class="category">
+      <h2>🕌 Metodologi Studi Islam</h2>
+      <div class="file-list">
+        <div class="file-card">
+          <div class="file-name">
+            <h3>📄 Hasil Diskusi MSI Kelompok 2</h3>
+            <p>Metodologi Studi Islam</p>
+          </div>
+          <div class="btn-group">
+            <a class="btn view" href="Hasil Diskusi_MSI_Kelompok 2.pdf" target="_blank">Lihat</a>
+            <a class="btn" href="Hasil Diskusi_MSI_Kelompok 2.pdf" download>Download</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Teologi dan Etika Islam -->
+    <div class="category">
+      <h2>☪️ Teologi dan Etika Islam</h2>
+      <div class="file-list">
+        <p class="empty">Belum ada file.</p>
+      </div>
+    </div>
+
+    <!-- Pengantar Hukum Indonesia -->
+    <div class="category">
+      <h2>⚖️ Pengantar Hukum Indonesia</h2>
+      <div class="file-list">
+        <p class="empty">Belum ada file.</p>
+      </div>
+    </div>
+
+    <!-- Pendidikan Kewarganegaraan -->
+    <div class="category">
+      <h2>🇮🇩 Pendidikan Kewarganegaraan</h2>
+      <div class="file-list">
+        <div class="file-card">
+          <div class="file-name">
+            <h3>📄 SUFYAN TSAURY_PKN_ESAI</h3>
+            <p>Pendidikan Kewarganegaraan</p>
+          </div>
+          <div class="btn-group">
+            <a class="btn view" href="SUFYAN TSAURY_PKN_ESAI.pdf" target="_blank">Lihat</a>
+            <a class="btn" href="SUFYAN TSAURY_PKN_ESAI.pdf" download>Download</a>
+          </div>
+        </div>
+
+        <div class="file-card">
+          <div class="file-name">
+            <h3>📄 HASIL DISKUSI PKN KELOMPOK 7</h3>
+            <p>Pendidikan Kewarganegaraan</p>
+          </div>
+          <div class="btn-group">
+            <a class="btn view" href="HASIL DISKUSI_PKN_KELOMPOK 7.pdf" target="_blank">Lihat</a>
+            <a class="btn" href="HASIL DISKUSI_PKN_KELOMPOK 7.pdf" download>Download</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kitab Kuning -->
+    <div class="category">
+      <h2>📜 Kitab Kuning</h2>
+      <div class="file-list">
+        <p class="empty">Belum ada file.</p>
+      </div>
+    </div>
+
+    <!-- PPTQ -->
+    <div class="category">
+      <h2>📖 PPTQ</h2>
+      <div class="file-list">
+        <p class="empty">Belum ada file.</p>
+      </div>
+    </div>
+
   </div>
 
   <script>
-function cariFile() {
-  const input = document.getElementById("searchInput").value.toLowerCase();
-  const cards = document.getElementsByClassName("file-card");
+    function cariFile() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const categories = document.getElementsByClassName("category");
 
-  for (let i = 0; i < cards.length; i++) {
-    const text = cards[i].innerText.toLowerCase();
+      for (let i = 0; i < categories.length; i++) {
+        const category = categories[i];
+        const cards = category.getElementsByClassName("file-card");
+        const emptyText = category.getElementsByClassName("empty");
+        let adaYangCocok = false;
 
-    if (text.includes(input)) {
-      cards[i].style.display = "flex";
-    } else {
-      cards[i].style.display = "none";
+        for (let j = 0; j < cards.length; j++) {
+          const text = cards[j].innerText.toLowerCase();
+
+          if (text.includes(input) || category.innerText.toLowerCase().includes(input)) {
+            cards[j].style.display = "flex";
+            adaYangCocok = true;
+          } else {
+            cards[j].style.display = "none";
+          }
+        }
+
+        if (emptyText.length > 0) {
+          if (category.innerText.toLowerCase().includes(input)) {
+            emptyText[0].style.display = "block";
+            adaYangCocok = true;
+          } else {
+            emptyText[0].style.display = "none";
+          }
+        }
+
+        if (input === "") {
+          category.style.display = "block";
+          for (let j = 0; j < cards.length; j++) {
+            cards[j].style.display = "flex";
+          }
+          if (emptyText.length > 0) {
+            emptyText[0].style.display = "block";
+          }
+        } else {
+          category.style.display = adaYangCocok ? "block" : "none";
+        }
+      }
     }
-  }
-}
-</script>
+  </script>
 </body>
 </html>
