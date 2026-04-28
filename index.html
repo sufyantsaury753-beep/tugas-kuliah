@@ -126,15 +126,10 @@ body {
 
 <div class="upload-box">
   <div class="search-box" style="margin:20px 0; text-align:center;">
-    <input type="text" id="searchInput" placeholder="🔍 Cari tugas..." autocomplete="off"
-    style="width:100%; padding:12px; border-radius:10px; border:1px solid #ccc;">
-  </div>
-
-  <a class="btn view" href="LINK_GOOGLE_FORM_KAMU" target="_blank">📤 Upload Tugas</a>
-
-  <p id="noResult" style="display:none; text-align:center; color:#777; margin-top:15px;">
-    Tugas tidak ditemukan.
-  </p>
+ <input type="text" id="searchInput" placeholder="🔍 Cari tugas..." autocomplete="off"
+style="width:100%; padding:12px; border-radius:10px; border:1px solid #ccc;">
+</div>
+<a class="btn view" href="LINK_GOOGLE_FORM_KAMU" target="_blank">📤 Upload Tugas</a>
 </div>
 
 <!-- Bahasa Indonesia -->
@@ -244,14 +239,12 @@ body {
 </div>
 
 <script>
-const searchInput = document.getElementById("searchInput");
-const noResult = document.getElementById("noResult");
-
 function toggleCategory(btn) {
   const list = btn.nextElementSibling;
   list.style.display = list.style.display === "block" ? "none" : "block";
 }
 
+// fungsi untuk menutup semua daftar file
 function closeAllCategories() {
   document.querySelectorAll(".file-list").forEach(list => {
     list.style.display = "none";
@@ -260,51 +253,43 @@ function closeAllCategories() {
   document.querySelectorAll(".file-card").forEach(card => {
     card.style.display = "flex";
   });
-
-  noResult.style.display = "none";
 }
 
+// saat halaman baru dibuka, jangan tampilkan file dulu
 window.addEventListener("DOMContentLoaded", function() {
-  searchInput.value = "";
+  document.getElementById("searchInput").value = "";
   closeAllCategories();
 });
 
-searchInput.addEventListener("input", function() {
-  const keyword = searchInput.value.toLowerCase().trim();
-  const categories = document.querySelectorAll(".category");
-  let totalVisible = 0;
+// 🔍 SEARCH
+document.getElementById("searchInput").addEventListener("keyup", function() {
+  let keyword = this.value.toLowerCase().trim();
+  let cards = document.querySelectorAll(".file-card");
+  let categories = document.querySelectorAll(".category");
 
+  // kalau belum mengetik apa-apa, tampilkan hanya nama mata kuliah
   if (keyword === "") {
     closeAllCategories();
     return;
   }
 
+  cards.forEach(card => {
+    let text = card.innerText.toLowerCase();
+    card.style.display = text.includes(keyword) ? "flex" : "none";
+  });
+
   categories.forEach(category => {
-    const fileList = category.querySelector(".file-list");
-    const cards = category.querySelectorAll(".file-card");
-    let categoryHasResult = false;
+    let visibleCards = category.querySelectorAll(".file-card[style*='flex']");
+    let fileList = category.querySelector(".file-list");
 
-    cards.forEach(card => {
-      const text = card.innerText.toLowerCase();
-
-      if (text.includes(keyword)) {
-        card.style.display = "flex";
-        categoryHasResult = true;
-        totalVisible++;
-      } else {
-        card.style.display = "none";
-      }
-    });
-
-    if (categoryHasResult) {
+    if (visibleCards.length > 0) {
       fileList.style.display = "block";
     } else {
       fileList.style.display = "none";
     }
   });
-
-  noResult.style.display = totalVisible === 0 ? "block" : "none";
 });
 </script>
+
 </body>
 </html>
