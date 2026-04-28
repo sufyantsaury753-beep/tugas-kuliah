@@ -126,8 +126,8 @@ body {
 
 <div class="upload-box">
   <div class="search-box" style="margin:20px 0; text-align:center;">
-  <input type="text" id="searchInput" placeholder="🔍 Cari tugas..." 
-  style="width:100%; padding:12px; border-radius:10px; border:1px solid #ccc;">
+ <input type="text" id="searchInput" placeholder="🔍 Cari tugas..." autocomplete="off"
+style="width:100%; padding:12px; border-radius:10px; border:1px solid #ccc;">
 </div>
 <a class="btn view" href="LINK_GOOGLE_FORM_KAMU" target="_blank">📤 Upload Tugas</a>
 </div>
@@ -244,11 +244,34 @@ function toggleCategory(btn) {
   list.style.display = list.style.display === "block" ? "none" : "block";
 }
 
+// fungsi untuk menutup semua daftar file
+function closeAllCategories() {
+  document.querySelectorAll(".file-list").forEach(list => {
+    list.style.display = "none";
+  });
+
+  document.querySelectorAll(".file-card").forEach(card => {
+    card.style.display = "flex";
+  });
+}
+
+// saat halaman baru dibuka, jangan tampilkan file dulu
+window.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("searchInput").value = "";
+  closeAllCategories();
+});
+
 // 🔍 SEARCH
 document.getElementById("searchInput").addEventListener("keyup", function() {
-  let keyword = this.value.toLowerCase();
+  let keyword = this.value.toLowerCase().trim();
   let cards = document.querySelectorAll(".file-card");
   let categories = document.querySelectorAll(".category");
+
+  // kalau belum mengetik apa-apa, tampilkan hanya nama mata kuliah
+  if (keyword === "") {
+    closeAllCategories();
+    return;
+  }
 
   cards.forEach(card => {
     let text = card.innerText.toLowerCase();
