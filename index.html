@@ -240,7 +240,7 @@ style="width:100%; padding:12px; border-radius:10px; border:1px solid #ccc;">
 
 <script>
 function toggleCategory(btn) {
-  const list = btn.nextElementSibling;
+  var list = btn.nextElementSibling;
 
   if (list.style.display === "block") {
     list.style.display = "none";
@@ -250,69 +250,72 @@ function toggleCategory(btn) {
 }
 
 function closeAllCategories() {
-  document.querySelectorAll(".file-list").forEach(list => {
+  var lists = document.querySelectorAll(".file-list");
+  var cards = document.querySelectorAll(".file-card");
+  var noResult = document.getElementById("noResult");
+
+  lists.forEach(function(list) {
     list.style.display = "none";
   });
 
-  document.querySelectorAll(".file-card").forEach(card => {
+  cards.forEach(function(card) {
     card.style.display = "flex";
   });
 
-  const noResult = document.getElementById("noResult");
   if (noResult) {
     noResult.style.display = "none";
   }
 }
 
-window.addEventListener("DOMContentLoaded", function() {
-  const searchInput = document.getElementById("searchInput");
+window.onload = function() {
+  var searchInput = document.getElementById("searchInput");
+
+  closeAllCategories();
 
   if (searchInput) {
     searchInput.value = "";
-  }
 
-  closeAllCategories();
-});
+    searchInput.addEventListener("input", function() {
+      var keyword = searchInput.value.toLowerCase().trim();
+      var categories = document.querySelectorAll(".category");
+      var noResult = document.getElementById("noResult");
+      var totalVisible = 0;
 
-document.getElementById("searchInput").addEventListener("input", function() {
-  const keyword = this.value.toLowerCase().trim();
-  const categories = document.querySelectorAll(".category");
-  const noResult = document.getElementById("noResult");
-  let totalVisible = 0;
+      if (keyword === "") {
+        closeAllCategories();
+        return;
+      }
 
-  if (keyword === "") {
-    closeAllCategories();
-    return;
-  }
+      categories.forEach(function(category) {
+        var fileList = category.querySelector(".file-list");
+        var cards = category.querySelectorAll(".file-card");
+        var categoryHasResult = false;
 
-  categories.forEach(category => {
-    const fileList = category.querySelector(".file-list");
-    const cards = category.querySelectorAll(".file-card");
-    let categoryHasResult = false;
+        cards.forEach(function(card) {
+          var text = card.innerText.toLowerCase();
 
-    cards.forEach(card => {
-      const text = card.innerText.toLowerCase();
+          if (text.includes(keyword)) {
+            card.style.display = "flex";
+            categoryHasResult = true;
+            totalVisible++;
+          } else {
+            card.style.display = "none";
+          }
+        });
 
-      if (text.includes(keyword)) {
-        card.style.display = "flex";
-        categoryHasResult = true;
-        totalVisible++;
-      } else {
-        card.style.display = "none";
+        if (categoryHasResult) {
+          fileList.style.display = "block";
+        } else {
+          fileList.style.display = "none";
+        }
+      });
+
+      if (noResult) {
+        noResult.style.display = totalVisible === 0 ? "block" : "none";
       }
     });
-
-    if (categoryHasResult) {
-      fileList.style.display = "block";
-    } else {
-      fileList.style.display = "none";
-    }
-  });
-
-  if (noResult) {
-    noResult.style.display = totalVisible === 0 ? "block" : "none";
   }
-});
+};
 </script>
 
 </body>
