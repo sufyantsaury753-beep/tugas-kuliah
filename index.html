@@ -289,21 +289,21 @@ window.onload = function() {
       categories.forEach(function(category) {
         var fileList = category.querySelector(".file-list");
         var cards = category.querySelectorAll(".file-card");
-        var categoryHasResult = false;
+        var adaHasil = false;
 
         cards.forEach(function(card) {
           var text = card.innerText.toLowerCase();
 
           if (text.includes(keyword)) {
             card.style.display = "flex";
-            categoryHasResult = true;
+            adaHasil = true;
             totalVisible++;
           } else {
             card.style.display = "none";
           }
         });
 
-        if (categoryHasResult) {
+        if (adaHasil) {
           fileList.style.display = "block";
         } else {
           fileList.style.display = "none";
