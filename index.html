@@ -252,7 +252,6 @@ function toggleCategory(btn) {
 function closeAllCategories() {
   var lists = document.querySelectorAll(".file-list");
   var cards = document.querySelectorAll(".file-card");
-  var noResult = document.getElementById("noResult");
 
   lists.forEach(function(list) {
     list.style.display = "none";
@@ -261,16 +260,12 @@ function closeAllCategories() {
   cards.forEach(function(card) {
     card.style.display = "flex";
   });
-
-  if (noResult) {
-    noResult.style.display = "none";
-  }
 }
 
 window.onload = function() {
-  var searchInput = document.getElementById("searchInput");
-
   closeAllCategories();
+
+  var searchInput = document.getElementById("searchInput");
 
   if (searchInput) {
     searchInput.value = "";
@@ -278,8 +273,6 @@ window.onload = function() {
     searchInput.addEventListener("input", function() {
       var keyword = searchInput.value.toLowerCase().trim();
       var categories = document.querySelectorAll(".category");
-      var noResult = document.getElementById("noResult");
-      var totalVisible = 0;
 
       if (keyword === "") {
         closeAllCategories();
@@ -297,7 +290,6 @@ window.onload = function() {
           if (text.includes(keyword)) {
             card.style.display = "flex";
             adaHasil = true;
-            totalVisible++;
           } else {
             card.style.display = "none";
           }
@@ -309,10 +301,6 @@ window.onload = function() {
           fileList.style.display = "none";
         }
       });
-
-      if (noResult) {
-        noResult.style.display = totalVisible === 0 ? "block" : "none";
-      }
     });
   }
 };
