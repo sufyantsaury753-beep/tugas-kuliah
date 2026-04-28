@@ -125,6 +125,10 @@ body {
 </div>
 
 <div class="upload-box">
+  <div class="search-box" style="margin:20px 0; text-align:center;">
+  <input type="text" id="searchInput" placeholder="🔍 Cari tugas..." 
+  style="width:100%; padding:12px; border-radius:10px; border:1px solid #ccc;">
+</div>
 <a class="btn view" href="LINK_GOOGLE_FORM_KAMU" target="_blank">📤 Upload Tugas</a>
 </div>
 
@@ -235,7 +239,30 @@ body {
 </div>
 
 <script>
-function toggleCategory(btn) {
+function toggleCategory(btn)
+document.getElementById("searchInput").addEventListener("keyup", function() {
+  let keyword = this.value.toLowerCase();
+  let cards = document.querySelectorAll(".file-card");
+  let categories = document.querySelectorAll(".category");
+
+  cards.forEach(card => {
+    let text = card.innerText.toLowerCase();
+    card.style.display = text.includes(keyword) ? "flex" : "none";
+  });
+
+  // Tampilkan kategori jika ada isi yang cocok
+  categories.forEach(category => {
+    let visibleCards = category.querySelectorAll(".file-card[style*='flex']");
+    let fileList = category.querySelector(".file-list");
+
+    if (visibleCards.length > 0) {
+      fileList.style.display = "block";
+    } else {
+      fileList.style.display = "none";
+    }
+  });
+});
+{
   const list = btn.nextElementSibling;
   list.style.display = list.style.display === "block" ? "none" : "block";
 }
