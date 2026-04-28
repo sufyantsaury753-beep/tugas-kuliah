@@ -241,10 +241,14 @@ style="width:100%; padding:12px; border-radius:10px; border:1px solid #ccc;">
 <script>
 function toggleCategory(btn) {
   const list = btn.nextElementSibling;
-  list.style.display = list.style.display === "block" ? "none" : "block";
+
+  if (list.style.display === "block") {
+    list.style.display = "none";
+  } else {
+    list.style.display = "block";
+  }
 }
 
-// fungsi untuk menutup semua daftar file
 function closeAllCategories() {
   document.querySelectorAll(".file-list").forEach(list => {
     list.style.display = "none";
@@ -253,41 +257,61 @@ function closeAllCategories() {
   document.querySelectorAll(".file-card").forEach(card => {
     card.style.display = "flex";
   });
+
+  const noResult = document.getElementById("noResult");
+  if (noResult) {
+    noResult.style.display = "none";
+  }
 }
 
-// saat halaman baru dibuka, jangan tampilkan file dulu
 window.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("searchInput").value = "";
+  const searchInput = document.getElementById("searchInput");
+
+  if (searchInput) {
+    searchInput.value = "";
+  }
+
   closeAllCategories();
 });
 
-// 🔍 SEARCH
-document.getElementById("searchInput").addEventListener("keyup", function() {
-  let keyword = this.value.toLowerCase().trim();
-  let cards = document.querySelectorAll(".file-card");
-  let categories = document.querySelectorAll(".category");
+document.getElementById("searchInput").addEventListener("input", function() {
+  const keyword = this.value.toLowerCase().trim();
+  const categories = document.querySelectorAll(".category");
+  const noResult = document.getElementById("noResult");
+  let totalVisible = 0;
 
-  // kalau belum mengetik apa-apa, tampilkan hanya nama mata kuliah
   if (keyword === "") {
     closeAllCategories();
     return;
   }
 
-  cards.forEach(card => {
-    let text = card.innerText.toLowerCase();
-    card.style.display = text.includes(keyword) ? "flex" : "none";
-  });
-
   categories.forEach(category => {
-    let visibleCards = category.querySelectorAll(".file-card[style*='flex']");
-    let fileList = category.querySelector(".file-list");
+    const fileList = category.querySelector(".file-list");
+    const cards = category.querySelectorAll(".file-card");
+    let categoryHasResult = false;
 
-    if (visibleCards.length > 0) {
+    cards.forEach(card => {
+      const text = card.innerText.toLowerCase();
+
+      if (text.includes(keyword)) {
+        card.style.display = "flex";
+        categoryHasResult = true;
+        totalVisible++;
+      } else {
+        card.style.display = "none";
+      }
+    });
+
+    if (categoryHasResult) {
       fileList.style.display = "block";
     } else {
       fileList.style.display = "none";
     }
   });
+
+  if (noResult) {
+    noResult.style.display = totalVisible === 0 ? "block" : "none";
+  }
 });
 </script>
 
