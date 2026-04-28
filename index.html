@@ -140,6 +140,17 @@ body {
     font-size: 16px;
   }
 }
+
+.flag-id {
+  display: inline-block;
+  width: 22px;
+  height: 14px;
+  margin-right: 8px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  vertical-align: -2px;
+  background: linear-gradient(to bottom, red 50%, white 50%);
+}
   
 </style>
 </head>
@@ -265,7 +276,9 @@ style="width:100%; padding:12px; border-radius:10px; border:1px solid #ccc;">
 
 <!-- PKN -->
 <div class="category">
-<button class="category-btn" onclick="toggleCategory(this)">🇮🇩 Pendidikan Kewarganegaraan</button>
+<button class="category-btn" onclick="toggleCategory(this)">
+  <span class="flag-id"></span>Pendidikan Kewarganegaraan
+</button>
 <div class="file-list">
 
 <div class="file-card">
