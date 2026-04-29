@@ -181,6 +181,88 @@ body {
 .btn {
   transition: 0.2s;
 }
+
+.profile-card {
+  background: linear-gradient(135deg, #e3f2fd, #ffffff);
+  border-left: 5px solid #1976d2;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.profile-avatar {
+  width: 60px;
+  height: 60px;
+  background: #1976d2;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.profile-title h2 {
+  color: #0d47a1;
+  margin-bottom: 4px;
+}
+
+.profile-title p {
+  color: #555;
+  font-size: 14px;
+}
+
+.profile-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.profile-item {
+  background: white;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.profile-item span {
+  display: block;
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.profile-item strong {
+  color: #222;
+  font-size: 15px;
+}
+
+.profile-desc {
+  margin-top: 15px;
+  color: #555;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-details {
+    grid-template-columns: 1fr;
+  }
+}
   
 </style>
 </head>
@@ -193,11 +275,42 @@ body {
 <h1>📚 Tugas Kuliah</h1>
 </div>
 
-<div class="info">
- <strong>Nama:</strong> Sufyan Tsaury<br />
- <strong>NIM:</strong> 2530311086<br />
- <strong>Mata Kuliah:</strong> Semua Mata Kuliah<br />
- <strong>Keterangan:</strong> Halaman ini berisi kumpulan tugas dari berbagai mata kuliah
+<div class="profile-card">
+  <div class="profile-header">
+    <div class="profile-avatar">ST</div>
+
+    <div class="profile-title">
+      <h2>Sufyan Tsaury</h2>
+      <p>Mahasiswa | Arsip Tugas Kuliah Digital</p>
+    </div>
+  </div>
+
+  <div class="profile-details">
+    <div class="profile-item">
+      <span>NIM</span>
+      <strong>2530311086</strong>
+    </div>
+
+    <div class="profile-item">
+      <span>Kategori</span>
+      <strong>Semua Mata Kuliah</strong>
+    </div>
+
+    <div class="profile-item">
+      <span>Jenis Dokumen</span>
+      <strong>Tugas, Makalah, Resume, Modul</strong>
+    </div>
+
+    <div class="profile-item">
+      <span>Status Website</span>
+      <strong>Aktif</strong>
+    </div>
+  </div>
+
+  <p class="profile-desc">
+    Website ini digunakan sebagai pusat penyimpanan dan akses tugas kuliah dari berbagai mata kuliah.
+    Setiap dokumen disusun berdasarkan kategori agar lebih mudah dicari, dilihat, dan diunduh.
+  </p>
 </div>
 
 <div class="upload-box">
