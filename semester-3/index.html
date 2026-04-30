@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tugas Kuliah Semester 3</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #e3f2fd, #f8f9fa);
+  padding: 30px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  color: #0d47a1;
+}
+
+.semester-nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.semester-btn {
+  background: #e3f2fd;
+  color: #0d47a1;
+  padding: 10px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid #bbdefb;
+  transition: 0.2s ease;
+}
+
+.semester-btn:hover {
+  background: #bbdefb;
+  transform: translateY(-2px);
+}
+
+.semester-btn.active {
+  background: #1976d2;
+  color: white;
+}
+
+.profile-card {
+  background: linear-gradient(135deg, #eaf4ff, #f7fbff);
+  border-left: 5px solid #1976d2;
+  padding: 24px;
+  border-radius: 18px;
+  margin-bottom: 22px;
+  box-shadow: 0 6px 18px rgba(25, 118, 210, 0.08);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.25);
+}
+
+.profile-title h2 {
+  color: #0d47a1;
+  margin-bottom: 5px;
+  font-size: 26px;
+}
+
+.profile-title p {
+  color: #4f5d6b;
+  font-size: 14px;
+}
+
+.profile-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 15px;
+}
+
+.profile-item {
+  background: #f8fbff;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #d6e7f8;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+}
+
+.profile-item span {
+  display: block;
+  color: #6b7a8c;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.profile-item strong {
+  color: #1f2d3d;
+  font-size: 15px;
+}
+
+.profile-desc {
+  margin-top: 18px;
+  color: #4f5d6b;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.upload-box {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.btn {
+  background: #1976d2;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
+
+.btn.view {
+  background: #4caf50;
+}
+
+.btn:hover {
+  opacity: 0.85;
+  transform: scale(1.03);
+}
+
+.category {
+  margin-top: 15px;
+}
+
+.category-btn {
+  width: 100%;
+  background: #e3f2fd;
+  border: none;
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.category-btn:hover {
+  background: #bbdefb;
+  transform: translateY(-2px);
+}
+
+.file-list {
+  display: none;
+  margin-top: 10px;
+}
+
+.file-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.2s ease;
+}
+
+.file-card:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+.btn-group {
+  display: flex;
+  gap: 8px;
+}
+
+.empty {
+  color: #777;
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .header h1 {
+    font-size: 26px;
+  }
+
+  .semester-nav {
+    flex-direction: column;
+  }
+
+  .semester-btn {
+    text-align: center;
+  }
+
+  .profile-card {
+    padding: 20px;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-title h2 {
+    font-size: 24px;
+  }
+
+  .profile-details {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-desc {
+    text-align: center;
+  }
+
+  .file-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .btn-group {
+    width: 100%;
+  }
+
+  .btn-group .btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  .category-btn {
+    font-size: 16px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>📚 Tugas Kuliah Semester 3</h1>
+  </div>
+
+  <div class="semester-nav">
+    <a href="/tugas-kuliah/" class="semester-btn">Semester 2</a>
+    <a href="/tugas-kuliah/semester-3/" class="semester-btn active">Semester 3</a>
+  </div>
+
+  <div class="profile-card">
+    <div class="profile-header">
+      <div class="profile-avatar">ST</div>
+
+      <div class="profile-title">
+        <h2>Sufyan Tsaury</h2>
+        <p>Mahasiswa | Arsip Tugas Kuliah Digital</p>
+      </div>
+    </div>
+
+    <div class="profile-details">
+      <div class="profile-item">
+        <span>NIM</span>
+        <strong>2530311086</strong>
+      </div>
+
+      <div class="profile-item">
+        <span>Semester</span>
+        <strong>Semester 3</strong>
+      </div>
+
+      <div class="profile-item">
+        <span>Jenis Dokumen</span>
+        <strong>Tugas, Makalah, Resume, Modul</strong>
+      </div>
+
+      <div class="profile-item">
+        <span>Status Website</span>
+        <strong>Aktif</strong>
+      </div>
+    </div>
+
+    <p class="profile-desc">
+      Halaman ini digunakan sebagai pusat penyimpanan tugas kuliah Semester 3.
+      Setiap dokumen akan disusun berdasarkan mata kuliah agar mudah dicari, dilihat, dan diunduh.
+    </p>
+  </div>
+
+  <div class="upload-box">
+    <div class="search-box" style="margin:20px 0; text-align:center;">
+      <input type="text" id="searchInput" placeholder="🔍 Cari tugas Semester 3..." autocomplete="off"
+      style="width:100%; padding:12px; border-radius:10px; border:1px solid #ccc;">
+    </div>
+
+    <a class="btn view" href="LINK_GOOGLE_FORM_KAMU" target="_blank">📤 Upload Tugas</a>
+  </div>
+
+  <!-- Contoh Mata Kuliah Semester 3 -->
+  <div class="category">
+    <button class="category-btn" onclick="toggleCategory(this)">📘 Mata Kuliah 1</button>
+    <div class="file-list">
+      <p class="empty">Belum ada tugas yang diupload.</p>
+    </div>
+  </div>
+
+  <div class="category">
+    <button class="category-btn" onclick="toggleCategory(this)">📗 Mata Kuliah 2</button>
+    <div class="file-list">
+      <p class="empty">Belum ada tugas yang diupload.</p>
+    </div>
+  </div>
+
+  <div class="category">
+    <button class="category-btn" onclick="toggleCategory(this)">📙 Mata Kuliah 3</button>
+    <div class="file-list">
+      <p class="empty">Belum ada tugas yang diupload.</p>
+    </div>
+  </div>
+
+  <footer style="text-align:center; margin-top:30px; color:#777; font-size:14px;">
+    © 2026 Sufyan Tsaury - Kumpulan Tugas Kuliah Semester 3
+  </footer>
+
+</div>
+
+<script>
+function toggleCategory(btn) {
+  const list = btn.nextElementSibling;
+  list.style.display = list.style.display === "block" ? "none" : "block";
+}
+
+function closeAllCategories() {
+  document.querySelectorAll(".file-list").forEach(list => {
+    list.style.display = "none";
+  });
+
+  document.querySelectorAll(".file-card").forEach(card => {
+    card.style.display = "flex";
+  });
+}
+
+window.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("searchInput").value = "";
+  closeAllCategories();
+});
+
+document.getElementById("searchInput").addEventListener("keyup", function() {
+  let keyword = this.value.toLowerCase().trim();
+  let cards = document.querySelectorAll(".file-card");
+  let categories = document.querySelectorAll(".category");
+
+  if (keyword === "") {
+    closeAllCategories();
+    return;
+  }
+
+  cards.forEach(card => {
+    let text = card.innerText.toLowerCase();
+    card.style.display = text.includes(keyword) ? "flex" : "none";
+  });
+
+  categories.forEach(category => {
+    let visibleCards = category.querySelectorAll(".file-card[style*='flex']");
+    let fileList = category.querySelector(".file-list");
+
+    if (visibleCards.length > 0) {
+      fileList.style.display = "block";
+    } else {
+      fileList.style.display = "none";
+    }
+  });
+});
+</script>
+
+</body>
+</html>
