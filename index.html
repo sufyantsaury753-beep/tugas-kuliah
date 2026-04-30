@@ -279,6 +279,34 @@ body {
     text-align: center;
   }
 }
+
+.semester-nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.semester-btn {
+  background: #e3f2fd;
+  color: #0d47a1;
+  padding: 10px 16px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  border: 1px solid #bbdefb;
+  transition: 0.2s ease;
+}
+
+.semester-btn:hover {
+  background: #bbdefb;
+  transform: translateY(-2px);
+}
+
+.semester-btn.active {
+  background: #1976d2;
+  color: white;
+}
   
 </style>
 </head>
@@ -291,6 +319,11 @@ body {
 <h1>📚 Tugas Kuliah</h1>
 </div>
 
+<div class="semester-nav">
+  <a href="/tugas-kuliah/" class="semester-btn active">Semester 2</a>
+  <a href="/tugas-kuliah/semester-3/" class="semester-btn">Semester 3</a>
+</div>
+  
 <div class="profile-card">
   <div class="profile-header">
     <div class="profile-avatar">ST</div>
