@@ -307,6 +307,73 @@ body {
   background: #1976d2;
   color: white;
 }
+
+.navbar {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid #e3f2fd;
+  border-radius: 18px;
+  padding: 14px 20px;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.nav-logo {
+  font-weight: bold;
+  color: #0d47a1;
+  font-size: 18px;
+}
+
+.nav-logo span {
+  margin-left: 6px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  transition: 0.2s ease;
+}
+
+.nav-links a:hover {
+  background: #e3f2fd;
+  color: #0d47a1;
+}
+
+.nav-links .nav-cta {
+  background: #1976d2;
+  color: white;
+}
+
+.nav-links .nav-cta:hover {
+  background: #0d47a1;
+  color: white;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
   
 </style>
 </head>
@@ -315,6 +382,18 @@ body {
 
 <div class="container">
 
+<nav class="navbar">
+  <div class="nav-logo">
+    📚 <span>Arsip Tugas</span>
+  </div>
+
+  <div class="nav-links">
+    <a href="/tugas-kuliah/">Semester 2</a>
+    <a href="/tugas-kuliah/semester-3/">Semester 3</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScX9futXL8ESeiIvPHIIJJwGG2JN0NKC0Kv8ILOOQw6spFsJw/viewform?usp=publish-editor" target="_blank" class="nav-cta">Upload</a>
+  </div>
+</nav>
+  
  <div class="header">
     <h1>📚 Tugas Kuliah Semester 2</h1>
   </div>
