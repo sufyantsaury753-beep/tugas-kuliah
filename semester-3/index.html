@@ -278,6 +278,12 @@ body {
     font-size: 16px;
   }
 }
+
+.nav-links a.active-page {
+  background: #e3f2fd;
+  color: #0d47a1;
+}
+  
 </style>
 </head>
 
@@ -285,18 +291,22 @@ body {
 
 <div class="container">
 
-  <div class="header">
-    <h1>📚 Tugas Kuliah Semester 3</h1>
+<nav class="navbar">
+  <div class="nav-logo">
+    📚 <span>Arsip Tugas</span>
   </div>
 
-  <div class="semester-nav">
-    <a href="/tugas-kuliah/" class="semester-btn">Semester 2</a>
-    <a href="/tugas-kuliah/semester-3/" class="semester-btn active">Semester 3</a>
+  <div class="nav-links">
+    <a href="/tugas-kuliah/" class="active-page">Semester 2</a>
+    <a href="/tugas-kuliah/semester-3/">Semester 3</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScX9futXL8ESeiIvPHIIJJwGG2JN0NKC0Kv8ILOOQw6spFsJw/viewform?usp=publish-editor" target="_blank" class="nav-cta">Upload</a>
   </div>
+</nav>
 
-  <div class="profile-card">
-    <div class="profile-header">
-      <div class="profile-avatar">ST</div>
+  <div class="profile-item">
+  <span>Kategori</span>
+  <strong>Mata Kuliah Semester 2</strong>
+</div>
 
       <div class="profile-title">
         <h2>Sufyan Tsaury</h2>
@@ -326,9 +336,9 @@ body {
     </div>
 
     <p class="profile-desc">
-      Halaman ini digunakan sebagai pusat penyimpanan tugas kuliah Semester 3.
-      Setiap dokumen akan disusun berdasarkan mata kuliah agar mudah dicari, dilihat, dan diunduh.
-    </p>
+  Halaman ini digunakan sebagai pusat penyimpanan tugas kuliah Semester 3.
+  Setiap dokumen disusun berdasarkan mata kuliah agar lebih mudah dicari, dilihat, dan diunduh.
+</p>
   </div>
 
   <div class="upload-box">
