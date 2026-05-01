@@ -279,9 +279,76 @@ body {
   }
 }
 
-.nav-links a.active-page {
+.navbar {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+  border: 1px solid #e3f2fd;
+  border-radius: 18px;
+  padding: 14px 20px;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.nav-logo {
+  font-weight: bold;
+  color: #0d47a1;
+  font-size: 18px;
+}
+
+.nav-logo span {
+  margin-left: 6px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  transition: 0.2s ease;
+}
+
+.nav-links a:hover {
   background: #e3f2fd;
   color: #0d47a1;
+}
+
+.nav-links a.active-page {
+  background: #1976d2;
+  color: white;
+}
+
+.nav-links .nav-cta {
+  background: #1976d2;
+  color: white;
+}
+
+.nav-links .nav-cta:hover {
+  background: #0d47a1;
+  color: white;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }
   
 </style>
@@ -297,50 +364,49 @@ body {
   </div>
 
   <div class="nav-links">
-    <a href="/tugas-kuliah/" class="active-page">Semester 2</a>
-    <a href="/tugas-kuliah/semester-3/">Semester 3</a>
+    <a href="/tugas-kuliah/">Semester 2</a>
+    <a href="/tugas-kuliah/semester-3/" class="active-page">Semester 3</a>
     <a href="https://docs.google.com/forms/d/e/1FAIpQLScX9futXL8ESeiIvPHIIJJwGG2JN0NKC0Kv8ILOOQw6spFsJw/viewform?usp=publish-editor" target="_blank" class="nav-cta">Upload</a>
   </div>
 </nav>
 
-  <div class="profile-item">
-  <span>Kategori</span>
-  <strong>Mata Kuliah Semester 2</strong>
-</div>
+<div class="profile-card">
+  <div class="profile-header">
+    <div class="profile-avatar">ST</div>
 
-      <div class="profile-title">
-        <h2>Sufyan Tsaury</h2>
-        <p>Mahasiswa | Arsip Tugas Kuliah Digital</p>
-      </div>
+    <div class="profile-title">
+      <h2>Sufyan Tsaury</h2>
+      <p>Mahasiswa | Arsip Tugas Kuliah Digital</p>
     </div>
-
-    <div class="profile-details">
-      <div class="profile-item">
-        <span>NIM</span>
-        <strong>2530311086</strong>
-      </div>
-
-     <div class="profile-item">
-  <span>Kategori</span>
-  <strong>Semua Mata Kuliah</strong>
-</div>
-      <div class="profile-item">
-        <span>Jenis Dokumen</span>
-        <strong>Tugas, Makalah, Resume, Modul</strong>
-      </div>
-
-      <div class="profile-item">
-        <span>Status Website</span>
-        <strong>Aktif</strong>
-      </div>
-    </div>
-
-    <p class="profile-desc">
-  Halaman ini digunakan sebagai pusat penyimpanan tugas kuliah Semester 3.
-  Setiap dokumen disusun berdasarkan mata kuliah agar lebih mudah dicari, dilihat, dan diunduh.
-</p>
   </div>
 
+  <div class="profile-details">
+    <div class="profile-item">
+      <span>NIM</span>
+      <strong>2530311086</strong>
+    </div>
+
+    <div class="profile-item">
+      <span>Kategori</span>
+      <strong>Mata Kuliah Semester 3</strong>
+    </div>
+
+    <div class="profile-item">
+      <span>Jenis Dokumen</span>
+      <strong>Tugas, Makalah, Resume, Modul</strong>
+    </div>
+
+    <div class="profile-item">
+      <span>Status Website</span>
+      <strong>Aktif</strong>
+    </div>
+  </div>
+
+  <p class="profile-desc">
+    Halaman ini digunakan sebagai pusat penyimpanan tugas kuliah Semester 3.
+    Setiap dokumen disusun berdasarkan mata kuliah agar lebih mudah dicari, dilihat, dan diunduh.
+  </p>
+</div>
   <div class="upload-box">
     <div class="search-box" style="margin:20px 0; text-align:center;">
       <input type="text" id="searchInput" placeholder="🔍 Cari tugas..." autocomplete="off"
