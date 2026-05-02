@@ -350,6 +350,86 @@ body {
     flex-wrap: wrap;
   }
 }
+
+.hero-section {
+  background: linear-gradient(135deg, #0d47a1, #1976d2);
+  color: white;
+  padding: 28px;
+  border-radius: 22px;
+  margin-bottom: 25px;
+  box-shadow: 0 10px 28px rgba(25, 118, 210, 0.25);
+}
+
+.hero-label {
+  display: inline-block;
+  background: rgba(255,255,255,0.18);
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.hero-content h1 {
+  font-size: 34px;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  max-width: 720px;
+  line-height: 1.7;
+  color: #eef6ff;
+  font-size: 15px;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.hero-stats div {
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.22);
+  padding: 14px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.hero-stats strong {
+  display: block;
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.hero-stats span {
+  font-size: 13px;
+  color: #e3f2fd;
+}
+
+.simple-profile {
+  padding: 20px 24px;
+}
+
+.simple-profile .profile-header {
+  margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+  .hero-section {
+    padding: 22px;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    font-size: 26px;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
+  }
+}
   
 </style>
 </head>
@@ -370,42 +450,43 @@ body {
   </div>
 </nav>
 
-<div class="profile-card">
+<section class="hero-section">
+  <div class="hero-content">
+    <span class="hero-label">Arsip Tugas Kuliah Digital</span>
+    <h1>Tugas Kuliah Semester 3</h1>
+    <p>
+      Kumpulan tugas, makalah, resume, dan modul Semester 3 yang disusun berdasarkan mata kuliah
+      agar mudah dicari, dilihat, dan diunduh.
+    </p>
+  </div>
+
+  <div class="hero-stats">
+    <div>
+      <strong>3+</strong>
+      <span>Mata Kuliah</span>
+    </div>
+
+    <div>
+      <strong>0+</strong>
+      <span>Dokumen</span>
+    </div>
+
+    <div>
+      <strong>Aktif</strong>
+      <span>Status</span>
+    </div>
+  </div>
+</section>
+
+<div class="profile-card simple-profile">
   <div class="profile-header">
     <div class="profile-avatar">ST</div>
 
     <div class="profile-title">
       <h2>Sufyan Tsaury</h2>
-      <p>Mahasiswa | Arsip Tugas Kuliah Digital</p>
+      <p>NIM 2530311086 | Mahasiswa</p>
     </div>
   </div>
-
-  <div class="profile-details">
-    <div class="profile-item">
-      <span>NIM</span>
-      <strong>2530311086</strong>
-    </div>
-
-    <div class="profile-item">
-      <span>Kategori</span>
-      <strong>Semua Mata Kuliah</strong>
-    </div>
-
-    <div class="profile-item">
-      <span>Jenis Dokumen</span>
-      <strong>Tugas, Makalah, Resume, Modul</strong>
-    </div>
-
-    <div class="profile-item">
-      <span>Status Website</span>
-      <strong>Aktif</strong>
-    </div>
-  </div>
-
-  <p class="profile-desc">
-    Halaman ini digunakan sebagai pusat penyimpanan tugas kuliah Semester 3.
-    Setiap dokumen disusun berdasarkan mata kuliah agar lebih mudah dicari, dilihat, dan diunduh.
-  </p>
 </div>
   <div class="upload-box">
     <div class="search-box" style="margin:20px 0; text-align:center;">
