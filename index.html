@@ -580,6 +580,54 @@ body {
   font-size: 13px;
   color: #777;
 }
+
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  border: 1px solid #d6e7f8;
+  border-radius: 16px;
+  padding: 12px 16px;
+  box-shadow: 0 6px 18px rgba(25, 118, 210, 0.08);
+}
+
+.search-wrapper input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  background: transparent;
+  color: #1f2d3d;
+}
+
+.search-wrapper input::placeholder {
+  color: #8a9aad;
+}
+
+.quick-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.quick-info div {
+  background: #f8fbff;
+  border: 1px solid #dbe8f5;
+  border-radius: 14px;
+  padding: 12px;
+  text-align: center;
+  font-weight: bold;
+  color: #0d47a1;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .quick-info {
+    grid-template-columns: 1fr;
+  }
+}
   
 </style>
 </head>
@@ -639,10 +687,18 @@ body {
   </div>
 </div>
 
+<div class="quick-info">
+  <div>📁 Arsip tertata</div>
+  <div>🔎 Mudah dicari</div>
+  <div>⬇️ Bisa diunduh</div>
+</div>
+  
 <div class="upload-box">
   <div class="search-box" style="margin:20px 0; text-align:center;">
- <input type="text" id="searchInput" placeholder="🔍 Cari tugas..." autocomplete="off"
-style="width:100%; padding:12px; border-radius:10px; border:1px solid #ccc;">
+ <div class="search-wrapper">
+  <span>🔍</span>
+  <input type="text" id="searchInput" placeholder="Cari tugas berdasarkan nama file..." autocomplete="off">
+</div>
 </div>
   
 </div>
