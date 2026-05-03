@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tugas Kuliah</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 * {
   box-sizing: border-box;
@@ -649,6 +653,44 @@ body {
 
 .profile-link:hover {
   text-decoration: underline;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #1f2937;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  padding: 12px 22px;
+  border-radius: 14px;
+  transition: all 0.25s ease;
+}
+
+.nav-links a:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+.nav-links a.active {
+  background: linear-gradient(135deg, #1e63c7, #2d7df0);
+  color: white;
+  box-shadow: 0 8px 20px rgba(30, 99, 199, 0.20);
+}
+
+.profile-btn {
+  background: linear-gradient(135deg, #2e7d32, #43a047);
+  color: white !important;
+  box-shadow: 0 8px 18px rgba(67, 160, 71, 0.22);
 }
   
 </style>
