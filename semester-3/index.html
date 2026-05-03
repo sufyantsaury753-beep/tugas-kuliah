@@ -491,6 +491,119 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+.profile-btn {
+  border: none;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.profile-modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  inset: 0;
+  background: rgba(13, 71, 161, 0.35);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.profile-modal-content {
+  width: 100%;
+  max-width: 430px;
+  background: linear-gradient(135deg, #f8fbff, #ffffff);
+  border: 1px solid #dbe8f5;
+  border-radius: 22px;
+  padding: 28px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(13, 71, 161, 0.25);
+  position: relative;
+}
+
+.close-modal {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  border: none;
+  background: #e3f2fd;
+  color: #0d47a1;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.modal-avatar {
+  width: 76px;
+  height: 76px;
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+  font-size: 28px;
+  font-weight: bold;
+  box-shadow: 0 6px 16px rgba(25, 118, 210, 0.25);
+}
+
+.profile-modal-content h2 {
+  color: #0d47a1;
+  margin-bottom: 5px;
+}
+
+.modal-role {
+  color: #667085;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.modal-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.modal-info div {
+  background: #f8fbff;
+  border: 1px solid #d6e7f8;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: left;
+}
+
+.modal-info span {
+  display: block;
+  color: #777;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.modal-info strong {
+  color: #1f2d3d;
+  font-size: 14px;
+}
+
+.modal-desc {
+  color: #4f5d6b;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+@media (max-width: 600px) {
+  .modal-info {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-modal-content {
+    padding: 24px;
+  }
+}
   
 </style>
 </head>
@@ -507,7 +620,7 @@ body {
   <div class="nav-links">
   <a href="../" onclick="event.preventDefault(); window.location.replace(this.href);">Semester 2</a>
 <a href="./" class="active-page" onclick="event.preventDefault(); window.location.replace(this.href);">Semester 3</a>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLScX9futXL8ESeiIvPHIIJJwGG2JN0NKC0Kv8ILOOQw6spFsJw/viewform?usp=publish-editor" target="_blank" class="nav-cta">Upload</a>
+    <button class="nav-cta profile-btn" onclick="openProfileModal()">Profil</button>
   </div>
 </nav>
 
@@ -602,6 +715,44 @@ body {
 
 </div>
 
+<div id="profileModal" class="profile-modal">
+  <div class="profile-modal-content">
+    <button class="close-modal" onclick="closeProfileModal()">×</button>
+
+    <div class="modal-avatar">ST</div>
+
+    <h2>Sufyan Tsaury</h2>
+    <p class="modal-role">Mahasiswa | Arsip Tugas Kuliah Digital</p>
+
+    <div class="modal-info">
+      <div>
+        <span>Nama</span>
+        <strong>Sufyan Tsaury</strong>
+      </div>
+
+      <div>
+        <span>NIM</span>
+        <strong>2530311086</strong>
+      </div>
+
+      <div>
+        <span>Website</span>
+        <strong>Arsip Tugas Kuliah</strong>
+      </div>
+
+      <div>
+        <span>Status</span>
+        <strong>Aktif</strong>
+      </div>
+    </div>
+
+    <p class="modal-desc">
+      Website ini dibuat sebagai pusat penyimpanan tugas kuliah digital agar dokumen lebih mudah dicari,
+      dilihat, dan diunduh berdasarkan mata kuliah.
+    </p>
+  </div>
+</div>
+  
 <script>
 function toggleCategory(btn) {
   const list = btn.nextElementSibling;
@@ -649,6 +800,23 @@ document.getElementById("searchInput").addEventListener("keyup", function() {
     }
   });
 });
+
+function openProfileModal() {
+  document.getElementById("profileModal").style.display = "flex";
+}
+
+function closeProfileModal() {
+  document.getElementById("profileModal").style.display = "none";
+}
+
+window.addEventListener("click", function(event) {
+  const modal = document.getElementById("profileModal");
+
+  if (event.target === modal) {
+    closeProfileModal();
+  }
+});
+  
 </script>
 
 </body>
