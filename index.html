@@ -632,6 +632,14 @@ body {
     padding: 24px;
   }
 }
+
+.profile-btn {
+  display: inline-block;
+  min-width: 85px;
+  text-align: center;
+  padding: 9px 16px !important;
+  border-radius: 10px;
+}
   
 </style>
 </head>
@@ -648,7 +656,7 @@ body {
   <div class="nav-links">
   <a href="/tugas-kuliah/" class="active-page" onclick="event.preventDefault(); window.location.replace(this.href);">Semester 2</a>
 <a href="/tugas-kuliah/semester-3/" onclick="event.preventDefault(); window.location.replace(this.href);">Semester 3</a>
-  <button class="nav-cta profile-btn" onclick="openProfileModal()">Profil</button>
+ <a href="#" class="nav-cta profile-btn" onclick="event.preventDefault(); openProfileModal();">Profil</a>
 </div>
 </nav>
 
