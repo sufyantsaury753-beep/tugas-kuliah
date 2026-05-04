@@ -688,6 +688,124 @@ body {
   font-size: 14px;
   line-height: 1.7;
 }
+
+.theme-toggle {
+  border: none;
+  background: #e3f2fd;
+  color: #0d47a1;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background: #bbdefb;
+  transform: translateY(-2px);
+}
+
+/* DARK MODE */
+body.dark-mode {
+  background:
+    radial-gradient(circle at top left, rgba(30, 99, 199, 0.18), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.35), transparent 35%),
+    linear-gradient(135deg, #0f172a, #111827);
+  color: #e5e7eb;
+}
+
+body.dark-mode .container {
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+}
+
+body.dark-mode .navbar,
+body.dark-mode .profile-card,
+body.dark-mode .quick-info div,
+body.dark-mode .file-list,
+body.dark-mode .file-card,
+body.dark-mode .site-footer,
+body.dark-mode .search-wrapper,
+body.dark-mode .profile-modal-content,
+body.dark-mode .modal-info div {
+  background: #1e293b;
+  border-color: #334155;
+  color: #e5e7eb;
+}
+
+body.dark-mode .nav-logo,
+body.dark-mode .profile-title h2,
+body.dark-mode .section-title h2,
+body.dark-mode .footer-brand,
+body.dark-mode .profile-modal-content h2 {
+  color: #93c5fd;
+}
+
+body.dark-mode .nav-links a {
+  color: #e5e7eb;
+}
+
+body.dark-mode .nav-links a:hover {
+  background: #334155;
+  color: #93c5fd;
+}
+
+body.dark-mode .nav-links a.active-page {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: white;
+}
+
+body.dark-mode .hero-section {
+  background: linear-gradient(135deg, #1e3a8a, #1d4ed8);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+}
+
+body.dark-mode .category-btn {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  color: #e5e7eb;
+  border-color: #334155;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.22);
+}
+
+body.dark-mode .category-btn:hover {
+  background: linear-gradient(135deg, #334155, #1e293b);
+}
+
+body.dark-mode .file-card > div:first-child,
+body.dark-mode .modal-info strong {
+  color: #f8fafc;
+}
+
+body.dark-mode .profile-title p,
+body.dark-mode .section-title p,
+body.dark-mode .modal-role,
+body.dark-mode .modal-desc,
+body.dark-mode .site-footer p,
+body.dark-mode .site-footer span,
+body.dark-mode .empty {
+  color: #cbd5e1;
+}
+
+body.dark-mode .search-wrapper input {
+  color: #f8fafc;
+}
+
+body.dark-mode .search-wrapper input::placeholder {
+  color: #94a3b8;
+}
+
+body.dark-mode .theme-toggle {
+  background: #334155;
+  color: #facc15;
+}
+
+body.dark-mode .close-modal {
+  background: #334155;
+  color: #f8fafc;
+}
   
 </style>
 </head>
@@ -705,6 +823,7 @@ body {
   <a href="./" class="active-page" onclick="event.preventDefault(); window.location.replace(this.href);">Semester 2</a>
 <a href="semester-3/" onclick="event.preventDefault(); window.location.replace(this.href);">Semester 3</a>
  <a href="#" class="nav-cta profile-btn" onclick="event.preventDefault(); openProfileModal();">Profil</a>
+ <button class="theme-toggle" id="themeToggle" onclick="toggleDarkMode()">🌙</button>
 </div>
 </nav>
 
@@ -1390,6 +1509,31 @@ window.addEventListener("click", function(event) {
 
   if (event.target === modal) {
     closeProfileModal();
+  }
+});
+
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+
+  const isDark = document.body.classList.contains("dark-mode");
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+
+  const themeToggle = document.getElementById("themeToggle");
+  if (themeToggle) {
+    themeToggle.textContent = isDark ? "☀️" : "🌙";
+  }
+}
+
+window.addEventListener("DOMContentLoaded", function() {
+  const savedTheme = localStorage.getItem("theme");
+  const themeToggle = document.getElementById("themeToggle");
+
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+
+    if (themeToggle) {
+      themeToggle.textContent = "☀️";
+    }
   }
 });
   
