@@ -17,7 +17,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #f0f2f5;
     color: #333;
-    -webkit-overflow-scrolling: touch; /* smooth scroll di iOS */
+    -webkit-overflow-scrolling: touch; /* biar smooth scroll di iOS */
 }
   
 /* Navbar */
@@ -163,13 +163,40 @@ footer {
     display: none;
     flex-direction: column;
     background: #1e1e2f;
-    position: fixed; /* ubah dari absolute ke fixed */
+    position: fixed; /* ganti dari absolute ke fixed */
     top: 60px;
     right: 0;
     width: 200px;
     border-radius: 5px;
     padding: 10px 0;
-    z-index: 999; /* supaya di atas konten */
+    z-index: 999;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: fixed; /* jangan absolute */
+    top: 60px;
+    right: 0;
+    width: 200px;
+    background: #1e1e2f;
+    z-index: 999;
+  }
+  .nav-links.active {
+    display: flex;
+  }
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+  }
+  .menu-toggle div {
+    width: 25px;
+    height: 3px;
+    background: white;
   }
 }
   
@@ -179,10 +206,10 @@ footer {
 <header>
   <div class="nav-logo"> Website </div>
   <div class="menu-toggle" onclick="toggleMenu()">
-    <div></div>
-    <div></div>
-    <div></div>
-  </div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
   <nav class="nav-links">
     <a href="index.html" class="active-page">Home</a>
     <a href="gesture.html">Tes Efek Gesture</a>
