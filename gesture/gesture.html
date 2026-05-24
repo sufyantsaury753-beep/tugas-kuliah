@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hand Gesture Video</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<button id="startBtn">Start Gesture Video</button>
+<video id="webcam" autoplay></video>
+<canvas id="canvas"></canvas>
+
+<!-- Video untuk efek jari -->
+<video id="video1" class="effect-video" src="vid.1.jokowi.mp4" loop></video>
+<video id="video2" class="effect-video" src="vid.2.prabowo.mp4" loop></video>
+<video id="video3" class="effect-video" src="vid.3.gibran.mp4" loop></video>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
