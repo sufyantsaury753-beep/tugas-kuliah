@@ -14,11 +14,12 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f0f2f5;
-  color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f2f5;
+    color: #333;
+    -webkit-overflow-scrolling: touch; /* smooth scroll di iOS */
 }
-
+  
 /* Navbar */
 header {
   background: #1e1e2f;
@@ -156,6 +157,22 @@ footer {
     display: flex;
   }
 }
+
+  @media screen and (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #1e1e2f;
+    position: fixed; /* ubah dari absolute ke fixed */
+    top: 60px;
+    right: 0;
+    width: 200px;
+    border-radius: 5px;
+    padding: 10px 0;
+    z-index: 999; /* supaya di atas konten */
+  }
+}
+  
 </style>
 </head>
 <body>
