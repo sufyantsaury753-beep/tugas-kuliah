@@ -18,11 +18,23 @@ button#startBtn {
   padding: 10px 20px;
   font-size: 16px;
 }
-video, canvas {
-  position: absolute;
+#webcam {
+  display: none;
+}
+
+#canvas {
+  position: fixed;
   top: 0;
   left: 0;
-  transform: scaleX(-1); /* mirror webcam */
+  width: 100vw;
+  height: 100vh;
+  transform: scaleX(-1);
+  object-fit: cover;
+}
+
+video.effect-video {
+  transform: none;
+  z-index: 5;
 }
 video.effect-video {
   position: absolute;
@@ -170,19 +182,24 @@ hands.onResults(drawEffect);
 
 // Setup webcam on button click
 let camera;
+function resizeCanvas() {
+  canvasElement.width = window.innerWidth;
+  canvasElement.height = window.innerHeight;
+}
 startBtn.addEventListener('click', async () => {
+    resizeCanvas();
+
     camera = new Camera(videoElement, {
       onFrame: async () => await hands.send({image: videoElement}),
       width: 640,
       height: 480
     });
-    await camera.start();
-    startBtn.style.display = 'none'; // hide button after start
 
-    // Resize canvas to webcam size
-    canvasElement.width = 640;
-    canvasElement.height = 480;
+    await camera.start();
+    startBtn.style.display = 'none';
 });
+
+window.addEventListener('resize', resizeCanvas);
 </script>
 
 </body>
