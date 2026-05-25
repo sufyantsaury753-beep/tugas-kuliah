@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gesture Video Switch</title>
+<style>
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+button#startBtn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+video, canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scaleX(-1); /* mirror webcam */
+}
+video.effect-video {
+  position: absolute;
+  width: 320px;
+  height: 180px;
+  top: 50px;
+  left: 50px;
+  display: none;
+  z-index: 5;
+}
+</style>
+</head>
+<body>
+
+<button id="startBtn">Start Gesture Video</button>
+<video id="webcam" autoplay></video>
+<canvas id="canvas"></canvas>
+
+<!-- Video untuk efek jari -->
+<video id="video1" class="effect-video" src="vid.2.gufron.mp4" loop></video>
+<video id="video2" class="effect-video" src="vid.5.gufron.mp4" loop></video>
+<video id="video3" class="effect-video" src="vid.1.gufron.mp4" loop></video>
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+<script>
+// Elements
+const videoElement = document.getElementById('webcam');
+const canvasElement = document.getElementById('canvas');
+const canvasCtx = canvasElement.getContext('2d');
+
+const v1 = document.getElementById('video1');
+const v2 = document.getElementById('video2');
+const v3 = document.getElementById('video3');
+const startBtn = document.getElementById('startBtn');
+
+// Hide all videos function
+function hideAllVideos(){
+    v1.style.display = 'none';
+    v2.style.display = 'none';
+    v3.style.display = 'none';
+    v1.pause();
+    v2.pause();
+    v3.pause();
+}
+
+// Draw function
+let activeVideo = null;
+
+function showOnly(video) {
+  if (activeVideo === video) return;
+
+  v1.style.display = 'none';
+  v2.style.display = 'none';
+  v3.style.display = 'none';
+
+  v1.pause();
+  v2.pause();
+  v3.pause();
+
+  activeVideo = video;
+
+  if (video) {
+    video.style.display = 'block';
+    video.currentTime = 0;
+    video.play();
+  }
+}
+
+function isFingerUp(landmarks, tip, pip) {
+  return landmarks[tip].y < landmarks[pip].y - 0.02;
+}
+
+function isThumbUp(landmarks) {
+  // Untuk tangan kanan. Kalau ibu jari tidak terbaca benar, nanti bisa dibalik jadi >
+  return landmarks[4].x < landmarks[3].x;
+}
+
+function detectGesture(landmarks) {
+  const thumbUp = isThumbUp(landmarks);
+  const indexUp = isFingerUp(landmarks, 8, 6);     // telunjuk
+  const middleUp = isFingerUp(landmarks, 12, 10);  // tengah
+  const ringUp = isFingerUp(landmarks, 16, 14);    // manis
+  const pinkyUp = isFingerUp(landmarks, 20, 18);   // kelingking
+
+  // 5 jari terbuka
+  if (thumbUp && indexUp && middleUp && ringUp && pinkyUp) {
+    return "five";
+  }
+
+  // 2 jari bentuk V: telunjuk + tengah naik, manis + kelingking turun
+  if (indexUp && middleUp && !ringUp && !pinkyUp) {
+    return "two";
+  }
+
+  // 1 jari: hanya telunjuk naik
+  if (indexUp && !middleUp && !ringUp && !pinkyUp) {
+    return "one";
+  }
+
+  return "none";
+}
+
+function drawEffect(results) {
+  canvasCtx.save();
+  canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+  canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+
+  if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+    const landmarks = results.multiHandLandmarks[0];
+    const gesture = detectGesture(landmarks);
+
+    if (gesture === "two") {
+      showOnly(v1); // 2 jari / V -> video 1
+    } 
+    else if (gesture === "five") {
+      showOnly(v2); // 5 jari -> video 2
+    } 
+    else if (gesture === "one") {
+      showOnly(v3); // 1 jari telunjuk -> video 3
+    } 
+    else {
+      showOnly(null);
+    }
+  } else {
+    showOnly(null);
+  }
+
+  canvasCtx.restore();
+}
+
+// Setup MediaPipe Hands
+const hands = new Hands({
+  locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+});
+
+hands.setOptions({
+  maxNumHands: 1,
+  modelComplexity: 1,
+  minDetectionConfidence: 0.7,
+  minTrackingConfidence: 0.7
+});
+
+hands.onResults(drawEffect);
+
+// Setup webcam on button click
+let camera;
+startBtn.addEventListener('click', async () => {
+    camera = new Camera(videoElement, {
+      onFrame: async () => await hands.send({image: videoElement}),
+      width: 640,
+      height: 480
+    });
+    await camera.start();
+    startBtn.style.display = 'none'; // hide button after start
+
+    // Resize canvas to webcam size
+    canvasElement.width = 640;
+    canvasElement.height = 480;
+});
+</script>
+
+</body>
+</html>
