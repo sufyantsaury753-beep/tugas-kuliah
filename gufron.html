@@ -86,11 +86,10 @@ function showOnly(video) {
 
   activeVideo = video;
 
-  if (video) {
-    video.style.display = 'block';
-    video.currentTime = 0;
-    video.play();
-  }
+ if (video) {
+  video.style.display = 'block';
+  video.play();
+}
 }
 
 function isFingerUp(landmarks, tip, pip) {
