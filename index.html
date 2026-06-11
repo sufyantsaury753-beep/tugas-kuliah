@@ -830,6 +830,55 @@
         transition:none;
       }
     }
+
+/* Khusus card WebGIS */
+.portfolio-card.webgis {
+  display: grid;
+  grid-template-columns: 1fr auto; /* konten di kiri, tombol di kanan */
+  align-items: start; /* memastikan tombol sejajar atas */
+  gap: 24px;
+  padding: 28px;
+}
+
+.portfolio-card.webgis .portfolio-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.portfolio-card.webgis h3 {
+  font-size: 28px;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.portfolio-card.webgis p {
+  color: var(--soft);
+  line-height: 1.78;
+  max-width: 710px;
+}
+
+.portfolio-card.webgis .portfolio-actions {
+  display: flex;
+  flex-direction: column; /* tetap responsif jika sempit */
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+/* Optional: responsif */
+@media(max-width:980px){
+  .portfolio-card.webgis {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-card.webgis .portfolio-actions {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 12px;
+  }
+}
+    
   </style>
 </head>
 
