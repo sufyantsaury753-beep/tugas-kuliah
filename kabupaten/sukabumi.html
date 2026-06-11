@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Peta Wilayah Kabupaten Sukabumi 2025</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #ffffff;
+      background:
+        radial-gradient(circle at 15% 5%, rgba(255, 154, 0, 0.38), transparent 34%),
+        linear-gradient(135deg, #1a0f07 0%, #120b05 45%, #050505 100%);
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 22px;
+      padding: 18px 22px;
+      background: rgba(24, 15, 9, 0.72);
+      border: 1px solid rgba(255, 154, 0, 0.28);
+      border-radius: 24px;
+      backdrop-filter: blur(18px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo {
+      width: 54px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #ff9a00, #ffbe55);
+      color: #2b1200;
+      font-size: 21px;
+      font-weight: 800;
+      box-shadow: 0 12px 30px rgba(255, 154, 0, 0.28);
+    }
+
+    .brand h1 {
+      font-size: 26px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .brand p {
+      margin-top: 4px;
+      font-size: 13px;
+      color: #f5d6a6;
+    }
+
+    .status {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255, 154, 0, 0.15);
+      border: 1px solid rgba(255, 154, 0, 0.45);
+      color: #ffbf5f;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 22px;
+      min-height: 78vh;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .panel {
+      padding: 20px;
+      background: rgba(24, 15, 9, 0.72);
+      border: 1px solid rgba(255, 154, 0, 0.22);
+      border-radius: 24px;
+      backdrop-filter: blur(18px);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.34);
+    }
+
+    .panel-title {
+      margin-bottom: 14px;
+      color: #ff9a00;
+      font-size: 15px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .stat-card {
+      padding: 16px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(255, 154, 0, 0.18), rgba(255, 255, 255, 0.04));
+      border: 1px solid rgba(255, 154, 0, 0.22);
+    }
+
+    .stat-card h2 {
+      margin-bottom: 4px;
+      color: #ff9a00;
+      font-size: 28px;
+    }
+
+    .stat-card p {
+      color: #f3e5d0;
+      font-size: 13px;
+    }
+
+    .wilayah-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      height: 430px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-right: 4px;
+    }
+
+    .wilayah-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .wilayah-list::-webkit-scrollbar-thumb {
+      background: rgba(255, 154, 0, 0.7);
+      border-radius: 10px;
+    }
+
+    .wilayah-item {
+      width: 100%;
+      padding: 13px 14px;
+      cursor: pointer;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 154, 0, 0.16);
+      transition: 0.25s ease;
+    }
+
+    .wilayah-item:hover {
+      transform: translateX(5px);
+      background: rgba(255, 154, 0, 0.14);
+      border-color: rgba(255, 154, 0, 0.45);
+    }
+
+    .wilayah-item.active {
+      background: rgba(255, 154, 0, 0.24);
+      border-color: rgba(255, 154, 0, 0.8);
+      box-shadow: 0 0 0 2px rgba(255, 154, 0, 0.18);
+    }
+
+    .wilayah-item h4 {
+      margin-bottom: 5px;
+      color: #ffffff;
+      font-size: 14px;
+      word-wrap: break-word;
+    }
+
+    .wilayah-item span {
+      color: #e7d5bd;
+      font-size: 12px;
+      word-wrap: break-word;
+    }
+
+    .map-card {
+      position: relative;
+      height: 78vh;
+      min-height: 500px;
+      overflow: hidden;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 154, 0, 0.22);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.55);
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    .legend {
+      position: absolute;
+      bottom: 22px;
+      left: 22px;
+      z-index: 999;
+      padding: 14px 18px;
+      border-radius: 18px;
+      background: rgba(18, 11, 5, 0.85);
+      border: 1px solid rgba(255, 154, 0, 0.22);
+      backdrop-filter: blur(14px);
+      color: #f3e5d0;
+      font-size: 13px;
+      line-height: 1.7;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .legend strong {
+      color: #ff9a00;
+    }
+
+    .legend-color {
+      display: inline-block;
+      width: 16px;
+      height: 10px;
+      margin-right: 6px;
+      border-radius: 3px;
+    }
+
+    .leaflet-popup-content-wrapper {
+      padding: 2px;
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    .leaflet-popup-content {
+      margin: 8px 10px;
+    }
+
+    .leaflet-popup-tip {
+      background: #ffffff;
+    }
+
+    .popup-box {
+      min-width: 180px;
+      max-width: 230px;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    .popup-title {
+      margin-bottom: 5px;
+      color: #7a3500;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .popup-content {
+      color: #334155;
+      font-size: 11.5px;
+      line-height: 1.45;
+    }
+
+    .popup-label {
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ff9a00, #cc6f00);
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .leaflet-control-zoom {
+      border: none !important;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35) !important;
+    }
+
+    .leaflet-control-zoom a {
+      background: rgba(18, 11, 5, 0.88) !important;
+      color: #ff9a00 !important;
+      border: 1px solid rgba(255, 154, 0, 0.18) !important;
+    }
+
+    .leaflet-control-attribution {
+      padding: 2px 5px !important;
+      border-radius: 6px 0 0 0;
+      background: rgba(255, 255, 255, 0.65) !important;
+      font-size: 10px !important;
+      opacity: 0.55;
+    }
+
+    .leaflet-container:focus,
+    .leaflet-container *:focus,
+    .leaflet-container .leaflet-interactive:focus,
+    .leaflet-container .leaflet-interactive:focus-visible,
+    .leaflet-container path:focus,
+    .leaflet-container svg:focus {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    @media (max-width: 980px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .map-card,
+      #map {
+        height: 70vh;
+        min-height: 70vh;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding: 14px;
+      }
+
+      .brand h1 {
+        font-size: 20px;
+      }
+
+      .logo {
+        width: 46px;
+        height: 46px;
+      }
+
+      .legend {
+        left: 14px;
+        bottom: 14px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">KSB</div>
+        <div>
+          <h1>Peta Wilayah Kabupaten Sukabumi 2025</h1>
+          <p>Visualisasi interaktif wilayah dan jumlah penduduk per kecamatan</p>
+        </div>
+      </div>
+      <div class="status">● by piantsa</div>
+    </div>
+
+    <div class="dashboard">
+      <div class="sidebar">
+        <div class="panel">
+          <div class="panel-title">Ringkasan Data</div>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <h2 id="jumlahWilayah">-</h2>
+              <p>Jumlah kecamatan Kabupaten Sukabumi</p>
+            </div>
+            <div class="stat-card">
+              <h2 id="totalPenduduk">-</h2>
+              <p>Total jumlah penduduk</p>
+            </div>
+            <div class="stat-card">
+              <h2 id="pendudukTertinggi">-</h2>
+              <p>Kecamatan dengan penduduk tertinggi</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Daftar Kecamatan</div>
+          <div class="wilayah-list" id="wilayahList"></div>
+        </div>
+      </div>
+
+      <div class="map-card">
+        <div id="map"></div>
+
+        <div class="legend">
+          <div><strong>Keterangan Warna</strong></div>
+          <div><span class="legend-color" style="background:#7f1d1d;"></span> ≥ 100.000 jiwa</div>
+          <div><span class="legend-color" style="background:#dc2626;"></span> 80.000 - 99.999 jiwa</div>
+          <div><span class="legend-color" style="background:#f97316;"></span> 60.000 - 79.999 jiwa</div>
+          <div><span class="legend-color" style="background:#ff9a00;"></span> 40.000 - 59.999 jiwa</div>
+          <div><span class="legend-color" style="background:#facc15;"></span> 20.000 - 39.999 jiwa</div>
+          <div><span class="legend-color" style="background:#fde68a;"></span> 1 - 19.999 jiwa</div>
+          <div><span class="legend-color" style="background:#9ca3af;"></span> Belum ada data</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+    var map = L.map("map", {
+      minZoom: 8,
+      maxZoom: 16,
+      zoomControl: true
+    }).setView([-7.0000, 106.7000], 9);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap contributors"
+    }).addTo(map);
+
+    var dataPenduduk = {
+      "Ciemas": null,
+      "Ciracap": null,
+      "Waluran": null,
+      "Surade": null,
+      "Cibitung": null,
+      "Jampang Kulon": null,
+      "Cimanggu": null,
+      "Kalibunder": null,
+      "Tegalbuleud": null,
+      "Cidolog": null,
+      "Sagaranten": null,
+      "Cidadap": null,
+      "Curugkembar": null,
+      "Pabuaran": null,
+      "Lengkong": null,
+      "Palabuhanratu": null,
+      "Simpenan": null,
+      "Warungkiara": null,
+      "Bantargadung": null,
+      "Jampang Tengah": null,
+      "Purabaya": null,
+      "Cikembar": null,
+      "Nyalindung": null,
+      "Gegerbitung": null,
+      "Sukaraja": null,
+      "Kebonpedes": null,
+      "Cireunghas": null,
+      "Sukalarang": null,
+      "Sukabumi": null,
+      "Kadudampit": null,
+      "Cisaat": null,
+      "Gunungguruh": null,
+      "Cibadak": null,
+      "Cicantayan": null,
+      "Caringin": null,
+      "Nagrak": null,
+      "Ciambar": null,
+      "Cicurug": null,
+      "Cidahu": null,
+      "Parakansalak": null,
+      "Parungkuda": null,
+      "Bojonggenteng": null,
+      "Kalapanunggal": null,
+      "Cikidang": null,
+      "Cisolok": null,
+      "Cikakak": null,
+      "Kabandungan": null
+    };
+
+    var geojsonLayer = null;
+    var selectedLayer = null;
+    var layerWilayah = {};
+    var dataPendudukKey = {};
+
+    function normalisasi(nama) {
+      return String(nama || "")
+        .toLowerCase()
+        .replace(/kabupaten\s+sukabumi/g, "")
+        .replace(/kab\.\s*sukabumi/g, "")
+        .replace(/kecamatan/g, "")
+        .replace(/kec\./g, "")
+        .replace(/[^a-z0-9]/g, "")
+        .trim();
+    }
+
+    Object.keys(dataPenduduk).forEach(function(nama) {
+      dataPendudukKey[normalisasi(nama)] = {
+        nama: nama,
+        jumlah: dataPenduduk[nama]
+      };
+    });
+
+    function ambilNamaWilayah(feature) {
+      var props = feature.properties || {};
+
+      var kemungkinanKolom = [
+        "WADMKC",
+        "NAMOBJ",
+        "KECAMATAN",
+        "Kecamatan",
+        "kecamatan",
+        "NAMKEC",
+        "NAMA_KEC",
+        "NAMAKEC",
+        "KEC",
+        "KECAMATAN_",
+        "NAME_3",
+        "NAME_2",
+        "name",
+        "Name",
+        "NAMA"
+      ];
+
+      for (var i = 0; i < kemungkinanKolom.length; i++) {
+        var kolom = kemungkinanKolom[i];
+
+        if (props[kolom]) {
+          var namaDariKolom = String(props[kolom]).trim();
+          var keyDariKolom = normalisasi(namaDariKolom);
+
+          if (dataPendudukKey[keyDariKolom]) {
+            return dataPendudukKey[keyDariKolom].nama;
+          }
+
+          return namaDariKolom;
+        }
+      }
+
+      for (var key in props) {
+        var isi = props[key];
+
+        if (isi === null || isi === undefined) {
+          continue;
+        }
+
+        var keyIsi = normalisasi(isi);
+
+        if (dataPendudukKey[keyIsi]) {
+          return dataPendudukKey[keyIsi].nama;
+        }
+      }
+
+      return "Wilayah Tidak Dikenal";
+    }
+
+    function ambilJumlahPenduduk(namaWilayah) {
+      var key = normalisasi(namaWilayah);
+
+      if (dataPendudukKey[key]) {
+        return dataPendudukKey[key].jumlah;
+      }
+
+      return null;
+    }
+
+    function formatPenduduk(jumlah) {
+      if (jumlah === null || jumlah === undefined || isNaN(jumlah)) {
+        return "Belum ada data";
+      }
+
+      return Number(jumlah).toLocaleString("id-ID") + " jiwa";
+    }
+
+    function warnaPenduduk(jumlah) {
+      if (jumlah === null || jumlah === undefined || isNaN(jumlah)) return "#9ca3af";
+      if (jumlah >= 100000) return "#7f1d1d";
+      if (jumlah >= 80000) return "#dc2626";
+      if (jumlah >= 60000) return "#f97316";
+      if (jumlah >= 40000) return "#ff9a00";
+      if (jumlah >= 20000) return "#facc15";
+      if (jumlah > 0) return "#fde68a";
+      return "#9ca3af";
+    }
+
+    function styleWilayah(feature) {
+      var namaWilayah = ambilNamaWilayah(feature);
+      var jumlahPenduduk = ambilJumlahPenduduk(namaWilayah);
+
+      return {
+        fillColor: warnaPenduduk(jumlahPenduduk),
+        weight: 1.3,
+        opacity: 1,
+        color: "#ffffff",
+        fillOpacity: 0.78,
+        dashArray: ""
+      };
+    }
+
+    function highlightWilayah(e) {
+      var layer = e.target;
+
+      if (layer === selectedLayer) {
+        return;
+      }
+
+      layer.setStyle({
+        weight: 3,
+        color: "#ff9a00",
+        fillOpacity: 0.92,
+        dashArray: ""
+      });
+
+      layer.bringToFront();
+    }
+
+    function resetHighlight(e) {
+      var layer = e.target;
+
+      if (geojsonLayer && layer !== selectedLayer) {
+        geojsonLayer.resetStyle(layer);
+      }
+    }
+
+    function aktifkanItemSidebar(key) {
+      var semuaItem = document.querySelectorAll(".wilayah-item");
+
+      semuaItem.forEach(function(item) {
+        item.classList.toggle("active", item.dataset.key === key);
+      });
+    }
+
+    function pilihWilayah(layer) {
+      if (selectedLayer && selectedLayer !== layer && geojsonLayer) {
+        geojsonLayer.resetStyle(selectedLayer);
+      }
+
+      selectedLayer = layer;
+
+      var namaWilayah = ambilNamaWilayah(layer.feature);
+      var key = normalisasi(namaWilayah);
+
+      layer.setStyle({
+        fillOpacity: 0.12,
+        fillColor: "#ffffff",
+        weight: 4,
+        color: "#111827",
+        opacity: 1,
+        dashArray: "6 4"
+      });
+
+      layer.bringToFront();
+      aktifkanItemSidebar(key);
+    }
+
+    function bukaPopupWilayah(layer) {
+      if (document.activeElement) {
+        document.activeElement.blur();
+      }
+
+      pilihWilayah(layer);
+
+      var namaWilayah = ambilNamaWilayah(layer.feature);
+      var jumlahPenduduk = ambilJumlahPenduduk(namaWilayah);
+
+      map.fitBounds(layer.getBounds(), {
+        padding: [35, 35],
+        maxZoom: 13
+      });
+
+      layer.unbindPopup();
+
+      layer.bindPopup(
+        "<div class='popup-box'>" +
+          "<div class='popup-title'>Kecamatan " + namaWilayah + "</div>" +
+          "<div class='popup-content'>" +
+            "<span class='popup-label'>Jumlah penduduk:</span> " + formatPenduduk(jumlahPenduduk) + "<br>" +
+            "<span class='popup-label'>Wilayah:</span> Kabupaten Sukabumi<br>" +
+            "<span class='badge'>Data Penduduk</span>" +
+          "</div>" +
+        "</div>"
+      ).openPopup();
+    }
+
+    function onEachWilayah(feature, layer) {
+      var namaWilayah = ambilNamaWilayah(feature);
+      var key = normalisasi(namaWilayah);
+
+      if (namaWilayah !== "Wilayah Tidak Dikenal") {
+        layerWilayah[key] = layer;
+      }
+
+      layer.on({
+        mouseover: highlightWilayah,
+        mouseout: resetHighlight,
+        click: function() {
+          bukaPopupWilayah(layer);
+        }
+      });
+
+      layer.bindTooltip("Kecamatan " + namaWilayah, {
+        sticky: true,
+        direction: "top"
+      });
+    }
+
+    function buatDaftarWilayah() {
+      var list = document.getElementById("wilayahList");
+      var wilayahArray = Object.keys(dataPenduduk).sort();
+
+      list.innerHTML = "";
+
+      wilayahArray.forEach(function(namaWilayah) {
+        var jumlahPenduduk = dataPenduduk[namaWilayah];
+        var key = normalisasi(namaWilayah);
+
+        var item = document.createElement("div");
+        item.className = "wilayah-item";
+        item.dataset.key = key;
+
+        item.innerHTML =
+          "<h4>Kecamatan " + namaWilayah + "</h4>" +
+          "<span>" + formatPenduduk(jumlahPenduduk) + "</span>";
+
+        item.onclick = function() {
+          if (layerWilayah[key]) {
+            document.querySelector(".map-card").scrollIntoView({
+              behavior: "smooth",
+              block: "center"
+            });
+
+            bukaPopupWilayah(layerWilayah[key]);
+          } else {
+            alert("Nama kecamatan belum cocok dengan GeoJSON: " + namaWilayah);
+          }
+        };
+
+        list.appendChild(item);
+      });
+    }
+
+    function updateRingkasan() {
+      var daftarWilayah = Object.keys(dataPenduduk);
+      var total = 0;
+      var adaData = false;
+      var tertinggiNama = "Belum diisi";
+      var tertinggiJumlah = -1;
+
+      daftarWilayah.forEach(function(nama) {
+        var jumlah = dataPenduduk[nama];
+
+        if (jumlah !== null && jumlah !== undefined && !isNaN(jumlah)) {
+          adaData = true;
+          total += Number(jumlah);
+
+          if (Number(jumlah) > tertinggiJumlah) {
+            tertinggiJumlah = Number(jumlah);
+            tertinggiNama = nama;
+          }
+        }
+      });
+
+      document.getElementById("jumlahWilayah").innerText = daftarWilayah.length;
+      document.getElementById("totalPenduduk").innerText = adaData ? total.toLocaleString("id-ID") : "Belum diisi";
+      document.getElementById("pendudukTertinggi").innerText = adaData ? tertinggiNama : "Belum diisi";
+    }
+
+    fetch("./sukabumi_kecamatan.geojson")
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error("File sukabumi_kecamatan.geojson tidak ditemukan.");
+        }
+
+        return response.json();
+      })
+      .then(function(data) {
+        if (!data || !data.features || data.features.length === 0) {
+          throw new Error("Isi GeoJSON kosong atau formatnya bukan FeatureCollection.");
+        }
+
+        geojsonLayer = L.geoJSON(data, {
+          style: styleWilayah,
+          onEachFeature: onEachWilayah
+        }).addTo(map);
+
+        var bounds = geojsonLayer.getBounds();
+
+        if (bounds.isValid()) {
+          map.fitBounds(bounds, {
+            padding: [20, 20]
+          });
+
+          map.setMaxBounds(bounds.pad(0.05));
+          map.setMinZoom(map.getZoom());
+        }
+
+        buatDaftarWilayah();
+        updateRingkasan();
+      })
+      .catch(function(error) {
+        alert("GeoJSON belum terbaca. Pastikan file sukabumi_kecamatan.geojson satu folder dengan sukabumi.html dan jalankan pakai Live Server.");
+        console.error(error);
+      });
+  </script>
+</body>
+</html>
