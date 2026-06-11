@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Katalog WebGIS & Pemetaan Digital</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: #101827;
+      background: linear-gradient(180deg, #f8fbff, #f3f6fb);
+      padding: 40px 22px;
+    }
+
+    .gis-container {
+      width: min(1100px, 100%);
+      margin: auto;
+    }
+
+    .gis-header {
+      margin-bottom: 34px;
+    }
+
+    .gis-label {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: #d97706;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .gis-header h1 {
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+
+    .gis-header p {
+      max-width: 720px;
+      color: #4b5563;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .gis-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .gis-card {
+      background: #ffffff;
+      border: 1px solid rgba(15, 23, 42, .09);
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, .08);
+      transition: .3s ease;
+    }
+
+    .gis-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 55px rgba(15, 23, 42, .14);
+    }
+
+    .gis-icon {
+      width: 58px;
+      height: 58px;
+      margin-bottom: 22px;
+      border-radius: 20px;
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #173b8f 0%, #3155c7 48%, #d97706 100%);
+    }
+
+    .gis-card h3 {
+      font-size: 26px;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .gis-card p {
+      color: #4b5563;
+      font-size: 15.5px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .gis-card a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 22px;
+      border-radius: 999px;
+      color: #ffffff;
+      font-weight: 900;
+      text-decoration: none;
+      background: linear-gradient(135deg, #173b8f 0%, #3155c7 48%, #d97706 100%);
+      box-shadow: 0 12px 28px rgba(23, 59, 143, .20);
+      transition: .25s ease;
+    }
+
+    .gis-card a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(23, 59, 143, .30);
+    }
+
+    .back-link {
+      display: inline-flex;
+      margin-bottom: 26px;
+      color: #173b8f;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 760px) {
+      body {
+        padding: 26px 16px;
+      }
+
+      .gis-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gis-card {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="gis-container">
+    <a href="index.html" class="back-link">← Kembali ke Portfolio</a>
+
+    <section class="gis-header">
+      <span class="gis-label">WebGIS Portfolio</span>
+      <h1>WebGIS & Pemetaan Digital</h1>
+      <p>
+        Kumpulan proyek peta interaktif berbasis web untuk menampilkan data wilayah,
+        batas administratif, titik lokasi, dan informasi geospasial secara visual.
+      </p>
+    </section>
+
+    <section class="gis-grid">
+      <article class="gis-card">
+        <div class="gis-icon">⌖</div>
+        <h3>Peta Wilayah Administratif</h3>
+        <p>
+          Peta batas wilayah kabupaten/kota dengan informasi administratif daerah,
+          visualisasi area, dan navigasi interaktif berbasis web.
+        </p>
+        <a href="peta-administratif.html">Buka Peta</a>
+      </article>
+
+      <article class="gis-card">
+        <div class="gis-icon">▲</div>
+        <h3>Peta Persebaran Gunung</h3>
+        <p>
+          Peta lokasi gunung-gunung dengan informasi nama gunung, ketinggian,
+          titik koordinat, dan wilayah persebarannya.
+        </p>
+        <a href="peta-gunung.html">Buka Peta</a>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
