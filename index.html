@@ -1,959 +1,1110 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <title>Peta Jumlah Penduduk Jawa Barat 2025</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio Sufyan Tsaury — layanan academic writing, document formatting, presentation design, editing, dan proofreading dokumen akademik." />
+  <title>Sufyan Tsaury — Academic Portfolio</title>
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet" />
 
-  
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root{
+      --bg:#f5f7fb;
+      --surface:#ffffff;
+      --surface-soft:#f8fafc;
+      --primary:#173b8f;
+      --primary-2:#3155c7;
+      --accent:#d97706;
+      --accent-soft:#fff4df;
+      --text:#101827;
+      --soft:#4b5563;
+      --muted:#6b7280;
+      --line:rgba(15,23,42,.09);
+      --radius-sm:16px;
+      --radius-md:24px;
+      --radius-lg:36px;
+      --shadow:0 16px 44px rgba(15,23,42,.08);
+      --shadow-soft:0 8px 24px rgba(15,23,42,.06);
+      --shadow-hover:0 24px 60px rgba(15,23,42,.14);
+      --gradient:linear-gradient(135deg,#173b8f 0%,#3155c7 48%,#d97706 100%);
+      --gradient-soft:linear-gradient(135deg,rgba(23,59,143,.10),rgba(217,119,6,.10));
     }
 
-    html,
-    body {
-      min-height: 100%;
-      overflow-x: hidden;
-      overflow-y: auto;
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
     }
 
-    body {
-      min-height: 100vh;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      color: #ffffff;
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:"Inter",sans-serif;
+      color:var(--text);
+      min-height:100vh;
       background:
-        radial-gradient(circle at 15% 5%, rgba(255, 154, 0, 0.38), transparent 34%),
-        linear-gradient(135deg, #1a0f07 0%, #120b05 45%, #050505 100%);
+        radial-gradient(circle at 8% 4%,rgba(49,85,199,.16),transparent 28%),
+        radial-gradient(circle at 92% 12%,rgba(217,119,6,.12),transparent 25%),
+        linear-gradient(180deg,#f8fbff 0%,#f3f6fb 48%,#f8fafc 100%);
     }
 
-    .page {
-      min-height: 100vh;
-      padding: 24px;
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:linear-gradient(rgba(15,23,42,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.035) 1px,transparent 1px);
+      background-size:44px 44px;
+      mask-image:linear-gradient(to bottom,rgba(0,0,0,.75),transparent 70%);
     }
 
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      margin-bottom: 22px;
-      padding: 18px 22px;
-      background: rgba(24, 15, 9, 0.72);
-      border: 1px solid rgba(255, 154, 0, 0.28);
-      border-radius: 24px;
-      backdrop-filter: blur(18px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+    a{
+      color:inherit;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
+    .container{
+      width:min(1160px,100%);
+      margin:auto;
+      padding:22px;
+      position:relative;
+      z-index:1;
     }
 
-    .logo {
-  width: 74px;
-  height: 74px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 18px;
-  background: #ffffff;
-  padding: 8px;
-  box-shadow: 0 12px 30px rgba(255, 154, 0, 0.28);
-}
-
-.logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-    .brand h1 {
-      font-size: 26px;
-      line-height: 1.2;
-      font-weight: 800;
-      letter-spacing: 0.5px;
+    .navbar{
+      position:sticky;
+      top:18px;
+      z-index:20;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+      padding:12px 14px;
+      margin-bottom:24px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(255,255,255,.72);
+      border-radius:24px;
+      box-shadow:var(--shadow-soft);
+      backdrop-filter:blur(20px);
     }
 
-    .brand p {
-      margin-top: 4px;
-      font-size: 13px;
-      color: #f5d6a6;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:max-content;
+      text-decoration:none;
     }
 
-    .status {
-      padding: 10px 16px;
-      border-radius: 999px;
-      background: rgba(255, 154, 0, 0.15);
-      border: 1px solid rgba(255, 154, 0, 0.45);
-      color: #ffbf5f;
-      font-size: 13px;
-      white-space: nowrap;
+    .brand-mark{
+      width:44px;
+      height:44px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      background:var(--gradient);
+      color:#fff;
+      font-family:"Plus Jakarta Sans",sans-serif;
+      font-weight:900;
+      box-shadow:0 10px 26px rgba(23,59,143,.26);
     }
 
-    .dashboard {
-      display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: 22px;
-      min-height: 78vh;
+    .brand-text strong{
+      display:block;
+      font-family:"Plus Jakarta Sans",sans-serif;
+      font-weight:900;
+      line-height:1.1;
     }
 
-    .sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
+    .brand-text span{
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
     }
 
-    .panel {
-      padding: 20px;
-      background: rgba(24, 15, 9, 0.72);
-      border: 1px solid rgba(255, 154, 0, 0.22);
-      border-radius: 24px;
-      backdrop-filter: blur(18px);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.34);
+    .nav-links{
+      display:flex;
+      justify-content:flex-end;
+      gap:6px;
+      overflow:auto;
+      scrollbar-width:none;
     }
 
-    .panel-title {
-      margin-bottom: 14px;
-      color: #ff9a00;
-      font-size: 15px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .nav-links::-webkit-scrollbar{
+      display:none;
     }
 
-    .stats-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
+    .nav-links a{
+      text-decoration:none;
+      color:var(--soft);
+      font-size:14px;
+      font-weight:800;
+      padding:10px 14px;
+      border-radius:999px;
+      white-space:nowrap;
+      transition:.25s ease;
     }
 
-    .stat-card {
-      padding: 16px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, rgba(255, 154, 0, 0.18), rgba(255, 255, 255, 0.04));
-      border: 1px solid rgba(255, 154, 0, 0.22);
+    .nav-links a:hover{
+      background:#eff4ff;
+      color:var(--primary);
     }
 
-    .stat-card h2 {
-      margin-bottom: 4px;
-      color: #ff9a00;
-      font-size: 28px;
+    .nav-links a.active{
+      background:var(--primary);
+      color:#fff;
+      box-shadow:0 10px 24px rgba(23,59,143,.18);
     }
 
-    .stat-card p {
-      color: #f3e5d0;
-      font-size: 13px;
+    .hero{
+      min-height:650px;
+      display:grid;
+      grid-template-columns:1.18fr .82fr;
+      align-items:center;
+      gap:30px;
+      padding:64px;
+      margin-bottom:72px;
+      border-radius:44px;
+      background:
+        linear-gradient(135deg,rgba(255,255,255,.96),rgba(248,250,252,.88)),
+        var(--gradient-soft);
+      border:1px solid rgba(255,255,255,.78);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
     }
 
-    .wilayah-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      height: 430px;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding-right: 4px;
+    .hero::before,
+    .hero::after{
+      content:"";
+      position:absolute;
+      border-radius:999px;
+      filter:blur(4px);
     }
 
-    .wilayah-list::-webkit-scrollbar {
-      width: 6px;
+    .hero::before{
+      width:420px;
+      height:420px;
+      top:-190px;
+      right:-120px;
+      background:rgba(23,59,143,.12);
     }
 
-    .wilayah-list::-webkit-scrollbar-thumb {
-      background: rgba(255, 154, 0, 0.7);
-      border-radius: 10px;
+    .hero::after{
+      width:310px;
+      height:310px;
+      bottom:-140px;
+      left:-110px;
+      background:rgba(217,119,6,.14);
     }
 
-    .wilayah-item {
-      width: 100%;
-      min-width: 0;
-      padding: 13px 14px;
-      cursor: pointer;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 154, 0, 0.16);
-      transition: 0.25s ease;
+    .hero-content,
+    .profile-panel{
+      position:relative;
+      z-index:2;
     }
 
-    .wilayah-item:hover {
-      transform: translateX(5px);
-      background: rgba(255, 154, 0, 0.14);
-      border-color: rgba(255, 154, 0, 0.45);
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 16px;
+      margin-bottom:22px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.6px;
+      text-transform:uppercase;
     }
 
-    .wilayah-item.active {
-      background: rgba(255, 154, 0, 0.24);
-      border-color: rgba(255, 154, 0, 0.8);
-      box-shadow: 0 0 0 2px rgba(255, 154, 0, 0.18);
+    h1,h2,h3{
+      font-family:"Plus Jakarta Sans",sans-serif;
     }
 
-    .wilayah-item h4 {
-      margin-bottom: 5px;
-      color: #ffffff;
-      font-size: 14px;
-      white-space: normal;
-      word-wrap: break-word;
+    .hero h1{
+      max-width:780px;
+      font-size:clamp(40px,6vw,76px);
+      line-height:1.02;
+      letter-spacing:-2.2px;
+      font-weight:900;
+      margin-bottom:20px;
     }
 
-    .wilayah-item span {
-      color: #e7d5bd;
-      font-size: 12px;
-      white-space: normal;
-      word-wrap: break-word;
+    .hero h1 span{
+      background:var(--gradient);
+      background-clip:text;
+      -webkit-background-clip:text;
+      color:transparent;
+      -webkit-text-fill-color:transparent;
     }
 
-    .map-card {
-      position: relative;
-      height: 78vh;
-      min-height: 500px;
-      overflow: hidden;
-      border-radius: 28px;
-      border: 1px solid rgba(255, 154, 0, 0.22);
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.55);
+    .hero-description{
+      max-width:690px;
+      color:var(--soft);
+      font-size:17px;
+      line-height:1.85;
+      margin-bottom:32px;
     }
 
-    #map {
-      width: 100%;
-      height: 100%;
-      z-index: 1;
+    .hero-actions,
+    .contact-actions,
+    .portfolio-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
     }
 
-    .legend {
-      position: absolute;
-      bottom: 22px;
-      left: 22px;
-      z-index: 999;
-      padding: 14px 18px;
-      border-radius: 18px;
-      background: rgba(18, 11, 5, 0.8);
-      border: 1px solid rgba(255, 154, 0, 0.22);
-      backdrop-filter: blur(14px);
-      color: #f3e5d0;
-      font-size: 13px;
-      line-height: 1.7;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:14px 22px;
+      border-radius:999px;
+      text-decoration:none;
+      font-weight:900;
+      transition:.28s ease;
+      border:1px solid transparent;
     }
 
-    .legend strong {
-      color: #ff9a00;
+    .btn-primary{
+      color:#fff;
+      background:var(--gradient);
+      box-shadow:0 12px 28px rgba(23,59,143,.20);
     }
 
-    .legend-color {
-      display: inline-block;
-      width: 16px;
-      height: 10px;
-      margin-right: 6px;
-      border-radius: 3px;
+    .btn-primary:hover,
+    .btn-outline:hover{
+      transform:translateY(-3px);
+      box-shadow:var(--shadow-hover);
     }
 
-    .leaflet-popup-content-wrapper {
-      padding: 4px;
-      border-radius: 20px;
-      background: #ffffff;
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.4);
+    .btn-outline{
+      color:var(--primary);
+      background:#fff;
+      border-color:rgba(23,59,143,.16);
     }
 
-    .leaflet-popup-content {
-      margin: 14px 16px;
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin-top:34px;
+      max-width:660px;
     }
 
-    .popup-box {
-      min-width: 240px;
-      font-family: 'Segoe UI', Arial, sans-serif;
+    .stat{
+      padding:18px;
+      border-radius:22px;
+      background:rgba(255,255,255,.78);
+      border:1px solid var(--line);
+      box-shadow:0 8px 24px rgba(15,23,42,.05);
     }
 
-    .popup-title {
-      margin-bottom: 8px;
-      color: #7a3500;
-      font-size: 18px;
-      font-weight: 800;
+    .stat strong{
+      display:block;
+      font-size:24px;
+      font-family:"Plus Jakarta Sans",sans-serif;
+      color:var(--primary);
+      margin-bottom:5px;
     }
 
-    .popup-content {
-      color: #334155;
-      font-size: 14px;
-      line-height: 1.6;
+    .stat span{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:700;
+      line-height:1.45;
     }
 
-    .popup-label {
-      color: #0f172a;
-      font-weight: 700;
+    .profile-panel{
+      padding:28px;
+      border-radius:34px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(255,255,255,.76);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(18px);
     }
 
-    .badge {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 6px 11px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #ff9a00, #cc6f00);
-      color: #ffffff;
-      font-size: 12px;
-      font-weight: 700;
+    .profile-visual{
+      position:relative;
+      min-height:245px;
+      border-radius:28px;
+      padding:26px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      color:#fff;
+      overflow:hidden;
+      background:var(--gradient);
     }
 
-    .leaflet-control-zoom {
-      border: none !important;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35) !important;
+    .profile-visual::before{
+      content:"";
+      position:absolute;
+      width:220px;
+      height:220px;
+      right:-74px;
+      top:-80px;
+      border-radius:50%;
+      background:rgba(255,255,255,.16);
     }
 
-    .leaflet-control-zoom a {
-      background: rgba(18, 11, 5, 0.88) !important;
-      color: #ff9a00 !important;
-      border: 1px solid rgba(255, 154, 0, 0.18) !important;
+    .profile-visual::after{
+      content:"";
+      position:absolute;
+      width:150px;
+      height:150px;
+      left:-52px;
+      bottom:-60px;
+      border-radius:50%;
+      background:rgba(255,255,255,.12);
     }
 
-    .leaflet-control-attribution {
-      padding: 2px 5px !important;
-      border-radius: 6px 0 0 0;
-      background: rgba(255, 255, 255, 0.65) !important;
-      font-size: 10px !important;
-      opacity: 0.55;
+    .avatar{
+      position:relative;
+      width:92px;
+      height:92px;
+      border-radius:30px;
+      display:grid;
+      place-items:center;
+      background:rgba(255,255,255,.18);
+      border:1px solid rgba(255,255,255,.30);
+      font-family:"Plus Jakarta Sans",sans-serif;
+      font-size:34px;
+      font-weight:900;
+      box-shadow:0 18px 40px rgba(0,0,0,.16);
     }
 
-    .leaflet-container:focus,
-    .leaflet-container *:focus,
-    .leaflet-container .leaflet-interactive:focus,
-    .leaflet-container .leaflet-interactive:focus-visible,
-    .leaflet-container path:focus,
-    .leaflet-container svg:focus {
-      outline: none !important;
+    .profile-name{
+      position:relative;
     }
 
-    @media (max-width: 980px) {
-      .dashboard {
-        grid-template-columns: 1fr;
+    .profile-name h2{
+      font-size:30px;
+      font-weight:900;
+      margin-bottom:6px;
+    }
+
+    .profile-name p{
+      color:rgba(255,255,255,.86);
+      line-height:1.6;
+      font-weight:600;
+    }
+
+    .profile-list{
+      display:grid;
+      gap:10px;
+      margin-top:18px;
+    }
+
+    .profile-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:14px;
+      border-radius:18px;
+      background:var(--surface-soft);
+      border:1px solid var(--line);
+    }
+
+    .profile-item span{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .profile-item strong{
+      text-align:right;
+      color:var(--text);
+      font-size:14px;
+    }
+
+    .section{
+      margin-bottom:78px;
+    }
+
+    .section-top{
+      display:grid;
+      grid-template-columns:.72fr 1fr;
+      align-items:end;
+      gap:30px;
+      margin-bottom:28px;
+    }
+
+    .section-label{
+      display:inline-block;
+      color:var(--accent);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+
+    .section-top h2{
+      font-size:clamp(30px,5vw,48px);
+      line-height:1.1;
+      letter-spacing:-1.2px;
+      font-weight:900;
+    }
+
+    .section-top p{
+      color:var(--soft);
+      line-height:1.8;
+    }
+
+    .card,
+    .about-card,
+    .portfolio-card,
+    .process-card{
+      position:relative;
+      background:rgba(255,255,255,.88);
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:var(--shadow-soft);
+      transition:.3s ease;
+      overflow:hidden;
+    }
+
+    .card:hover,
+    .portfolio-card:hover,
+    .process-card:hover{
+      transform:translateY(-7px);
+      box-shadow:var(--shadow-hover);
+    }
+
+    .about-card{
+      display:grid;
+      grid-template-columns:1fr .72fr;
+      gap:24px;
+      padding:30px;
+    }
+
+    .about-card p{
+      color:var(--soft);
+      line-height:1.9;
+      font-size:16px;
+    }
+
+    .about-points{
+      display:grid;
+      gap:12px;
+    }
+
+    .about-points li{
+      list-style:none;
+      display:flex;
+      gap:12px;
+      padding:14px;
+      border-radius:18px;
+      background:var(--surface-soft);
+      color:var(--soft);
+      font-weight:700;
+      line-height:1.55;
+    }
+
+    .about-points li::before{
+      content:"✓";
+      flex:0 0 28px;
+      height:28px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:#eaf1ff;
+      color:var(--primary);
+      font-weight:900;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .grid-4{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .card-icon{
+      width:58px;
+      height:58px;
+      border-radius:20px;
+      display:grid;
+      place-items:center;
+      margin-bottom:20px;
+      color:#fff;
+      background:var(--gradient);
+      font-size:23px;
+      font-weight:900;
+      box-shadow:0 12px 26px rgba(23,59,143,.20);
+    }
+
+    .card h3{
+      font-size:21px;
+      margin-bottom:10px;
+      line-height:1.25;
+    }
+
+    .card p{
+      color:var(--soft);
+      line-height:1.75;
+      font-size:15px;
+    }
+
+    .portfolio{
+      display:grid;
+      gap:18px;
+    }
+
+    .portfolio-card{
+      display:grid;
+      grid-template-columns:1fr auto;
+      align-items:center;
+      gap:24px;
+      padding:28px;
+    }
+
+    .portfolio-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:12px;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      padding:7px 11px;
+      border-radius:999px;
+      background:#f0f5ff;
+      color:var(--primary);
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .pill.orange{
+      background:var(--accent-soft);
+      color:var(--accent);
+    }
+
+    .portfolio-card h3{
+      font-size:28px;
+      line-height:1.2;
+      margin-bottom:10px;
+    }
+
+    .portfolio-card p{
+      color:var(--soft);
+      line-height:1.78;
+      max-width:710px;
+    }
+
+    .process-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+    }
+
+    .process-card{
+      padding:24px;
+    }
+
+    .process-number{
+      width:42px;
+      height:42px;
+      border-radius:16px;
+      display:grid;
+      place-items:center;
+      background:var(--gradient);
+      color:#fff;
+      font-weight:900;
+      margin-bottom:18px;
+      box-shadow:0 10px 24px rgba(23,59,143,.20);
+    }
+
+    .process-card h3{
+      font-size:19px;
+      margin-bottom:9px;
+    }
+
+    .process-card p{
+      color:var(--soft);
+      line-height:1.7;
+      font-size:14.5px;
+    }
+
+    .contact{
+      position:relative;
+      overflow:hidden;
+      padding:60px;
+      border-radius:42px;
+      color:#fff;
+      background:var(--gradient);
+      box-shadow:var(--shadow);
+    }
+
+    .contact::before{
+      content:"";
+      position:absolute;
+      width:420px;
+      height:420px;
+      right:-170px;
+      top:-170px;
+      border-radius:50%;
+      background:rgba(255,255,255,.14);
+    }
+
+    .contact::after{
+      content:"";
+      position:absolute;
+      width:260px;
+      height:260px;
+      left:-90px;
+      bottom:-100px;
+      border-radius:50%;
+      background:rgba(255,255,255,.10);
+    }
+
+    .contact-content{
+      position:relative;
+      z-index:2;
+      max-width:780px;
+    }
+
+    .contact h2{
+      font-size:clamp(34px,5vw,58px);
+      line-height:1.08;
+      letter-spacing:-1.6px;
+      margin-bottom:18px;
+    }
+
+    .contact p{
+      color:rgba(255,255,255,.86);
+      line-height:1.82;
+      margin-bottom:28px;
+      font-size:16.5px;
+    }
+
+    .contact .btn-primary{
+      background:#fff;
+      color:var(--primary);
+    }
+
+    .contact .btn-outline{
+      background:rgba(255,255,255,.12);
+      color:#fff;
+      border-color:rgba(255,255,255,.28);
+      backdrop-filter:blur(10px);
+    }
+
+    footer{
+      padding:34px 12px 18px;
+      text-align:center;
+      color:var(--muted);
+    }
+
+    footer strong{
+      display:block;
+      color:var(--text);
+      font-family:"Plus Jakarta Sans",sans-serif;
+      font-size:18px;
+      margin-bottom:8px;
+    }
+
+    .reveal{
+      animation:fadeUp .7s ease both;
+    }
+
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform:translateY(18px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @media(max-width:980px){
+      .navbar{
+        align-items:flex-start;
+        flex-direction:column;
       }
 
-      .map-card,
-      #map {
-        height: 70vh;
-        min-height: 70vh;
+      .nav-links{
+        width:100%;
+        justify-content:flex-start;
       }
 
-      .topbar {
-        flex-direction: column;
-        align-items: flex-start;
+      .hero{
+        grid-template-columns:1fr;
+        padding:40px;
+        min-height:auto;
+      }
+
+      .section-top,
+      .about-card{
+        grid-template-columns:1fr;
+      }
+
+      .grid-3,
+      .grid-4,
+      .process-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .portfolio-card{
+        grid-template-columns:1fr;
       }
     }
 
-    @media (max-width: 600px) {
-      .page {
-        padding: 14px;
+    @media(max-width:620px){
+      .container{
+        padding:14px;
       }
 
-      .brand h1 {
-        font-size: 20px;
+      .hero{
+        padding:28px;
+        border-radius:30px;
       }
 
-      .logo {
-        width: 46px;
-        height: 46px;
+      .hero h1{
+        letter-spacing:-1.2px;
       }
 
-      .legend {
-        left: 14px;
-        bottom: 14px;
-        font-size: 12px;
+      .hero-stats,
+      .grid-3,
+      .grid-4,
+      .process-grid{
+        grid-template-columns:1fr;
+      }
+
+      .btn,
+      .portfolio-actions,
+      .contact-actions{
+        width:100%;
+      }
+
+      .btn{
+        padding:14px 18px;
+      }
+
+      .portfolio-actions,
+      .contact-actions{
+        flex-direction:column;
+      }
+
+      .contact{
+        padding:36px 26px;
+        border-radius:30px;
       }
     }
-    
-.btn-popup,
-.btn-popup:visited,
-.btn-popup:hover,
-.btn-popup:active,
-.btn-popup:focus {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 6px 12px;
-  background-color: #ff9a00;
-  color: #ffffff !important;
-  border-radius: 6px;
-  text-decoration: none !important;
-  font-weight: 600;
-}
-    
-.btn-popup:hover {
-  background-color: #e67e22;
-  color: #ffffff !important;
-}
-    
+
+    @media(prefers-reduced-motion:reduce){
+      html{
+        scroll-behavior:auto;
+      }
+
+      .reveal{
+        animation:none;
+      }
+
+      .btn,
+      .card,
+      .portfolio-card,
+      .process-card{
+        transition:none;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <div class="page">
-    <div class="topbar">
-      <div class="brand">
-        <div class="logo">
-  <img src="logo_jawa_barat.jpg" alt="Logo provinsi jawa barat">
-</div>
-        <div>
-          <h1>Peta Jumlah Penduduk Jawa Barat 2025</h1>
-          <p>Visualisasi interaktif jumlah penduduk per kabupaten/kota di Provinsi Jawa Barat</p>
+  <div class="container">
+    <nav class="navbar" aria-label="Navigasi utama">
+      <a class="brand" href="#home" aria-label="Sufyan Portfolio">
+        <div class="brand-mark">ST</div>
+        <div class="brand-text">
+          <strong>Sufyan Tsaury</strong>
+          <span>Academic Portfolio</span>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <a class="active" href="#home">Beranda</a>
+        <a href="#about">Tentang</a>
+        <a href="#skills">Keahlian</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#services">Layanan</a>
+        <a href="#contact">Kontak</a>
+      </div>
+    </nav>
+
+    <header class="hero reveal" id="home">
+      <div class="hero-content">
+        <span class="eyebrow">✦ Academic Writing & Document Specialist</span>
+        <h1>Merapikan gagasan menjadi dokumen akademik yang <span>kuat, elegan.</span></h1>
+        <p class="hero-description">
+          Menyediakan layanan penyusunan naskah akademik, formatting dokumen, desain presentasi, editing, dan pengembangan materi pembelajaran dengan struktur yang rapi, visual modern, serta mudah dipahami pembaca.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#portfolio" class="btn btn-primary">Lihat Portfolio →</a>
+          <a href="#contact" class="btn btn-outline">Hubungi Sekarang</a>
+        </div>
+
+        <div class="hero-stats" aria-label="Ringkasan layanan">
+          <div class="stat">
+            <strong>04+</strong>
+            <span>Fokus layanan akademik</span>
+          </div>
+          <div class="stat">
+            <strong>100%</strong>
+            <span>Layout rapi dan konsisten</span>
+          </div>
+          <div class="stat">
+            <strong>2026</strong>
+            <span>Portfolio personal modern</span>
+          </div>
         </div>
       </div>
-      <div class="status">● Sumber data: BPS Jawa Barat 2025</div>
-    </div>
 
-    <div class="dashboard">
-      <div class="sidebar">
-        <div class="panel">
-          <div class="panel-title">Ringkasan Data</div>
-          <div class="stats-grid">
-            <div class="stat-card">
-              <h2 id="jumlahWilayah">27</h2>
-              <p>Jumlah kabupaten/kota Jawa Barat</p>
-            </div>
-            <div class="stat-card">
-              <h2 id="totalPenduduk">-</h2>
-              <p>Total jumlah penduduk</p>
-            </div>
-            <div class="stat-card">
-              <h2 id="pendudukTertinggi">-</h2>
-              <p>Wilayah dengan penduduk tertinggi</p>
-            </div>
+      <aside class="profile-panel" aria-label="Profil singkat">
+        <div class="profile-visual">
+          <div class="avatar">ST</div>
+          <div class="profile-name">
+            <h2>Sufyan Tsaury</h2>
+            <p>Law Student · Academic Writer · Document Specialist</p>
           </div>
         </div>
 
-        <div class="panel">
-          <div class="panel-title">Daftar Kabupaten/Kota</div>
-          <div class="wilayah-list" id="wilayahList"></div>
+        <div class="profile-list">
+          <div class="profile-item">
+            <span>Spesialisasi</span>
+            <strong>Academic Document</strong>
+          </div>
+          <div class="profile-item">
+            <span>Output</span>
+            <strong>Rapi, sistematis, siap pakai</strong>
+          </div>
+          <div class="profile-item">
+            <span>Kontak</span>
+            <strong>Email & WhatsApp</strong>
+          </div>
         </div>
-      </div>
+      </aside>
+    </header>
 
-      <div class="map-card">
-        <div id="map"></div>
-
-        <div class="legend">
-          <div><strong>Keterangan Warna</strong></div>
-          <div><span class="legend-color" style="background:#7f1d1d;"></span> ≥ 5.000.000 jiwa</div>
-          <div><span class="legend-color" style="background:#dc2626;"></span> 3.000.000 - 4.999.999 jiwa</div>
-          <div><span class="legend-color" style="background:#f97316;"></span> 2.000.000 - 2.999.999 jiwa</div>
-          <div><span class="legend-color" style="background:#ff9a00;"></span> 1.000.000 - 1.999.999 jiwa</div>
-          <div><span class="legend-color" style="background:#facc15;"></span> 500.000 - 999.999 jiwa</div>
-          <div><span class="legend-color" style="background:#fde68a;"></span> 1 - 499.999 jiwa</div>
-          <div><span class="legend-color" style="background:#9ca3af;"></span> Belum ada data</div>
+    <main>
+      <section class="section reveal" id="about">
+        <div class="section-top">
+          <div>
+            <span class="section-label">Tentang Saya</span>
+            <h2>Profil akademik yang jelas dan terpercaya.</h2>
+          </div>
+          <p>
+            Saya berfokus pada penyusunan karya akademik, pengembangan modul pembelajaran, formatting dokumen, dan desain presentasi yang informatif serta profesional.
+          </p>
         </div>
-      </div>
-    </div>
+
+        <div class="about-card">
+          <p>
+            Ketertarikan saya berada pada dunia penulisan akademik, pengelolaan dokumen profesional, dan penyajian materi pembelajaran. Dalam setiap pekerjaan, saya menekankan kerapian struktur, ketepatan format, konsistensi visual, serta kemudahan pembaca dalam memahami isi dokumen.
+          </p>
+
+          <ul class="about-points">
+            <li>Dokumen disusun dengan alur yang sistematis dan mudah dibaca.</li>
+            <li>Format dibuat konsisten agar terlihat profesional.</li>
+            <li>Desain presentasi dibuat ringkas, menarik, dan komunikatif.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section reveal" id="skills">
+        <div class="section-top">
+          <div>
+            <span class="section-label">Keahlian</span>
+            <h2>Skills & Expertise</h2>
+          </div>
+          <p>
+            Keahlian utama yang mendukung penyusunan dokumen akademik, materi pembelajaran, dan presentasi profesional.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <div class="card-icon">✎</div>
+            <h3>Academic Writing</h3>
+            <p>Menyusun makalah, buku ajar, modul pembelajaran, artikel, dan naskah akademik secara sistematis sesuai kebutuhan.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">▣</div>
+            <h3>Document Formatting</h3>
+            <p>Merapikan struktur bab, daftar isi, layout, sitasi, heading, spacing, dan elemen visual agar dokumen lebih profesional.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">◈</div>
+            <h3>Presentation Design</h3>
+            <p>Mendesain slide akademik yang bersih, menarik, terarah, dan efektif untuk seminar, kuliah, maupun presentasi profesional.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section reveal" id="portfolio">
+        <div class="section-top">
+          <div>
+            <span class="section-label">Portfolio</span>
+            <h2>Karya Pilihan</h2>
+          </div>
+          <p>
+            Beberapa contoh proyek akademik dan pengembangan materi yang dapat ditampilkan sebagai bukti kompetensi.
+          </p>
+        </div>
+
+        <div class="portfolio">
+          <article class="portfolio-card">
+            <div>
+              <div class="portfolio-meta">
+                <span class="pill orange">Buku</span>
+                <span class="pill">Layout Akademik</span>
+              </div>
+              <h3>Buku Manajemen Pendidikan</h3>
+              <p>Penyusunan dan perapian dokumen buku akademik dengan struktur isi yang jelas, tampilan profesional, dan format yang konsisten.</p>
+            </div>
+            <div class="portfolio-actions">
+              <a href="#" class="btn btn-primary">Preview</a>
+              <a href="#" class="btn btn-outline">Detail</a>
+            </div>
+          </article>
+
+          <article class="portfolio-card">
+            <div>
+              <div class="portfolio-meta">
+                <span class="pill orange">Artikel</span>
+                <span class="pill">Edukasi Digital</span>
+              </div>
+              <h3>Artikel Teknologi & Edukasi</h3>
+              <p>Penulisan artikel bertema teknologi, keamanan digital, dan pendidikan modern dengan bahasa yang informatif serta mudah dipahami.</p>
+            </div>
+            <div class="portfolio-actions">
+              <a href="#" class="btn btn-primary">Preview</a>
+              <a href="#" class="btn btn-outline">Detail</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section reveal" id="services">
+        <div class="section-top">
+          <div>
+            <span class="section-label">Layanan</span>
+            <h2>Services</h2>
+          </div>
+          <p>
+            Solusi penyusunan dan perapian dokumen akademik yang siap digunakan untuk kebutuhan kuliah, seminar, publikasi, maupun kegiatan profesional.
+          </p>
+        </div>
+
+        <div class="grid-4">
+          <article class="card">
+            <div class="card-icon">✎</div>
+            <h3>Academic Writing</h3>
+            <p>Penyusunan buku ajar, modul, makalah, artikel, dan naskah akademik sesuai kebutuhan.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">✦</div>
+            <h3>Document Formatting</h3>
+            <p>Perapian format, layout, sitasi, heading, daftar isi, dan struktur dokumen akademik.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">◈</div>
+            <h3>Presentation Design</h3>
+            <p>Desain presentasi profesional yang ringkas, menarik, dan efektif dalam menyampaikan informasi.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">⌘</div>
+            <h3>Editing & Proofreading</h3>
+            <p>Penyuntingan naskah untuk meningkatkan kualitas bahasa, keterbacaan, dan kerapian dokumen.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section reveal" id="process">
+        <div class="section-top">
+          <div>
+            <span class="section-label">Alur Kerja</span>
+            <h2>Proses kerja yang sederhana.</h2>
+          </div>
+          <p>
+            Alur dibuat jelas agar kebutuhan dokumen dapat dipahami sejak awal dan hasil akhirnya lebih sesuai dengan target pengguna.
+          </p>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-card">
+            <div class="process-number">1</div>
+            <h3>Konsultasi</h3>
+            <p>Menentukan kebutuhan, jenis dokumen, format, dan target hasil.</p>
+          </article>
+
+          <article class="process-card">
+            <div class="process-number">2</div>
+            <h3>Penyusunan</h3>
+            <p>Dokumen mulai disusun atau dirapikan sesuai struktur yang disepakati.</p>
+          </article>
+
+          <article class="process-card">
+            <div class="process-number">3</div>
+            <h3>Review</h3>
+            <p>Isi, bahasa, layout, dan konsistensi format diperiksa kembali.</p>
+          </article>
+
+          <article class="process-card">
+            <div class="process-number">4</div>
+            <h3>Finalisasi</h3>
+            <p>File akhir disiapkan agar siap digunakan atau dipresentasikan.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="contact reveal" id="contact">
+        <div class="contact-content">
+          <h2>Siap membuat dokumen akademik terlihat lebih profesional?</h2>
+          <p>
+            Hubungi saya untuk penyusunan karya akademik, pengembangan modul pembelajaran, desain presentasi, editing, proofreading, dan pengelolaan dokumen profesional dengan hasil yang rapi, sistematis, dan berkualitas.
+          </p>
+
+          <div class="contact-actions">
+            <a href="mailto:sufyantsaury.id@gmail.com" class="btn btn-primary">Email Saya</a>
+            <a href="https://wa.me/628xxxxxxxxxx" class="btn btn-outline">WhatsApp</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <strong>✦ Sufyan Tsaury Portfolio</strong>
+      <p>Modern Personal Branding Website · © 2026 All Rights Reserved</p>
+    </footer>
   </div>
-
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-  <script>
-    var batasJawaBarat = [
-  [-7.90, 106.30],
-  [-5.80, 108.90]
-];
-
-var map = L.map("map", {
-  maxBounds: batasJawaBarat,
-  maxBoundsViscosity: 1.0,
-  minZoom: 8,
-  maxZoom: 14,
-  zoomControl: true
-}).setView([-6.95, 107.70], 8);
-
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution: "© OpenStreetMap contributors"
-}).addTo(map);
-
-var dataPenduduk = {
-  "Kabupaten Bogor": 5721620,
-  "Kabupaten Sukabumi": 2852110,
-  "Kabupaten Cianjur": 2610320,
-  "Kabupaten Bandung": 3783210,
-  "Kabupaten Garut": 2748700,
-  "Kabupaten Tasikmalaya": 1933810,
-  "Kabupaten Ciamis": 1266330,
-  "Kabupaten Kuningan": 1225490,
-  "Kabupaten Cirebon": 2413810,
-  "Kabupaten Majalengka": 1363760,
-  "Kabupaten Sumedang": 1195530,
-  "Kabupaten Indramayu": 1932520,
-  "Kabupaten Subang": 1675520,
-  "Kabupaten Purwakarta": 1062970,
-  "Kabupaten Karawang": 2581250,
-  "Kabupaten Bekasi": 3303020,
-  "Kabupaten Bandung Barat": 1907820,
-  "Kabupaten Pangandaran": 436490,
-
-  "Kota Bogor": 1083780,
-  "Kota Sukabumi": 370680,
-  "Kota Bandung": 2548780,
-  "Kota Cirebon": 347540,
-  "Kota Bekasi": 2648270,
-  "Kota Depok": 2167960,
-  "Kota Cimahi": 606380,
-  "Kota Tasikmalaya": 759370,
-  "Kota Banjar": 211960
-};
-
-var kodeWilayah = {
-  "3201": "Kabupaten Bogor",
-  "3202": "Kabupaten Sukabumi",
-  "3203": "Kabupaten Cianjur",
-  "3204": "Kabupaten Bandung",
-  "3205": "Kabupaten Garut",
-  "3206": "Kabupaten Tasikmalaya",
-  "3207": "Kabupaten Ciamis",
-  "3208": "Kabupaten Kuningan",
-  "3209": "Kabupaten Cirebon",
-  "3210": "Kabupaten Majalengka",
-  "3211": "Kabupaten Sumedang",
-  "3212": "Kabupaten Indramayu",
-  "3213": "Kabupaten Subang",
-  "3214": "Kabupaten Purwakarta",
-  "3215": "Kabupaten Karawang",
-  "3216": "Kabupaten Bekasi",
-  "3217": "Kabupaten Bandung Barat",
-  "3218": "Kabupaten Pangandaran",
-
-  "3271": "Kota Bogor",
-  "3272": "Kota Sukabumi",
-  "3273": "Kota Bandung",
-  "3274": "Kota Cirebon",
-  "3275": "Kota Bekasi",
-  "3276": "Kota Depok",
-  "3277": "Kota Cimahi",
-  "3278": "Kota Tasikmalaya",
-  "3279": "Kota Banjar"
-};
-
-var daftarKota = [
-  "Bogor",
-  "Sukabumi",
-  "Bandung",
-  "Cirebon",
-  "Bekasi",
-  "Depok",
-  "Cimahi",
-  "Tasikmalaya",
-  "Banjar"
-];
-
-var geojsonLayer;
-var selectedLayer = null;
-var layerWilayah = {};
-var dataPendudukKey = {};
-
-function kapitalAwal(teks) {
-  return teks.toLowerCase().replace(/\b\w/g, function(huruf) {
-    return huruf.toUpperCase();
-  });
-}
-
-function kunciWilayah(nama) {
-  var teks = nama.toString().toLowerCase().trim();
-
-  teks = teks.replace(/_/g, " ");
-  teks = teks.replace(/\./g, " ");
-  teks = teks.replace(/-/g, " ");
-  teks = teks.replace(/\bregency\b/g, "kabupaten");
-  teks = teks.replace(/\bcity\b/g, "kota");
-  teks = teks.replace(/\bkab\b/g, "kabupaten");
-  teks = teks.replace(/\bkodya\b/g, "kota");
-  teks = teks.replace(/\s+/g, " ").trim();
-
-  if (teks.endsWith(" kabupaten")) {
-    teks = "kabupaten " + teks.replace(" kabupaten", "").trim();
-  }
-
-  if (teks.endsWith(" kota")) {
-    teks = "kota " + teks.replace(" kota", "").trim();
-  }
-
-  return teks;
-}
-
-Object.keys(dataPenduduk).forEach(function(nama) {
-  dataPendudukKey[kunciWilayah(nama)] = dataPenduduk[nama];
-});
-
-function ambilKodeWilayah(feature) {
-  var props = feature.properties || {};
-
-  var kandidatKode = [
-    props.KODE,
-    props.KODE_KAB,
-    props.KODEKAB,
-    props.KODE_KK,
-    props.KODE_KABKOT,
-    props.KABKOTNO,
-    props.KDPKAB,
-    props.KDPPUM,
-    props.WADMKK_CODE,
-    props.CODE,
-    props.ID,
-    props.ID_KAB,
-    props.IDKAB,
-    props.KAB_CODE,
-    props.KABKOT_CODE
-  ];
-
-  for (var i = 0; i < kandidatKode.length; i++) {
-    if (kandidatKode[i] !== undefined && kandidatKode[i] !== null) {
-      var kode = kandidatKode[i].toString().replace(/\D/g, "");
-
-      if (kode.length >= 4) {
-        kode = kode.substring(0, 4);
-
-        if (kodeWilayah[kode]) {
-          return kode;
-        }
-      }
-    }
-  }
-
-  var semuaProps = Object.values(props).join(" ");
-  var semuaKode = semuaProps.match(/\b32\d{2}\b/g);
-
-  if (semuaKode) {
-    for (var j = 0; j < semuaKode.length; j++) {
-      if (kodeWilayah[semuaKode[j]]) {
-        return semuaKode[j];
-      }
-    }
-  }
-
-  return null;
-}
-
-function ambilNamaMentah(feature) {
-  var props = feature.properties || {};
-
-  return props.WADMKK ||
-    props.KAB_KOTA ||
-    props.KABKOT ||
-    props.NAME_2 ||
-    props.NAMOBJ ||
-    props.name ||
-    props.NAMA ||
-    props.KABUPATEN ||
-    props.KOTA ||
-    "";
-}
-
-function ambilNamaWilayah(feature) {
-  var kode = ambilKodeWilayah(feature);
-
-  if (kode && kodeWilayah[kode]) {
-    return kodeWilayah[kode];
-  }
-
-  var props = feature.properties || {};
-  var nama = ambilNamaMentah(feature).toString().trim();
-  var gabunganProps = Object.values(props).join(" ").toLowerCase();
-
-  nama = nama.replace(/Regency/gi, "");
-  nama = nama.replace(/City/gi, "");
-  nama = nama.replace(/KAB\./gi, "Kabupaten");
-  nama = nama.replace(/KOTA\./gi, "Kota");
-  nama = nama.replace(/\s+/g, " ");
-  nama = kapitalAwal(nama.trim());
-
-  var mengandungKota =
-    gabunganProps.includes("kota") ||
-    gabunganProps.includes("city") ||
-    gabunganProps.includes("municipality") ||
-    gabunganProps.includes("kodya");
-
-  var mengandungKabupaten =
-    gabunganProps.includes("kabupaten") ||
-    gabunganProps.includes("kab.") ||
-    gabunganProps.includes("regency");
-
-  if (!nama.startsWith("Kabupaten") && !nama.startsWith("Kota")) {
-    if (mengandungKota) {
-      nama = "Kota " + nama;
-    } else if (mengandungKabupaten) {
-      nama = "Kabupaten " + nama;
-    } else if (daftarKota.includes(nama)) {
-      nama = "Kota " + nama;
-    } else {
-      nama = "Kabupaten " + nama;
-    }
-  }
-
-  return nama;
-}
-
-function warnaPenduduk(jumlah) {
-  if (jumlah === null || jumlah === undefined || isNaN(jumlah)) {
-    return "#9ca3af";
-  }
-
-  if (jumlah >= 5000000) {
-    return "#7f1d1d";
-  }
-
-  if (jumlah >= 3000000) {
-    return "#dc2626";
-  }
-
-  if (jumlah >= 2000000) {
-    return "#f97316";
-  }
-
-  if (jumlah >= 1000000) {
-    return "#ff9a00";
-  }
-
-  if (jumlah >= 500000) {
-    return "#facc15";
-  }
-
-  if (jumlah > 0) {
-    return "#fde68a";
-  }
-
-  return "#9ca3af";
-}
-
-function styleWilayah(feature) {
-  var namaWilayah = ambilNamaWilayah(feature);
-  var key = kunciWilayah(namaWilayah);
-  var adaData = Object.prototype.hasOwnProperty.call(dataPendudukKey, key);
-  var jumlahPenduduk = adaData ? dataPendudukKey[key] : null;
-
-  return {
-    fillColor: warnaPenduduk(jumlahPenduduk),
-    weight: 1.3,
-    opacity: 1,
-    color: "#ffffff",
-    fillOpacity: 0.78,
-    dashArray: ""
-  };
-}
-
-function highlightWilayah(e) {
-  var layer = e.target;
-
-  if (layer === selectedLayer) {
-    return;
-  }
-
-  layer.setStyle({
-    weight: 3,
-    color: "#ff9a00",
-    fillOpacity: 0.92,
-    dashArray: ""
-  });
-
-  layer.bringToFront();
-}
-
-function resetHighlight(e) {
-  if (e.target !== selectedLayer) {
-    geojsonLayer.resetStyle(e.target);
-  }
-}
-
-function aktifkanItemSidebar(key) {
-  var semuaItem = document.querySelectorAll(".wilayah-item");
-
-  semuaItem.forEach(function(item) {
-    item.classList.toggle("active", item.dataset.key === key);
-  });
-}
-
-function pilihWilayah(layer) {
-  if (selectedLayer && selectedLayer !== layer) {
-    geojsonLayer.resetStyle(selectedLayer);
-  }
-
-  selectedLayer = layer;
-
-  var namaWilayah = ambilNamaWilayah(layer.feature);
-  var key = kunciWilayah(namaWilayah);
-
-  layer.setStyle({
-    fillOpacity: 0.08,
-    fillColor: "#ffffff",
-    weight: 4,
-    color: "#111827",
-    opacity: 1,
-    dashArray: "6 4"
-  });
-
-  layer.bringToFront();
-  aktifkanItemSidebar(key);
-}
-
-function buatSlugNama(namaWilayah) {
-  return namaWilayah
-    .toLowerCase()
-    .replace("kabupaten ", "")
-    .replace("kota ", "")
-    .trim()
-    .replace(/\s+/g, "_");
-}
-
-function buatFileHTMLWilayah(namaWilayah) {
-  var nama = namaWilayah.toLowerCase().trim();
-  var slug = buatSlugNama(namaWilayah);
-
-  if (nama.startsWith("kota ")) {
-    return "kabupaten/kota_" + slug + ".html";
-  }
-
-  if (nama.startsWith("kabupaten ")) {
-    return "kabupaten/" + slug + ".html";
-  }
-
-  return "kabupaten/" + slug + ".html";
-}
-
-    
-function bukaPopupWilayah(layer) {
-  if (document.activeElement) {
-    document.activeElement.blur();
-  }
-
-  pilihWilayah(layer);
-
-  var namaWilayah = ambilNamaWilayah(layer.feature);
-  var key = kunciWilayah(namaWilayah);
-  var adaData = Object.prototype.hasOwnProperty.call(dataPendudukKey, key);
-  var jumlahPenduduk = adaData ? dataPendudukKey[key] : 0;
-  var fileHTML = buatFileHTMLWilayah(namaWilayah);
-
-  map.fitBounds(layer.getBounds(), {
-    padding: [40, 40],
-    maxZoom: 11,
-    animate: false
-  });
-
-  layer.unbindPopup();
-
-  layer.bindPopup(
-    "<div class='popup-box'>" +
-      "<div class='popup-title'>" + namaWilayah + "</div>" +
-      "<div class='popup-content'>" +
-        "<span class='popup-label'>Jumlah penduduk:</span> " + jumlahPenduduk.toLocaleString("id-ID") + " jiwa<br>" +
-        "<span class='popup-label'>Wilayah:</span> Jawa Barat<br>" +
-        "<a href='" + fileHTML + "' class='btn-popup'>Masuk Wilayah</a>" +
-      "</div>" +
-    "</div>"
-  ).openPopup();
-}
-
-function klikWilayah(e) {
-  bukaPopupWilayah(e.target);
-}
-
-function onEachWilayah(feature, layer) {
-  var namaWilayah = ambilNamaWilayah(feature);
-  var key = kunciWilayah(namaWilayah);
-
-  layerWilayah[key] = layer;
-
-  layer.on({
-    mouseover: highlightWilayah,
-    mouseout: resetHighlight,
-    click: klikWilayah
-  });
-
-  layer.bindTooltip(namaWilayah, {
-    sticky: true,
-    direction: "top"
-  });
-}
-
-function buatDaftarWilayah() {
-  var list = document.getElementById("wilayahList");
-  var wilayahArray = Object.keys(dataPenduduk).sort();
-
-  list.innerHTML = "";
-
-  wilayahArray.forEach(function(namaWilayah) {
-    var jumlahPenduduk = dataPenduduk[namaWilayah];
-    var key = kunciWilayah(namaWilayah);
-    var item = document.createElement("div");
-
-    item.className = "wilayah-item";
-    item.dataset.key = key;
-
-    item.innerHTML =
-      "<h4>" + namaWilayah + "</h4>" +
-      "<span>" + jumlahPenduduk.toLocaleString("id-ID") + " jiwa</span>";
-
-    item.onclick = function() {
-      document.querySelector(".map-card").scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-      });
-
-      if (layerWilayah[key]) {
-        bukaPopupWilayah(layerWilayah[key]);
-      } else {
-        alert("Nama wilayah tidak cocok dengan GeoJSON: " + namaWilayah);
-      }
-    };
-
-    list.appendChild(item);
-  });
-}
-
-function updateRingkasan() {
-  var daftarWilayah = Object.keys(dataPenduduk);
-  var total = 0;
-  var tertinggiNama = "";
-  var tertinggiJumlah = 0;
-
-  daftarWilayah.forEach(function(nama) {
-    var jumlah = dataPenduduk[nama];
-    total += jumlah;
-
-    if (jumlah > tertinggiJumlah) {
-      tertinggiJumlah = jumlah;
-      tertinggiNama = nama;
-    }
-  });
-
-  document.getElementById("jumlahWilayah").innerText = daftarWilayah.length;
-  document.getElementById("totalPenduduk").innerText = total.toLocaleString("id-ID");
-  document.getElementById("pendudukTertinggi").innerText =
-    tertinggiNama.replace("Kabupaten ", "").replace("Kota ", "");
-}
-
-fetch("jabar_kabupaten.geojson")
-  .then(function(response) {
-    if (!response.ok) {
-      throw new Error("File jabar_kabupaten.geojson tidak ditemukan.");
-    }
-
-    return response.json();
-  })
-  .then(function(data) {
-    geojsonLayer = L.geoJSON(data, {
-      style: styleWilayah,
-      onEachFeature: onEachWilayah
-    }).addTo(map);
-
-    var boundsJabar = geojsonLayer.getBounds();
-
-    map.fitBounds(boundsJabar, {
-      padding: [20, 20]
-    });
-
-    map.setMaxBounds(boundsJabar.pad(0.05));
-    map.setMinZoom(map.getZoom());
-
-    buatDaftarWilayah();
-    updateRingkasan();
-  })
-  .catch(function(error) {
-    alert("GeoJSON belum terbaca. Pastikan file jabar_kabupaten.geojson berada satu folder dengan index.html.");
-    console.error(error);
-  });
-  </script>
 </body>
 </html>
