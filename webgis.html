@@ -53,10 +53,11 @@
     }
 
     .gis-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 22px;
-    }
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+  align-items: stretch;
+}
 
     .gis-card {
       background: #ffffff;
@@ -142,6 +143,17 @@
         padding: 24px;
       }
     }
+
+.gis-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.gis-card a {
+  margin-top: auto;
+  width: fit-content;
+}
+    
   </style>
 </head>
 
