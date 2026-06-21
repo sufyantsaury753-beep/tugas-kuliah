@@ -749,27 +749,26 @@ body {
     }
 
     function buatPopupGunung(gunung) {
-      var fotoGunung = gunung.foto || "assets/img/default-gunung.jpg";
-      var linkGaleri = gunung.galeri || "#";
+  var fotoGunung = gunung.foto || "assets/img/default-gunung.jpg";
 
-      return (
-        "<div class='lux-popup'>" +
-          "<div class='lux-popup-image' onclick='toggleAtribusiFoto(this)' title='Klik foto untuk melihat atribusi'>" +
-            "<img src='" + fotoGunung + "' alt='" + gunung.nama + "' onerror=\"this.src='assets/img/default-gunung.jpg'\">" +
-            "<div class='lux-popup-overlay'></div>" +
-            "<div class='photo-hint'>Klik foto</div>" +
-          "</div>" +
-          "<div class='photo-attribution'><strong>Atribusi:</strong> " + (gunung.atribusi || "Foto gunung, Wikimedia Commons, lisensi Creative Commons.") + "</div>" +
+  return (
+    "<div class='lux-popup'>" +
+      "<div class='lux-popup-image' onclick='toggleAtribusiFoto(this)'>" +
+        "<img src='" + fotoGunung + "' alt='" + gunung.nama + "'>" +
+        "<div class='lux-popup-overlay'></div>" +
+        "<div class='photo-hint'>Klik foto</div>" +
+      "</div>" +
 
-          "<div class='lux-popup-body'>" +
-            "<div class='lux-popup-title'>" + gunung.nama + "</div>" +
-            "<div class='lux-popup-body'>" +
-  "<div class='lux-popup-title'>" + gunung.nama + "</div>" +
-"</div>" +
-          "</div>" +
-        "</div>"
-      );
-    }
+      "<div class='photo-attribution'><strong>Atribusi:</strong> " +
+        (gunung.atribusi || "Wikimedia Commons") +
+      "</div>" +
+
+      "<div class='lux-popup-body'>" +
+        "<div class='lux-popup-title'>" + gunung.nama + "</div>" +
+      "</div>" +
+    "</div>"
+  );
+}
 
     dataGunung.forEach(function(gunung) {
       var popupContent = buatPopupGunung(gunung);
