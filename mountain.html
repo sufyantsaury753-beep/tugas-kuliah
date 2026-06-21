@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mountain Maping</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <style>
+    :root {
+      --purple: #833ab4;
+      --purple-light: #c084fc;
+      --purple-soft: #f8f3ff;
+      --purple-dark: #4c1d95;
+      --pink: #c13584;
+      --white: #ffffff;
+      --text-dark: #261333;
+      --text-muted: #eadcff;
+      --glass-dark: rgba(31, 17, 48, 0.86);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  background: #ffffff;
+}
+
+    body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  min-height: 100vh;
+  color: #262626;
+  background: #ffffff;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  background: #ffffff;
+}
+
+    .topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 22px;
+  border-radius: 28px;
+  background: linear-gradient(
+    135deg,
+    #833AB4 0%,
+    #C13584 35%,
+    #E1306C 60%,
+    #F56040 82%,
+    #FCAF45 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 18px 45px rgba(225, 48, 108, 0.25);
+}
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo {
+  width: 84px;
+  height: 84px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(255, 255, 255, 0.28);
+  flex-shrink: 0;
+  padding: 12px;
+}
+
+.logo svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+    .brand h1 {
+      font-size: 30px;
+      line-height: 1.2;
+      font-weight: 900;
+      letter-spacing: 0.4px;
+      color: #ffffff;
+    }
+
+    .brand p {
+      margin-top: 5px;
+      font-size: 14px;
+      color: #f7eaff;
+    }
+
+    .status {
+      padding: 10px 17px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      color: #ffffff;
+      font-size: 13px;
+      white-space: nowrap;
+      box-shadow: 0 8px 24px rgba(76, 29, 149, 0.18);
+    }
+
+    .map-wrapper {
+  flex: 1;
+  min-height: calc(100vh - 150px);
+  border-radius: 32px;
+  overflow: hidden;
+  border: 1px solid rgba(225, 48, 108, 0.22);
+  box-shadow: 0 22px 55px rgba(193, 53, 132, 0.18);
+  background: #ffffff;
+  position: relative;
+}
+
+    #map {
+      width: 100%;
+      height: calc(100vh - 150px);
+      min-height: 620px;
+      z-index: 1;
+    }
+
+    .map-info-card {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  z-index: 700;
+  padding: 16px 20px;
+  border-radius: 22px;
+  background: #ffffff;
+  color: #262626;
+  border: 2px solid transparent;
+  background-image:
+    linear-gradient(#ffffff, #ffffff),
+    linear-gradient(
+      135deg,
+      #833AB4 0%,
+      #C13584 35%,
+      #E1306C 60%,
+      #F56040 82%,
+      #FCAF45 100%
+    );
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 18px 45px rgba(225, 48, 108, 0.22);
+}
+
+.map-info-card h3 {
+  font-size: 17px;
+  font-weight: 900;
+  margin-bottom: 6px;
+  background: linear-gradient(
+    135deg,
+    #833AB4,
+    #C13584,
+    #E1306C,
+    #F56040,
+    #FCAF45
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.map-info-card p {
+  font-size: 13px;
+  color: #6b4a7d;
+}
+
+    .lux-marker {
+      width: 46px;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 10px 16px rgba(76, 29, 149, 0.36));
+      animation: markerFloat 2s ease-in-out infinite;
+    }
+
+    .lux-marker svg {
+      width: 46px;
+      height: 58px;
+    }
+
+    @keyframes markerFloat {
+      0% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-4px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    .leaflet-popup-content-wrapper {
+      border-radius: 20px;
+      padding: 0;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 45px rgba(76, 29, 149, 0.28);
+    }
+
+    .leaflet-popup-content {
+      margin: 0;
+      width: 220px !important;
+    }
+
+    .leaflet-popup-tip {
+      background: #ffffff;
+    }
+
+    .lux-popup {
+      width: 220px;
+      overflow: hidden;
+      border-radius: 20px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #ffffff;
+    }
+
+    .lux-popup-image {
+      width: 100%;
+      height: 95px;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg, #f3e8ff, #c084fc);
+    }
+
+    .lux-popup-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: 0.35s ease;
+    }
+
+    .lux-popup:hover .lux-popup-image img {
+      transform: scale(1.06);
+    }
+
+    .lux-popup-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(131, 58, 180, 0.04),
+        rgba(76, 29, 149, 0.28)
+      );
+    }
+
+
+    .lux-popup-image {
+      cursor: pointer;
+    }
+
+    .photo-attribution {
+      display: none;
+      padding: 8px 12px 9px;
+      font-size: 10.5px;
+      line-height: 1.45;
+      color: #6b4a7d;
+      background: #ffffff;
+      border-bottom: 1px solid rgba(225, 48, 108, 0.14);
+    }
+
+    .photo-attribution.show {
+      display: block;
+    }
+
+    .photo-attribution strong {
+      color: var(--purple-dark);
+    }
+
+    .photo-attribution a {
+      color: #c13584;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .photo-attribution a:hover {
+      text-decoration: underline;
+    }
+
+    .photo-hint {
+      position: absolute;
+      right: 8px;
+      bottom: 7px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.84);
+      color: #833AB4;
+      font-size: 9px;
+      font-weight: 800;
+      opacity: 0;
+      transition: 0.25s ease;
+    }
+
+    .lux-popup-image:hover .photo-hint {
+      opacity: 1;
+    }
+
+    .lux-popup-body {
+      padding: 12px;
+      background: linear-gradient(135deg, #ffffff 0%, #f8f3ff 100%);
+    }
+
+    .lux-popup-title {
+      font-size: 17px;
+      font-weight: 900;
+      color: var(--purple-dark);
+      margin-bottom: 10px;
+      letter-spacing: 0.1px;
+    }
+
+    .gallery-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 999px;
+  background: linear-gradient(
+    135deg,
+    #833AB4 0%,
+    #C13584 35%,
+    #E1306C 65%,
+    #F56040 100%
+  );
+  color: #ffffff !important;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(225, 48, 108, 0.28);
+  transition: 0.25s ease;
+}
+
+.gallery-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(225, 48, 108, 0.38);
+  background: linear-gradient(
+    135deg,
+    #833AB4,
+    #E1306C,
+    #F56040,
+    #FCAF45
+  );
+}
+
+    .leaflet-control-zoom {
+  border: none !important;
+  box-shadow: 0 12px 30px rgba(225, 48, 108, 0.24) !important;
+}
+
+.leaflet-control-zoom a {
+  background: #ffffff !important;
+  color: #833AB4 !important;
+  border: 1px solid rgba(225, 48, 108, 0.22) !important;
+  font-weight: 900;
+}
+
+.leaflet-control-zoom a:hover {
+  background: linear-gradient(
+    135deg,
+    #833AB4,
+    #C13584,
+    #E1306C,
+    #F56040,
+    #FCAF45
+  ) !important;
+  color: #ffffff !important;
+}
+
+    @media (max-width: 768px) {
+      .page {
+        padding: 14px;
+        gap: 14px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        border-radius: 24px;
+      }
+
+      .brand h1 {
+        font-size: 22px;
+      }
+
+      .brand p {
+        font-size: 12px;
+      }
+
+      .status {
+        font-size: 12px;
+      }
+
+      .map-wrapper {
+        min-height: calc(100vh - 190px);
+        border-radius: 26px;
+      }
+
+      #map {
+        height: calc(100vh - 190px);
+        min-height: 520px;
+      }
+
+      .map-info-card {
+        left: 14px;
+        right: 14px;
+        top: 14px;
+      }
+    }
+
+    /* ===== HAMBURGER ===== */
+.menu-btn {
+  font-size: 28px;
+  cursor: pointer;
+  color: #fff;
+  user-select: none;
+}
+
+/* ===== SIDEBAR DRAWER ===== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 320px;
+  height: 100vh;
+  background: #ffffff;
+  z-index: 99999;
+  box-shadow: -10px 0 40px rgba(131, 58, 180, 0.25);
+  transition: 0.35s ease;
+  padding: 18px;
+  overflow-y: auto;
+
+  /* ✨ tambahan style premium */
+  border-left: 4px solid transparent;
+  background-image: linear-gradient(#fff, #fff),
+    linear-gradient(135deg,#833AB4,#C13584,#F56040,#FCAF45);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar h3 {
+  margin-bottom: 14px;
+  font-size: 18px;
+  font-weight: 900;
+  color: #2b1500;
+}
+
+.sidebar-item {
+  padding: 14px;
+  margin-bottom: 10px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f8f3ff, #ffffff);
+  border: 1px solid rgba(131, 58, 180, 0.12);
+  cursor: pointer;
+  transition: 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-item:hover {
+  transform: translateX(6px);
+  background: linear-gradient(135deg,#833AB4,#C13584,#F56040);
+  color: white;
+  box-shadow: 0 12px 25px rgba(193, 53, 132, 0.35);
+}
+
+.sidebar-item.active {
+  background: linear-gradient(135deg,#833AB4,#E1306C,#F56040);
+  color: #fff;
+  font-weight: 700;
+}
+
+.close-btn {
+  font-size: 22px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">
+  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-label="Mountain Icon" role="img">
+    <defs>
+      <linearGradient id="igLine" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#833AB4"/>
+        <stop offset="35%" stop-color="#C13584"/>
+        <stop offset="70%" stop-color="#F56040"/>
+        <stop offset="100%" stop-color="#FCAF45"/>
+      </linearGradient>
+    </defs>
+
+    <rect x="8" y="8" width="48" height="48" rx="16" fill="#ffffff"/>
+    <path d="M16 42L28 24L36 34L42 28L50 42" fill="none" stroke="url(#igLine)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M24 42H50" stroke="#10B981" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="45" cy="18" r="4" fill="#FCAF45"/>
+  </svg>
+  
+
+</div>
+        <div>
+          <h1>Mountain Maping</h1>
+          <p>Peta interaktif lokasi gunung</p>
+        </div>
+      </div>
+
+      <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+
+  <div class="sidebar" id="sidebar">
+  <div class="close-btn" onclick="toggleSidebar()">✕</div>
+  <h3>Daftar Gunung</h3> 
+  <div id="sidebarList"></div>
+</div>
+    </div>
+
+    
+
+      <div id="map"></div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+    var batasPetaGunung = [
+      [-7.90, 106.30],
+      [-5.80, 109.60]
+    ];
+
+    var map = L.map("map", {
+      maxBounds: batasPetaGunung,
+      maxBoundsViscosity: 1.0,
+      minZoom: 7,
+      maxZoom: 14,
+      zoomControl: true
+    }).setView([-7.12, 108.35], 8);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap contributors"
+    }).addTo(map);
+
+    setTimeout(function() {
+      map.invalidateSize();
+    }, 300);
+
+    var iconGunung = L.divIcon({
+  html: `
+    <div class="lux-marker">
+      <svg viewBox="0 0 64 82" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="igMarkerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#833AB4"/>
+            <stop offset="35%" stop-color="#C13584"/>
+            <stop offset="60%" stop-color="#E1306C"/>
+            <stop offset="82%" stop-color="#F56040"/>
+            <stop offset="100%" stop-color="#FCAF45"/>
+          </linearGradient>
+
+          <linearGradient id="igMountainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#833AB4"/>
+            <stop offset="50%" stop-color="#E1306C"/>
+            <stop offset="100%" stop-color="#F56040"/>
+          </linearGradient>
+        </defs>
+
+        <path 
+          d="M32 2C18.2 2 7 13.2 7 27c0 18.8 25 53 25 53s25-34.2 25-53C57 13.2 45.8 2 32 2Z" 
+          fill="url(#igMarkerGradient)" 
+          stroke="#ffffff" 
+          stroke-width="4"
+        />
+
+        <circle cx="32" cy="28" r="19" fill="#ffffff"/>
+
+        <path 
+          d="M16 42L29 20L36 32L41 25L50 42H16Z" 
+          fill="url(#igMountainGradient)"
+        />
+
+        <path d="M29 20L33 27L26 27Z" fill="#ffffff"/>
+        <path d="M41 25L44 31L38 31Z" fill="#ffffff"/>
+      </svg>
+    </div>
+  `,
+  className: "",
+  iconSize: [46, 58],
+  iconAnchor: [23, 58],
+  popupAnchor: [0, -58]
+});
+
+    var dataGunung = [
+  {
+    nama: "Gunung Tampomas",
+    lokasi: "Sumedang",
+    mdpl: "1.684 mdpl",
+    foto: "assets/img/as-tampomas.jpeg",
+    atribusi: "Foto Gunung Tampomas oleh Ajaxx79, Wikimedia Commons, CC BY-SA 4.0.",
+    galeri: "galeri/gunung-tampomas/index.html",
+    lat: -6.7637,
+    lng: 107.9606
+  },
+  {
+    nama: "Gunung Sagara",
+    lokasi: "Garut",
+    mdpl: "2.132 mdpl",
+    foto: "assets/img/as-sagara.jpeg",
+    atribusi: "Foto Gunung Sagara oleh Rangga Prawira.",
+    galeri: "galeri/gunung-sagara/index.html",
+    lat: -7.220583,
+    lng: 108.057306
+  },
+  {
+    nama: "Gunung Cikuray",
+    lokasi: "Garut",
+    mdpl: "2.821 mdpl",
+    foto: "assets/img/as-cikuray.jpeg",
+    atribusi: "Foto Gunung Cikuray oleh Pudyatmoko.",
+    galeri: "galeri/gunung-cikuray/index.html",
+    lat: -7.3226,
+    lng: 107.8599
+  },
+  {
+    nama: "Gunung Papandayan",
+    lokasi: "Garut",
+    mdpl: "2.665 mdpl",
+    foto: "assets/img/as-papandayan.jpeg",
+    atribusi: "Foto Papandayan oleh RonyPS.",
+    galeri: "galeri/gunung-papandayan/index.html",
+    lat: -7.3190,
+    lng: 107.7310
+  },
+  {
+    nama: "Gunung Gede",
+    lokasi: "Cianjur",
+    mdpl: "2.958 mdpl",
+    foto: "assets/img/as-gede.jpeg",
+    atribusi: "Gunung Gede Pangrango National Park",
+    galeri: "galeri/gunung-gede/index.html",
+    lat: -6.786,
+    lng: 106.982
+  },
+  {
+    nama: "Gunung Pangrango",
+    lokasi: "Cianjur",
+    mdpl: "3.019 mdpl",
+    foto: "assets/img/as-pangrango.jpeg",
+    atribusi: "Taman Nasional Gede Pangrango",
+    galeri: "galeri/gunung-pangrango/index.html",
+    lat: -6.770,
+    lng: 106.965
+  },
+  {
+    nama: "Gunung Salak",
+    lokasi: "Bogor–Sukabumi",
+    mdpl: "2.211 mdpl",
+    foto: "assets/img/as-salak.jpeg",
+    atribusi: "Gunung Salak vulkanik aktif",
+    galeri: "galeri/gunung-salak/index.html",
+    lat: -6.716,
+    lng: 106.733
+  },
+  {
+    nama: "Gunung Tangkuban Perahu",
+    lokasi: "Bandung Barat",
+    mdpl: "2.084 mdpl",
+    foto: "assets/img/as-tangkuban.jpeg",
+    atribusi: "Kawah Tangkuban Perahu",
+    galeri: "galeri/gunung-tangkuban/index.html",
+    lat: -6.759,
+    lng: 107.609
+  },
+  {
+    nama: "Gunung Burangrang",
+    lokasi: "Bandung Barat",
+    mdpl: "2.064 mdpl",
+    foto: "assets/img/as-burangrang.jpeg",
+    atribusi: "Gunung Burangrang",
+    galeri: "galeri/gunung-burangrang/index.html",
+    lat: -6.760,
+    lng: 107.562
+  },
+  {
+    nama: "Gunung Patuha",
+    lokasi: "Bandung",
+    mdpl: "2.434 mdpl",
+    foto: "assets/img/as-patuha.jpeg",
+    atribusi: "Kawah Putih Patuha",
+    galeri: "galeri/gunung-patuha/index.html",
+    lat: -7.166,
+    lng: 107.400
+  },
+  {
+    nama: "Gunung Ciremai",
+    lokasi: "Majalengka–Kuningan",
+    mdpl: "3.078 mdpl",
+    foto: "assets/img/as-ciremai.jpeg",
+    atribusi: "Gunung tertinggi Jawa Barat",
+    galeri: "galeri/gunung-ciremai/index.html",
+    lat: -6.892,
+    lng: 108.407
+  },
+  {
+    nama: "Gunung Guntur",
+    lokasi: "Garut",
+    mdpl: "2.249 mdpl",
+    foto: "assets/img/as-guntur.jpeg",
+    atribusi: "Gunung Guntur Garut",
+    galeri: "galeri/gunung-guntur/index.html",
+    lat: -7.149,
+    lng: 107.840
+  },
+  {
+    nama: "Gunung Cikole",
+    lokasi: "Lembang",
+    mdpl: "1.600 mdpl",
+    foto: "assets/img/as-cikole.jpeg",
+    atribusi: "Kawasan wisata Cikole Lembang",
+    galeri: "galeri/gunung-cikole/index.html",
+    lat: -6.783,
+    lng: 107.621
+  }
+];
+
+    var markerGunung = [];
+
+    function fokusKeGunung(gunung, marker) {
+      map.closePopup();
+
+      map.flyTo([gunung.lat, gunung.lng], 11, {
+        duration: 1.2,
+        easeLinearity: 0.25
+      });
+
+      setTimeout(function() {
+        marker.openPopup();
+      }, 1250);
+    }
+
+
+    function toggleAtribusiFoto(elemenFoto) {
+      var kotakAtribusi = elemenFoto.parentElement.querySelector(".photo-attribution");
+
+      if (kotakAtribusi) {
+        kotakAtribusi.classList.toggle("show");
+      }
+    }
+
+    function buatPopupGunung(gunung) {
+      var fotoGunung = gunung.foto || "assets/img/default-gunung.jpg";
+      var linkGaleri = gunung.galeri || "#";
+
+      return (
+        "<div class='lux-popup'>" +
+          "<div class='lux-popup-image' onclick='toggleAtribusiFoto(this)' title='Klik foto untuk melihat atribusi'>" +
+            "<img src='" + fotoGunung + "' alt='" + gunung.nama + "' onerror=\"this.src='assets/img/default-gunung.jpg'\">" +
+            "<div class='lux-popup-overlay'></div>" +
+            "<div class='photo-hint'>Klik foto</div>" +
+          "</div>" +
+          "<div class='photo-attribution'><strong>Atribusi:</strong> " + (gunung.atribusi || "Foto gunung, Wikimedia Commons, lisensi Creative Commons.") + "</div>" +
+
+          "<div class='lux-popup-body'>" +
+            "<div class='lux-popup-title'>" + gunung.nama + "</div>" +
+            "<div class='lux-popup-body'>" +
+  "<div class='lux-popup-title'>" + gunung.nama + "</div>" +
+"</div>" +
+          "</div>" +
+        "</div>"
+      );
+    }
+
+    dataGunung.forEach(function(gunung) {
+      var popupContent = buatPopupGunung(gunung);
+
+      var marker = L.marker([gunung.lat, gunung.lng], {
+        icon: iconGunung
+      })
+        .addTo(map)
+        .bindPopup(popupContent, {
+          closeButton: true,
+          autoClose: true,
+          closeOnClick: false,
+          maxWidth: 240,
+          className: "custom-lux-popup"
+        });
+
+      marker.off("click");
+
+      marker.on("click", function() {
+        fokusKeGunung(gunung, marker);
+      });
+
+      markerGunung.push(marker);
+    });
+
+    var sidebar = document.getElementById("sidebar");
+var sidebarList = document.getElementById("sidebarList");
+
+function toggleSidebar() {
+  sidebar.classList.toggle("active");
+}
+
+// isi sidebar dari dataGunung
+dataGunung.forEach(function(gunung, index) {
+
+  var item = document.createElement("div");
+  item.className = "sidebar-item";
+  item.innerHTML = "<b>" + gunung.nama + "</b><br><small>" + gunung.lokasi + "</small>";
+
+  item.onclick = function() {
+
+  // hanya fokus ke gunung
+  map.flyTo([gunung.lat, gunung.lng], 11, {
+    duration: 1.2
+  });
+
+  setTimeout(function() {
+    markerGunung[index].openPopup();
+  }, 1200);
+};
+
+  sidebarList.appendChild(item);
+});
+
+  </script>
+</body>
+</html>
