@@ -2650,3 +2650,8 @@
     margin: auto !important;
   }
 }
+
+#presentation {
+  width: min(80vw, calc(65svh * 16 / 9)) !important;
+  height: min(65svh, calc(80vw * 9 / 16)) !important;
+}
