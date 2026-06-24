@@ -84,3 +84,11 @@ presentation.addEventListener("click", function(event) {
     prevSlide();
   }
 });
+
+presentation.addEventListener("dblclick", function () {
+  if (!document.fullscreenElement) {
+    presentation.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+});
