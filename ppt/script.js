@@ -92,3 +92,17 @@ presentation.addEventListener("dblclick", function () {
     document.exitFullscreen();
   }
 });
+
+/* =========================================================
+   FIX TINGGI LAYAR HP
+   Menggunakan window.innerHeight agar slide tidak tertutup address bar browser.
+========================================================= */
+function setAppHeight() {
+  document.documentElement.style.setProperty("--app-height", window.innerHeight + "px");
+}
+
+setAppHeight();
+window.addEventListener("resize", setAppHeight);
+window.addEventListener("orientationchange", function () {
+  setTimeout(setAppHeight, 300);
+});
