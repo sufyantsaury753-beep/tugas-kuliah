@@ -2501,3 +2501,38 @@
     opacity: 0.9;
   }
 }
+
+/* ================= TAMPILAN HP ================= */
+
+@media (max-width: 768px) {
+  body {
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: #dcdcdc;
+    overflow: hidden;
+  }
+
+  #presentation {
+    width: 100vw;
+    height: 56.25vw;
+    max-height: 100dvh;
+    margin-top: 0;
+  }
+
+  .cover-title {
+    font-size: clamp(24px, 7vw, 42px);
+    line-height: 1.12;
+    width: 52%;
+  }
+
+  .cover-campus {
+    font-size: clamp(13px, 3.5vw, 20px);
+  }
+
+  .cover-footer {
+    font-size: clamp(10px, 2.5vw, 15px);
+    bottom: 3.2%;
+  }
+}
