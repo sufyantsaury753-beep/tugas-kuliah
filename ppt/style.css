@@ -2611,3 +2611,42 @@
   height: 100%;
 }
 
+/* ================= FIX FINAL HP: PAKSA SLIDE DIPERKECIL ================= */
+
+@media (max-width: 1200px) and (orientation: landscape) {
+  html,
+  body {
+    width: 100vw !important;
+    height: 100svh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: #dcdcdc !important;
+  }
+
+  body {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  #presentation {
+    width: min(86vw, calc(72svh * 16 / 9)) !important;
+    height: min(72svh, calc(86vw * 9 / 16)) !important;
+    max-width: 86vw !important;
+    max-height: 72svh !important;
+    aspect-ratio: 16 / 9 !important;
+    margin: 0 auto !important;
+    transform: none !important;
+    overflow: hidden !important;
+  }
+
+  #presentation:fullscreen {
+    width: min(86vw, calc(72svh * 16 / 9)) !important;
+    height: min(72svh, calc(86vw * 9 / 16)) !important;
+    max-width: 86vw !important;
+    max-height: 72svh !important;
+    aspect-ratio: 16 / 9 !important;
+    margin: auto !important;
+  }
+}
