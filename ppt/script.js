@@ -35,6 +35,5 @@ document.addEventListener("keydown", function(event) {
     if (document.fullscreenElement) {
       document.exitFullscreen();
     }
-    
   }
 });
