@@ -2502,37 +2502,36 @@
   }
 }
 
-/* ================= TAMPILAN HP ================= */
+/* ================= FIX TAMPILAN HP LANDSCAPE / MOBILE ================= */
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  html,
   body {
-    min-height: 100dvh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
     background: #dcdcdc;
     overflow: hidden;
   }
 
+  body {
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+  }
+
   #presentation {
-    width: 100vw;
-    height: 56.25vw;
-    max-height: 100dvh;
-    margin-top: 0;
+    width: min(100vw, calc(100dvh * 16 / 9));
+    height: min(100dvh, calc(100vw * 9 / 16));
+    aspect-ratio: 16 / 9;
+    margin: 0 auto;
+    overflow: hidden;
   }
+}
 
-  .cover-title {
-    font-size: clamp(24px, 7vw, 42px);
-    line-height: 1.12;
-    width: 52%;
-  }
-
-  .cover-campus {
-    font-size: clamp(13px, 3.5vw, 20px);
-  }
-
-  .cover-footer {
-    font-size: clamp(10px, 2.5vw, 15px);
-    bottom: 3.2%;
-  }
+#presentation:fullscreen {
+  width: 100vw;
+  height: 100dvh;
+  aspect-ratio: 16 / 9;
 }
