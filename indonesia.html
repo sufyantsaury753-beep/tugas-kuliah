@@ -1,0 +1,2362 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Peta Jumlah Penduduk Indonesia 2025</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css">
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #ffffff;
+
+      background:
+        radial-gradient(
+          circle at 15% 5%,
+          rgba(220, 20, 60, 0.38),
+          transparent 34%
+        ),
+        linear-gradient(
+          135deg,
+          #1a0a0a 0%,
+          #120505 45%,
+          #050505 100%
+        );
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    /* =====================================================
+       TOPBAR
+    ===================================================== */
+
+    .topbar {
+      position: relative;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 20px;
+      margin-bottom: 22px;
+      padding: 18px 22px;
+
+      background: rgba(24, 9, 9, 0.72);
+
+      border: 1px solid rgba(220, 20, 60, 0.35);
+      border-radius: 24px;
+
+      backdrop-filter: blur(18px);
+
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo {
+      width: 74px;
+      height: 74px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 18px;
+      background: #ffffff;
+
+      padding: 8px;
+
+      box-shadow:
+        0 12px 30px rgba(220, 20, 60, 0.35);
+
+      flex-shrink: 0;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .brand h1 {
+      font-size: 26px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .brand p {
+      margin-top: 4px;
+      font-size: 13px;
+      color: #fca5a5;
+    }
+
+    .status {
+      padding: 10px 16px;
+
+      border-radius: 999px;
+
+      background: rgba(220, 20, 60, 0.15);
+      border: 1px solid rgba(220, 20, 60, 0.45);
+
+      color: #fca5a5;
+
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+
+    /* =====================================================
+       HAMBURGER BUTTON
+    ===================================================== */
+
+    .menu-btn {
+      width: 46px;
+      height: 46px;
+
+      border: none;
+      border-radius: 16px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: rgba(220, 20, 60, 0.18);
+      color: #ffffff;
+
+      font-size: 26px;
+      font-weight: 900;
+
+      cursor: pointer;
+      user-select: none;
+
+      transition: 0.22s ease;
+
+      flex-shrink: 0;
+    }
+
+    .menu-btn:hover {
+      background: rgba(220, 20, 60, 0.35);
+      transform: translateY(-1px);
+    }
+
+
+    /* =====================================================
+       HAMBURGER DROPDOWN
+    ===================================================== */
+
+    .site-dropdown {
+      position: fixed;
+
+      top: 105px;
+      right: 48px;
+
+      width: 290px;
+
+      padding: 14px;
+
+      border-radius: 24px;
+
+      background: rgba(18, 5, 5, 0.97);
+
+      border:
+        1px solid rgba(220, 20, 60, 0.35);
+
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.45);
+
+      backdrop-filter: blur(14px);
+
+      z-index: 9999;
+
+      opacity: 0;
+
+      transform:
+        translateY(-10px)
+        scale(0.96);
+
+      pointer-events: none;
+
+      transition: 0.22s ease;
+    }
+
+    .site-dropdown.active {
+      opacity: 1;
+
+      transform:
+        translateY(0)
+        scale(1);
+
+      pointer-events: auto;
+    }
+
+    .site-dropdown-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin-bottom: 12px;
+    }
+
+    .site-dropdown-header strong {
+      display: block;
+
+      color: #ffffff;
+
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .site-dropdown-header small {
+      display: block;
+
+      margin-top: 2px;
+
+      color: #fca5a5;
+
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .site-dropdown-header button {
+      width: 30px;
+      height: 30px;
+
+      border: none;
+      border-radius: 999px;
+
+      background: rgba(220, 20, 60, 0.15);
+
+      color: #ff3333;
+
+      font-size: 17px;
+      font-weight: 900;
+
+      cursor: pointer;
+    }
+
+
+    /* =====================================================
+       MENU ITEM
+    ===================================================== */
+
+    .dropdown-item {
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+
+      gap: 11px;
+
+      padding: 11px 12px;
+      margin-bottom: 8px;
+
+      border:
+        1px solid rgba(220, 20, 60, 0.15);
+
+      border-radius: 16px;
+
+      background:
+        rgba(255, 255, 255, 0.04);
+
+      color: #ffffff;
+
+      cursor: pointer;
+
+      text-align: left;
+
+      transition: 0.22s ease;
+    }
+
+    .dropdown-item:hover {
+      background:
+        rgba(220, 20, 60, 0.16);
+
+      transform: translateY(-1px);
+    }
+
+    .menu-icon {
+      width: 34px;
+      height: 34px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 12px;
+
+      background: #dc2626;
+
+      color: #ffffff;
+
+      flex-shrink: 0;
+    }
+
+    .menu-icon svg {
+      width: 19px;
+      height: 19px;
+
+      display: block;
+
+      fill: none;
+
+      stroke: currentColor;
+
+      stroke-width: 2.2;
+
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .dropdown-item strong {
+      display: block;
+
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .dropdown-item small {
+      display: block;
+
+      margin-top: 2px;
+
+      color: #fca5a5;
+
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+
+    /* =====================================================
+       DAFTAR PROVINSI
+    ===================================================== */
+
+    .dropdown-province-list {
+      display: none;
+
+      max-height: 230px;
+
+      overflow-y: auto;
+
+      padding: 8px;
+
+      margin:
+        -2px 0
+        8px 45px;
+
+      border-radius: 16px;
+
+      background:
+        rgba(255, 255, 255, 0.04);
+
+      border:
+        1px solid rgba(220, 20, 60, 0.15);
+    }
+
+    .dropdown-province-list.active {
+      display: block;
+    }
+
+    .dropdown-province-item {
+      width: 100%;
+
+      display: block;
+
+      padding: 9px 10px;
+
+      margin-bottom: 6px;
+
+      border: none;
+      border-radius: 12px;
+
+      background:
+        rgba(255, 255, 255, 0.05);
+
+      text-align: left;
+
+      cursor: pointer;
+
+      color: #ffffff;
+
+      transition: 0.18s ease;
+    }
+
+    .dropdown-province-item:hover {
+      background: #dc2626;
+      color: #ffffff;
+    }
+
+    .dropdown-province-item strong {
+      display: block;
+
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .dropdown-province-item small {
+      display: block;
+
+      margin-top: 2px;
+
+      color: #fca5a5;
+
+      font-size: 10px;
+    }
+
+
+    /* =====================================================
+       ABOUT MODAL
+    ===================================================== */
+
+    .about-modal {
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 10000;
+
+      display: none;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 22px;
+
+      background:
+        rgba(0, 0, 0, 0.58);
+
+      backdrop-filter: blur(8px);
+    }
+
+    .about-modal.active {
+      display: flex;
+    }
+
+    .about-card {
+      position: relative;
+
+      width: min(460px, 100%);
+
+      padding: 28px;
+
+      border-radius: 28px;
+
+      background: #ffffff;
+
+      box-shadow:
+        0 28px 70px rgba(0, 0, 0, 0.5);
+
+      text-align: center;
+    }
+
+    .about-close {
+      position: absolute;
+
+      top: 14px;
+      right: 14px;
+
+      width: 32px;
+      height: 32px;
+
+      border: none;
+
+      border-radius: 999px;
+
+      background: #fee2e2;
+
+      color: #991b1b;
+
+      font-size: 17px;
+      font-weight: 900;
+
+      cursor: pointer;
+    }
+
+    .about-icon {
+      width: 64px;
+      height: 64px;
+
+      margin:
+        0 auto
+        14px auto;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 20px;
+
+      background: #dc2626;
+
+      color: #ffffff;
+    }
+
+    .about-icon svg {
+      width: 34px;
+      height: 34px;
+
+      fill: none;
+
+      stroke: currentColor;
+
+      stroke-width: 2.2;
+
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .about-card h2 {
+      margin-bottom: 12px;
+
+      color: #991b1b;
+
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .about-card p {
+      margin-bottom: 12px;
+
+      color: #737373;
+
+      font-size: 14px;
+
+      line-height: 1.7;
+    }
+
+    .about-button {
+      margin-top: 8px;
+
+      padding: 11px 18px;
+
+      border: none;
+
+      border-radius: 999px;
+
+      background: #dc2626;
+
+      color: #ffffff;
+
+      font-size: 14px;
+      font-weight: 900;
+
+      cursor: pointer;
+    }
+
+
+    /* =====================================================
+       DASHBOARD
+    ===================================================== */
+
+    .dashboard {
+      display: block;
+
+      width: 100%;
+
+      min-height: 78vh;
+    }
+
+    .map-card {
+      position: relative;
+
+      height: 78vh;
+
+      min-height: 500px;
+
+      width: 100%;
+
+      overflow: hidden;
+
+      border-radius: 28px;
+
+      border:
+        1px solid rgba(220, 20, 60, 0.35);
+
+      box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.55);
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+
+      z-index: 1;
+    }
+
+
+    /* =====================================================
+       LEGEND
+    ===================================================== */
+
+    .legend {
+      position: absolute;
+      bottom: 22px;
+      left: 22px;
+      z-index: 999;
+      
+      padding: 8px 12px; 
+      border-radius: 12px; 
+
+      background: rgba(18, 5, 5, 0.85);
+      border: 1px solid rgba(220, 20, 60, 0.35);
+      backdrop-filter: blur(14px);
+      color: #ffe4e6;
+      
+      font-size: 11px; 
+      line-height: 1.4; 
+      
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    .legend strong {
+      color: #ff3333;
+    }
+
+    .legend-color {
+      display: inline-block;
+      width: 12px; 
+      height: 8px; 
+      margin-right: 6px;
+      border-radius: 2px;
+    }
+
+    /* =====================================================
+       POPUP
+    ===================================================== */
+
+    .leaflet-popup-content-wrapper {
+      padding: 2px;
+      border-radius: 16px;
+      background: #ffffff;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+    .leaflet-popup-content {
+      margin: 12px 14px;
+    }
+    .popup-box {
+      min-width: 180px;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .popup-title {
+      margin-bottom: 6px;
+      color: #991b1b;
+      font-size: 15px;
+      font-weight: 800;
+      border-bottom: 1px solid #fca5a5;
+      padding-bottom: 4px;
+    }
+    .popup-content {
+      color: #334155;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .popup-label {
+      color: #0f172a;
+      font-weight: 700;
+    }
+    .btn-popup, .btn-popup:visited, .btn-popup:hover, .btn-popup:active, .btn-popup:focus {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      padding: 6px 12px;
+      background-color: #dc2626;
+      color: #ffffff !important;
+      border-radius: 6px;
+      text-decoration: none !important;
+      font-weight: 600;
+    }
+    .btn-popup:hover {
+      background-color: #991b1b;
+    }
+
+
+    /* =====================================================
+       LEAFLET CONTROLS
+    ===================================================== */
+
+    .leaflet-control-zoom {
+      border: none !important;
+
+      box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.35) !important;
+    }
+
+    .leaflet-control-zoom a {
+      background:
+        rgba(18, 5, 5, 0.88) !important;
+
+      color: #ff3333 !important;
+
+      border:
+        1px solid rgba(220, 20, 60, 0.25) !important;
+    }
+
+    .leaflet-control-attribution {
+      padding: 2px 5px !important;
+
+      border-radius: 6px 0 0 0;
+
+      background:
+        rgba(255, 255, 255, 0.65) !important;
+
+      font-size: 10px !important;
+
+      opacity: 0.55;
+    }
+
+    .leaflet-container:focus,
+    .leaflet-container *:focus,
+    .leaflet-container .leaflet-interactive:focus,
+    .leaflet-container .leaflet-interactive:focus-visible,
+    .leaflet-container path:focus,
+    .leaflet-container svg:focus {
+      outline: none !important;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 980px) {
+
+      .map-card,
+      #map {
+        height: 70vh;
+
+        min-height: 70vh;
+      }
+
+      .topbar {
+        flex-direction: column;
+
+        align-items: flex-start;
+      }
+
+      .menu-btn {
+        position: absolute;
+
+        top: 18px;
+        right: 22px;
+      }
+
+      .status {
+        padding-right: 65px;
+      }
+
+    }
+
+    @media (max-width: 600px) {
+
+      .page {
+        padding: 14px;
+      }
+
+      .brand h1 {
+        font-size: 20px;
+      }
+
+      .logo {
+        width: 46px;
+        height: 46px;
+      }
+
+      .legend {
+        left: 14px;
+        bottom: 14px;
+
+        font-size: 12px;
+      }
+
+      .site-dropdown {
+        top: 90px;
+
+        right: 22px;
+        left: 22px;
+
+        width: auto;
+      }
+
+      .dropdown-province-list {
+        margin-left: 0;
+      }
+
+    }
+    
+  </style>
+</head>
+
+
+<body>
+
+  <div class="page">
+
+    <!-- ===================================================
+         TOPBAR
+    ==================================================== -->
+
+    <div class="topbar">
+
+      <div class="brand">
+
+        <div class="logo">
+
+          <img
+            src="logo_indonesia.png"
+            alt="Logo Indonesia"
+            onerror="this.style.display='none'"
+          >
+
+        </div>
+
+        <div>
+
+          <h1>
+            Peta Jumlah Penduduk Indonesia 2025
+          </h1>
+
+          <p>
+            Visualisasi interaktif jumlah penduduk per provinsi di Indonesia
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- HAMBURGER -->
+
+      <button
+        type="button"
+        class="menu-btn"
+        onclick="toggleMenu(event)"
+      >
+        ☰
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         HAMBURGER MENU
+    ==================================================== -->
+
+    <div
+      class="site-dropdown"
+      id="siteDropdown"
+    >
+
+      <div class="site-dropdown-header">
+
+        <div>
+
+          <strong>
+            Menu
+          </strong>
+
+          <small>
+            Peta Penduduk Indonesia
+          </small>
+
+        </div>
+
+        <button
+          type="button"
+          onclick="toggleMenu(event)"
+        >
+          ✕
+        </button>
+
+      </div>
+
+
+      <!-- BERANDA -->
+
+      <button
+        type="button"
+        class="dropdown-item"
+        onclick="goToMap(event)"
+      >
+
+        <span class="menu-icon">
+
+          <svg viewBox="0 0 24 24">
+
+            <path d="M3 11L12 4L21 11" />
+
+            <path
+              d="M5 10V20H10V14H14V20H19V10"
+            />
+
+          </svg>
+
+        </span>
+
+
+        <div>
+
+          <strong>
+            Beranda
+          </strong>
+
+          <small>
+            Kembali ke peta utama
+          </small>
+
+        </div>
+
+      </button>
+
+
+      <!-- DAFTAR PROVINSI -->
+
+      <button
+        type="button"
+        class="dropdown-item"
+        onclick="toggleProvinceList(event)"
+      >
+
+        <span class="menu-icon">
+
+          <svg viewBox="0 0 24 24">
+
+            <path d="M3 6H21" />
+
+            <path d="M3 12H21" />
+
+            <path d="M3 18H21" />
+
+          </svg>
+
+        </span>
+
+
+        <div>
+
+          <strong>
+            Daftar Provinsi
+          </strong>
+
+          <small>
+            Lihat semua provinsi
+          </small>
+
+        </div>
+
+      </button>
+
+
+      <div
+        class="dropdown-province-list"
+        id="dropdownProvinceList"
+      ></div>
+
+
+      <!-- TENTANG WEBSITE -->
+
+      <button
+        type="button"
+        class="dropdown-item"
+        onclick="openAboutModal(event)"
+      >
+
+        <span class="menu-icon">
+
+          <svg viewBox="0 0 24 24">
+
+            <path
+              d="M12 21C16.9706 21 21 16.9706 21 12C21 7.0294 16.9706 3 12 3C7.0294 3 3 7.0294 3 12C3 16.9706 7.0294 21 12 21Z"
+            />
+
+            <path d="M12 10.5V16" />
+
+            <path d="M12 8H12.01" />
+
+          </svg>
+
+        </span>
+
+
+        <div>
+
+          <strong>
+            Tentang Website
+          </strong>
+
+          <small>
+            Informasi project
+          </small>
+
+        </div>
+
+      </button>
+
+      <!-- PEMBATAS MENU -->
+      <div style="border-top: 1px solid rgba(255,255,255,0.2); margin: 10px 0;"></div>
+      <div style="padding: 0 4px; color: #fca5a5; font-size: 11px; margin-bottom: 5px; font-weight: bold;">FILTER DATA PETA</div>
+
+      <!-- FILTER AGAMA -->
+      <button type="button" class="dropdown-item" onclick="aktifkanFilter('agama')">
+        <span class="menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+          </svg>
+        </span>
+        <div>
+          <strong>Mayoritas Agama</strong>
+          <small>Tampilkan ikon agama</small>
+        </div>
+      </button>
+
+      <!-- FILTER SUKU -->
+      <button type="button" class="dropdown-item" onclick="aktifkanFilter('suku')">
+        <span class="menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+        </span>
+        <div>
+          <strong>Mayoritas Suku</strong>
+          <small>Tampilkan label suku</small>
+        </div>
+      </button>
+
+      <!-- FILTER PEKERJAAN -->
+      <button type="button" class="dropdown-item" onclick="aktifkanFilter('pekerjaan')">
+        <span class="menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+          </svg>
+        </span>
+        <div>
+          <strong>Mata Pencaharian</strong>
+          <small>Tampilkan ikon ekonomi</small>
+        </div>
+      </button>
+
+      <!-- HAPUS FILTER -->
+      <button type="button" class="dropdown-item" onclick="aktifkanFilter('hapus')">
+        <span class="menu-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="15" y1="9" x2="9" y2="15" />
+            <line x1="9" y1="9" x2="15" y2="15" />
+          </svg>
+        </span>
+        <div>
+          <strong>Matikan Filter</strong>
+          <small>Bersihkan peta dari ikon</small>
+        </div>
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================
+         ABOUT MODAL
+    ==================================================== -->
+
+    <div
+      class="about-modal"
+      id="aboutModal"
+    >
+
+      <div class="about-card">
+
+        <button
+          type="button"
+          class="about-close"
+          onclick="closeAboutModal()"
+        >
+          ✕
+        </button>
+
+
+        <div class="about-icon">
+
+          <svg viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 40px; height: 40px;">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+
+        </div>
+
+
+        <h2>
+          Peta Jumlah Penduduk Indonesia
+        </h2>
+
+
+        <p>
+          Website ini merupakan peta interaktif yang
+          menampilkan jumlah penduduk setiap provinsi
+          di Indonesia tahun 2025.
+        </p>
+
+
+        <p>
+          Pengunjung dapat memilih provinsi melalui peta
+          maupun melalui daftar provinsi untuk melihat
+          informasi jumlah penduduk dan membuka halaman
+          detail provinsi.
+        </p>
+
+
+        <button
+          type="button"
+          class="about-button"
+          onclick="closeAboutModal()"
+        >
+          Mengerti
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ===================================================
+         MAP
+    ==================================================== -->
+
+    <div class="dashboard">
+
+      <div class="map-card">
+
+        <div id="map"></div>
+
+
+        <!-- LEGEND -->
+
+        <div class="legend">
+
+          <div>
+            <strong>
+              Keterangan Warna
+            </strong>
+          </div>
+
+          <div>
+            <span
+              class="legend-color"
+              style="background:#FF0000;"
+            ></span>
+            ≥ 30.000.000 jiwa
+          </div>
+
+          <div>
+            <span
+              class="legend-color"
+              style="background:#FF6600;"
+            ></span>
+            10.000.000 - 29.999.999 jiwa
+          </div>
+
+          <div>
+            <span
+              class="legend-color"
+              style="background:#FFCC00;"
+            ></span>
+            5.000.000 - 9.999.999 jiwa
+          </div>
+
+          <div>
+            <span
+              class="legend-color"
+              style="background:#00CC00;"
+            ></span>
+            2.000.000 - 4.999.999 jiwa
+          </div>
+
+          <div>
+            <span
+              class="legend-color"
+              style="background:#0066FF;"
+            ></span>
+            1.000.000 - 1.999.999 jiwa
+          </div>
+
+          <div>
+            <span
+              class="legend-color"
+              style="background:#9900FF;"
+            ></span>
+            &lt; 1.000.000 jiwa
+          </div>
+
+          <div>
+            <span
+              class="legend-color"
+              style="background:#808080;"
+            ></span>
+            Belum ada data
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       LEAFLET
+  ====================================================== -->
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+
+  <script>
+
+    /* =====================================================
+       BATAS PETA
+    ===================================================== */
+
+    var batasIndonesia = [
+
+      [-11.00, 94.00],
+
+      [6.00, 141.00]
+
+    ];
+
+
+    /* =====================================================
+       INISIALISASI PETA
+    ===================================================== */
+
+    var map = L.map("map", {
+
+      maxBounds: batasIndonesia,
+
+      maxBoundsViscosity: 1.0,
+
+      minZoom: 4,
+
+      maxZoom: 10,
+
+      zoomControl: true
+
+    }).setView(
+      [-2.5, 118.0],
+      5
+    );
+
+
+    /* =====================================================
+       BASEMAP
+    ===================================================== */
+
+    L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {
+
+        attribution:
+          "© OpenStreetMap contributors"
+
+      }
+    ).addTo(map);
+
+
+    /* =====================================================
+       DATA PENDUDUK
+    ===================================================== */
+
+    var dataPenduduk = {
+
+      "Aceh": 5407900,
+
+      "Sumatera Utara": 15307230,
+
+      "Sumatera Barat": 5640629,
+
+      "Riau": 6614384,
+
+      "Jambi": 3642763,
+
+      "Sumatera Selatan": 8657008,
+
+      "Bengkulu": 2060092,
+
+      "Lampung": 9176546,
+
+      "Kepulauan Bangka Belitung": 1499765,
+
+      "Kepulauan Riau": 2179827,
+
+      "DKI Jakarta": 10679951,
+
+      "Jawa Barat": 49405808,
+
+      "Jawa Tengah": 37325000,
+
+      "DI Yogyakarta": 3720912,
+
+      "Jawa Timur": 41416407,
+
+      "Banten": 12252045,
+
+      "Bali": 4362700,
+
+      "Nusa Tenggara Barat": 5500000,
+
+      "Nusa Tenggara Timur": 5440000,
+
+      "Kalimantan Barat": 5541000,
+
+      "Kalimantan Tengah": 2741000,
+
+      "Kalimantan Selatan": 4182000,
+
+      "Kalimantan Timur": 3909000,
+
+      "Kalimantan Utara": 738000,
+
+      "Sulawesi Utara": 2659000,
+
+      "Sulawesi Tengah": 3066000,
+
+      "Sulawesi Selatan": 9360000,
+
+      "Sulawesi Tenggara": 2704000,
+
+      "Gorontalo": 1198000,
+
+      "Sulawesi Barat": 1458000,
+
+      "Maluku": 1881000,
+
+      "Maluku Utara": 1319000,
+
+      "Papua Barat": 561000,
+
+      "Papua": 1035000,
+
+      "Papua Selatan": 522000,
+
+      "Papua Tengah": 1431000,
+
+      "Papua Pegunungan": 1430000,
+
+      "Papua Barat Daya": 603000
+
+    };
+
+    /* =====================================================
+       DATA INFORMASI TAMBAHAN (AGAMA, SUKU, EKONOMI)
+    ===================================================== */
+    var dataInfoTambahan = {
+      "Aceh": { agama: "Islam", suku: "Aceh", ekonomi: "Pertanian & Migas" },
+      "Sumatera Utara": { agama: "Islam & Kristen", suku: "Batak, Jawa", ekonomi: "Perkebunan" },
+      "Sumatera Barat": { agama: "Islam", suku: "Minangkabau", ekonomi: "Pertanian & Perdagangan" },
+      "Riau": { agama: "Islam", suku: "Melayu", ekonomi: "Kelapa Sawit & Migas" },
+      "DKI Jakarta": { agama: "Islam", suku: "Betawi, Jawa, Sunda", ekonomi: "Jasa & Perdagangan" },
+      "Jawa Barat": { agama: "Islam", suku: "Sunda", ekonomi: "Industri & Pertanian" },
+      "Jawa Tengah": { agama: "Islam", suku: "Jawa", ekonomi: "Pertanian & Industri" },
+      "DI Yogyakarta": { agama: "Islam", suku: "Jawa", ekonomi: "Pariwisata & Jasa" },
+      "Jawa Timur": { agama: "Islam", suku: "Jawa, Madura", ekonomi: "Pertanian & Industri" },
+      "Bali": { agama: "Hindu", suku: "Bali", ekonomi: "Pariwisata" },
+      "Kalimantan Barat": { agama: "Islam & Kristen", suku: "Dayak, Melayu", ekonomi: "Perkebunan & Pertambangan" },
+      "Sulawesi Selatan": { agama: "Islam", suku: "Bugis, Makassar", ekonomi: "Pertanian & Kelautan" },
+      "Papua": { agama: "Kristen", suku: "Asmat, Dani, dll", ekonomi: "Pertambangan & Pertanian" }
+    };
+
+    /* =====================================================
+       VARIABEL GEOJSON
+    ===================================================== */
+
+    var geojsonLayer;
+
+    var selectedLayer = null;
+
+    var layerWilayah = {};
+
+    var dataPendudukKey = {};
+
+
+    /* =====================================================
+       NORMALISASI NAMA
+    ===================================================== */
+
+    function kapitalAwal(teks) {
+
+      return teks
+        .toLowerCase()
+        .replace(/\b\w/g, function(huruf) {
+
+          return huruf.toUpperCase();
+
+        });
+
+    }
+
+
+    function kunciWilayah(nama) {
+
+      var teks =
+        nama
+          .toString()
+          .toLowerCase()
+          .trim();
+
+      teks =
+        teks.replace(/_/g, " ");
+
+      teks =
+        teks.replace(/\./g, " ");
+
+      teks =
+        teks.replace(/-/g, " ");
+
+      teks =
+        teks.replace(
+          /\bprovinsi\b/g,
+          ""
+        );
+
+      teks =
+        teks.replace(
+          /\bpropinsi\b/g,
+          ""
+        );
+
+      teks =
+        teks.replace(
+          /\bdaerah khusus ibukota\b/g,
+          "dki"
+        );
+
+      teks =
+        teks.replace(
+          /\bdaerah istimewa\b/g,
+          "di"
+        );
+
+      return teks
+        .replace(/\s+/g, " ")
+        .trim();
+
+    }
+
+
+    Object
+      .keys(dataPenduduk)
+      .forEach(function(nama) {
+
+        dataPendudukKey[
+          kunciWilayah(nama)
+        ] =
+          dataPenduduk[nama];
+
+      });
+
+
+    /* =====================================================
+       AMBIL NAMA FEATURE
+    ===================================================== */
+
+    function ambilNamaMentah(feature) {
+
+      var props =
+        feature.properties || {};
+
+      return (
+
+        props.Propinsi ||
+
+        props.PROVINSI ||
+
+        props.NAME_1 ||
+
+        props.name ||
+
+        props.NAMA ||
+
+        props.WADMKK ||
+
+        ""
+
+      );
+
+    }
+
+
+    function ambilNamaWilayah(feature) {
+
+      var nama =
+        ambilNamaMentah(feature)
+          .toString()
+          .trim();
+
+      nama =
+        nama
+          .replace(/Provinsi/gi, "")
+          .replace(/Propinsi/gi, "")
+          .trim();
+
+      if (
+        nama
+          .toLowerCase()
+          .includes("jakarta")
+      ) {
+
+        return "DKI Jakarta";
+
+      }
+
+
+      if (
+        nama
+          .toLowerCase()
+          .includes("yogyakarta")
+      ) {
+
+        return "DI Yogyakarta";
+
+      }
+
+
+      return kapitalAwal(nama);
+
+    }
+
+
+    /* =====================================================
+       WARNA PENDUDUK
+    ===================================================== */
+
+    function warnaPenduduk(jumlah) {
+
+      if (
+        jumlah === null ||
+        jumlah === undefined ||
+        isNaN(jumlah)
+      ) {
+
+        return "#808080";
+
+      }
+
+
+      if (jumlah >= 30000000)
+        return "#FF0000";
+
+
+      if (jumlah >= 10000000)
+        return "#FF6600";
+
+
+      if (jumlah >= 5000000)
+        return "#FFCC00";
+
+
+      if (jumlah >= 2000000)
+        return "#00CC00";
+
+
+      if (jumlah >= 1000000)
+        return "#0066FF";
+
+
+      if (jumlah > 0)
+        return "#9900FF";
+
+
+      return "#808080";
+
+    }
+
+
+    /* =====================================================
+       STYLE WILAYAH
+    ===================================================== */
+
+    function styleWilayah(feature) {
+
+      var namaWilayah =
+        ambilNamaWilayah(feature);
+
+      var key =
+        kunciWilayah(namaWilayah);
+
+      var adaData =
+        Object.prototype.hasOwnProperty.call(
+          dataPendudukKey,
+          key
+        );
+
+      var jumlahPenduduk =
+        adaData
+          ? dataPendudukKey[key]
+          : null;
+
+
+      return {
+
+        fillColor:
+          warnaPenduduk(jumlahPenduduk),
+
+        weight: 1.0,
+
+        opacity: 1,
+
+        color: "#ffffff",
+
+        fillOpacity: 1.0,
+
+        dashArray: ""
+
+      };
+
+    }
+
+
+    /* =====================================================
+       HIGHLIGHT
+    ===================================================== */
+
+    function highlightWilayah(e) {
+
+      var layer = e.target;
+
+      if (
+        layer === selectedLayer
+      ) {
+        return;
+      }
+
+
+      layer.setStyle({
+
+        weight: 3,
+
+        color: "#ffffff",
+
+        fillOpacity: 1.0,
+
+        dashArray: ""
+
+      });
+
+
+      layer.bringToFront();
+
+    }
+
+
+    function resetHighlight(e) {
+
+      if (
+        e.target !== selectedLayer
+      ) {
+
+        geojsonLayer.resetStyle(
+          e.target
+        );
+
+      }
+
+    }
+
+
+    /* =====================================================
+       PILIH WILAYAH
+    ===================================================== */
+
+    function pilihWilayah(layer) {
+
+      if (
+        selectedLayer &&
+        selectedLayer !== layer
+      ) {
+
+        geojsonLayer.resetStyle(
+          selectedLayer
+        );
+
+      }
+
+
+      selectedLayer = layer;
+
+
+      layer.setStyle({
+
+        fillOpacity: 1.0,
+
+        weight: 4,
+
+        color: "#000000",
+
+        dashArray: "6 6"
+
+      });
+
+
+      layer.bringToFront();
+
+    }
+
+
+    /* =====================================================
+       FILE DETAIL PROVINSI
+    ===================================================== */
+
+    function buatSlugNama(namaWilayah) {
+
+      return namaWilayah
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, "_");
+
+    }
+
+
+    function buatFileHTMLWilayah(namaWilayah) {
+
+      var slug =
+        buatSlugNama(namaWilayah);
+
+      return (
+        "provinsi/" +
+        slug +
+        ".html"
+      );
+
+    }
+
+
+    /* =====================================================
+       POPUP WILAYAH
+    ===================================================== */
+
+    function bukaPopupWilayah(layer) {
+      if (document.activeElement) document.activeElement.blur();
+      pilihWilayah(layer);
+
+      var namaWilayah = ambilNamaWilayah(layer.feature);
+      var key = kunciWilayah(namaWilayah);
+      
+      var adaData = Object.prototype.hasOwnProperty.call(dataPendudukKey, key);
+      var jumlahPenduduk = adaData ? dataPendudukKey[key] : 0;
+      var fileHTML = buatFileHTMLWilayah(namaWilayah);
+
+      var info = dataInfoTambahan[namaWilayah] || { agama: "Menunggu Data", suku: "Menunggu Data", ekonomi: "Menunggu Data" };
+
+      map.fitBounds(layer.getBounds(), { padding: [20, 20], maxZoom: 8, animate: true });
+      layer.unbindPopup();
+
+      layer.bindPopup(
+        "<div class='popup-box'>" +
+          "<div class='popup-title'>" + namaWilayah + "</div>" +
+          "<div class='popup-content'>" +
+            "<span class='popup-label'>Penduduk:</span> " + (jumlahPenduduk > 0 ? jumlahPenduduk.toLocaleString("id-ID") : "Data tidak tersedia") + " jiwa<br>" +
+            "<span class='popup-label'>Mayoritas Agama:</span> " + info.agama + "<br>" +
+            "<span class='popup-label'>Mayoritas Suku:</span> " + info.suku + "<br>" +
+            "<span class='popup-label'>Ekonomi/Mata Pencaharian:</span> " + info.ekonomi + "<br>" +
+            "<a href='" + fileHTML + "' class='btn-popup'>Detail Provinsi</a>" +
+          "</div>" +
+        "</div>"
+      ).openPopup();
+    }
+
+
+    /* =====================================================
+       KLIK WILAYAH
+    ===================================================== */
+
+    function klikWilayah(e) {
+
+      bukaPopupWilayah(
+        e.target
+      );
+
+    }
+
+
+    /* =====================================================
+       SETIAP WILAYAH
+    ===================================================== */
+
+    function onEachWilayah(
+      feature,
+      layer
+    ) {
+
+      var namaWilayah =
+        ambilNamaWilayah(
+          feature
+        );
+
+
+      var key =
+        kunciWilayah(
+          namaWilayah
+        );
+
+
+      layerWilayah[key] =
+        layer;
+
+
+      layer.on({
+
+        mouseover:
+          highlightWilayah,
+
+        mouseout:
+          resetHighlight,
+
+        click:
+          klikWilayah
+
+      });
+
+
+      layer.bindTooltip(
+        namaWilayah,
+        {
+
+          sticky: true,
+
+          direction: "top"
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       LOAD GEOJSON
+    ===================================================== */
+
+    fetch(
+      "indonesia_provinsi.geojson"
+    )
+
+      .then(function(response) {
+
+        if (!response.ok) {
+
+          throw new Error(
+            "File indonesia_provinsi.geojson tidak ditemukan."
+          );
+
+        }
+
+        return response.json();
+
+      })
+
+      .then(function(data) {
+
+        geojsonLayer =
+          L.geoJSON(
+            data,
+            {
+
+              style:
+                styleWilayah,
+
+              onEachFeature:
+                onEachWilayah
+
+            }
+          ).addTo(map);
+
+
+        var boundsIndonesia =
+          geojsonLayer.getBounds();
+
+
+        map.fitBounds(
+          boundsIndonesia,
+          {
+            padding: [20, 20]
+          }
+        );
+
+
+        map.setMinZoom(
+          map.getZoom() - 1
+        );
+
+        buatDaftarProvinsi();
+
+      })
+
+      .catch(function(error) {
+
+        alert(
+          "Gagal memuat peta. " +
+          "Pastikan file " +
+          "'indonesia_provinsi.geojson' " +
+          "berada dalam satu folder " +
+          "dengan index.html."
+        );
+
+        console.error(error);
+
+      });
+
+
+    /* =====================================================
+       HAMBURGER
+    ===================================================== */
+
+    var siteDropdown =
+      document.getElementById(
+        "siteDropdown"
+      );
+
+
+    var dropdownProvinceList =
+      document.getElementById(
+        "dropdownProvinceList"
+      );
+
+
+    var aboutModal =
+      document.getElementById(
+        "aboutModal"
+      );
+
+
+    function toggleMenu(event) {
+
+      if (event) {
+
+        event.stopPropagation();
+
+      }
+
+
+      siteDropdown.classList.toggle(
+        "active"
+      );
+
+    }
+
+
+    /* =====================================================
+       BERANDA
+    ===================================================== */
+
+    function goToMap(event) {
+
+      if (event) {
+
+        event.stopPropagation();
+
+      }
+
+
+      siteDropdown.classList.remove(
+        "active"
+      );
+
+
+      dropdownProvinceList.classList.remove(
+        "active"
+      );
+
+
+      if (!geojsonLayer) {
+
+        map.setView(
+          [-2.5, 118.0],
+          5
+        );
+
+        return;
+
+      }
+
+
+      map.closePopup();
+
+
+      if (selectedLayer) {
+
+        geojsonLayer.resetStyle(
+          selectedLayer
+        );
+
+        selectedLayer = null;
+
+      }
+
+
+      map.fitBounds(
+        geojsonLayer.getBounds(),
+        {
+          padding: [20, 20]
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       TOGGLE DAFTAR PROVINSI
+    ===================================================== */
+
+    function toggleProvinceList(event) {
+
+      if (event) {
+
+        event.stopPropagation();
+
+      }
+
+
+      dropdownProvinceList.classList.toggle(
+        "active"
+      );
+
+    }
+
+
+    /* =====================================================
+       TENTANG WEBSITE
+    ===================================================== */
+
+    function openAboutModal(event) {
+
+      if (event) {
+
+        event.stopPropagation();
+
+      }
+
+
+      siteDropdown.classList.remove(
+        "active"
+      );
+
+
+      aboutModal.classList.add(
+        "active"
+      );
+
+    }
+
+
+    function closeAboutModal() {
+
+      aboutModal.classList.remove(
+        "active"
+      );
+
+    }
+
+
+    /* =====================================================
+       MEMBUAT DAFTAR PROVINSI
+    ===================================================== */
+
+    function buatDaftarProvinsi() {
+
+      dropdownProvinceList.innerHTML = "";
+
+
+      Object.keys(dataPenduduk)
+
+        .sort(function(a, b) {
+
+          return a.localeCompare(
+            b,
+            "id"
+          );
+
+        })
+
+        .forEach(function(
+          namaProvinsi
+        ) {
+
+          var item =
+            document.createElement(
+              "button"
+            );
+
+
+          item.type = "button";
+
+
+          item.className =
+            "dropdown-province-item";
+
+
+          var jumlah =
+            dataPenduduk[
+              namaProvinsi
+            ];
+
+
+          item.innerHTML =
+
+            "<strong>" +
+              namaProvinsi +
+            "</strong>" +
+
+            "<small>" +
+
+              jumlah.toLocaleString(
+                "id-ID"
+              ) +
+
+              " jiwa" +
+
+            "</small>";
+
+
+          item.onclick =
+            function(event) {
+
+              event.stopPropagation();
+
+
+              var key =
+                kunciWilayah(
+                  namaProvinsi
+                );
+
+
+              var layer =
+                layerWilayah[key];
+
+
+              if (!layer) {
+
+                alert(
+                  "Wilayah " +
+                  namaProvinsi +
+                  " tidak ditemukan " +
+                  "pada GeoJSON."
+                );
+
+                return;
+
+              }
+
+
+              siteDropdown.classList.remove(
+                "active"
+              );
+
+
+              dropdownProvinceList.classList.remove(
+                "active"
+              );
+
+
+              bukaPopupWilayah(
+                layer
+              );
+
+            };
+
+
+          dropdownProvinceList.appendChild(
+            item
+          );
+
+        });
+
+    }
+
+
+    /* =====================================================
+       KLIK DI LUAR MENU
+    ===================================================== */
+
+    document.addEventListener(
+      "click",
+      function(event) {
+
+        var menuButton =
+          document.querySelector(
+            ".menu-btn"
+          );
+
+
+        if (
+
+          !siteDropdown.contains(
+            event.target
+          )
+
+          &&
+
+          !menuButton.contains(
+            event.target
+          )
+
+        ) {
+
+          siteDropdown.classList.remove(
+            "active"
+          );
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       KLIK BACKDROP ABOUT
+    ===================================================== */
+
+    aboutModal.addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          event.target === aboutModal
+        ) {
+
+          closeAboutModal();
+
+        }
+
+      }
+    );
+
+
+    /* =====================================================
+       ESC UNTUK MENUTUP MENU / MODAL
+    ===================================================== */
+
+    document.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (event.key === "Escape") {
+
+          siteDropdown.classList.remove(
+            "active"
+          );
+
+          dropdownProvinceList.classList.remove(
+            "active"
+          );
+
+          aboutModal.classList.remove(
+            "active"
+          );
+
+        }
+
+      }
+    );
+
+    /* =====================================================
+       FITUR FILTER PETA (AGAMA, SUKU, PEKERJAAN)
+    ===================================================== */
+    var layerIkonFilter = L.layerGroup().addTo(map);
+
+    function aktifkanFilter(jenisFilter) {
+      layerIkonFilter.clearLayers();
+
+      if (jenisFilter === 'hapus') return;
+
+      if (!geojsonLayer) {
+        alert("Peta sedang dimuat, tunggu sebentar.");
+        return;
+      }
+
+      geojsonLayer.eachLayer(function (layer) {
+        var namaWilayah = ambilNamaWilayah(layer.feature);
+        var info = dataInfoTambahan[namaWilayah];
+
+        if (info) {
+          var titikTengah = layer.getBounds().getCenter(); 
+          var kontenVisual = "";
+
+          if (jenisFilter === 'agama') {
+            if (info.agama.includes("Islam")) {
+              kontenVisual = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+            } else if (info.agama.includes("Kristen")) {
+              kontenVisual = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="20"></line><line x1="7" y1="9" x2="17" y2="9"></line></svg>';
+            } else if (info.agama.includes("Hindu")) {
+              kontenVisual = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+            } else {
+              kontenVisual = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>';
+            }
+          } 
+          else if (jenisFilter === 'suku') {
+            kontenVisual = '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>' + info.suku; 
+          } 
+          else if (jenisFilter === 'pekerjaan') {
+            if (info.ekonomi.includes("Pertanian")) {
+              kontenVisual = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c0-8 6-12 10-12-8 0-12 4-12 12z"></path><path d="M12 22c0-8-6-12-10-12 8 0 12 4 12 12z"></path></svg>';
+            } else if (info.ekonomi.includes("Perkebunan")) {
+              kontenVisual = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22v-6"></path><path d="M8 8a4 4 0 1 1 8 0c0 4-4 8-4 8s-4-4-4-8z"></path></svg>';
+            } else if (info.ekonomi.includes("Pertambangan")) {
+               kontenVisual = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>';
+            } else if (info.ekonomi.includes("Pariwisata")) {
+              kontenVisual = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>';
+            } else {
+              kontenVisual = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#b91c1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M16 10h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path></svg>';
+            }
+          }
+
+          var ikonKustom = L.divIcon({
+            className: 'ikon-filter-peta',
+            html: "<div style='display:flex; align-items:center; justify-content:center; background:rgba(255, 255, 255, 0.85); padding:4px 8px; border-radius:12px; box-shadow:0 3px 6px rgba(0,0,0,0.3); font-weight:bold; color:#b91c1c; font-size:12px; border:1px solid #b91c1c; white-space:nowrap;'>" + kontenVisual + "</div>",
+            iconSize: [null, null]
+          });
+
+          L.marker(titikTengah, { icon: ikonKustom }).addTo(layerIkonFilter);
+        }
+      });
+      
+      document.getElementById("siteDropdown").classList.remove("active");
+    }
+
+  </script>
+
+</body>
+
+</html>
