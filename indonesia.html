@@ -87,6 +87,24 @@
       padding: 0;
     }
 
+    /* ELIMINATE ALL BROWSER FOCUS BOUNDING BOXES ON MAP PATHS */
+    .leaflet-container:focus,
+    .leaflet-container *:focus,
+    .leaflet-container .leaflet-interactive:focus,
+    .leaflet-container .leaflet-interactive:focus-visible,
+    .leaflet-container path:focus,
+    .leaflet-container path:focus-visible,
+    .leaflet-interactive:focus,
+    .leaflet-interactive:focus-visible,
+    path.leaflet-interactive:focus,
+    path.leaflet-interactive:focus-visible,
+    svg:focus,
+    svg *:focus {
+      outline: none !important;
+      box-shadow: none !important;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background-color: var(--bg);
@@ -476,7 +494,7 @@
       width: 100%;
       height: 100%;
       z-index: 1;
-      background: var(--bg);
+      background: #0f172a;
     }
 
     /* DYNAMIC MAP LEGEND */
@@ -1008,7 +1026,7 @@
     <main class="map-workspace">
       <div id="map"></div>
 
-      <!-- Basemap Switcher -->
+      <!-- Basemap Switcher (Clean, High-Res, 100% Free & No API Key Watermarks) -->
       <div class="basemap-picker">
         <button class="basemap-btn active" onclick="switchBasemap('dark', this)">Dark</button>
         <button class="basemap-btn" onclick="switchBasemap('light', this)">Light</button>
@@ -1232,15 +1250,15 @@
     let selectedLayer = null;
     let religionChartInstance = null;
 
-    // Basemap Layers
+    // Basemap Layers (Official Free Reliable High-Res Tile Endpoints - Zero Watermarks)
     const basemaps = {
-      dark: L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; CartoDB &copy; OpenStreetMap'
+      dark: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '&copy; Esri &copy; OpenStreetMap'
       }),
-      light: L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; CartoDB &copy; OpenStreetMap'
+      light: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+        attribution: '&copy; Esri &copy; OpenStreetMap'
       }),
-      osm: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      osm: L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
       }),
       satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -1361,7 +1379,7 @@
       return '#3b82f6';
     }
 
-    // Feature Style Function
+    // Feature Style Function (Default neutral border)
     function styleFeature(feature) {
       const rawName = feature.properties?.Propinsi || feature.properties?.name || '';
       const name = normalizeProvinceName(rawName);
@@ -1381,10 +1399,10 @@
 
       return {
         fillColor: getColor(val, currentMetric),
-        weight: 1.5,
-        opacity: 0.9,
-        color: '#ffffff',
-        fillOpacity: 0.82,
+        weight: 1.2,
+        opacity: 0.95,
+        color: '#ffffff', // Clean subtle neutral border
+        fillOpacity: 0.85,
         dashArray: ''
       };
     }
@@ -1504,7 +1522,7 @@
               badge.style.display = 'block';
 
               if (layer !== selectedLayer) {
-                layer.setStyle({ weight: 3, color: '#ffffff', fillOpacity: 0.95 });
+                layer.setStyle({ weight: 2.5, color: '#000000', fillOpacity: 0.95 });
                 layer.bringToFront();
               }
             },
@@ -1515,6 +1533,9 @@
               }
             },
             click: function(e) {
+              if (document.activeElement && document.activeElement !== document.body) {
+                document.activeElement.blur();
+              }
               openProvinceDrawer(name, layer);
             }
           });
@@ -1526,7 +1547,7 @@
       map.fitBounds(geojsonLayer.getBounds(), { padding: [20, 20] });
     }
 
-    // Open Province Drawer & Render Details
+    // Open Province Drawer & Render Details with Neutral Black Selection Border
     function openProvinceDrawer(name, layer) {
       const pData = PROVINCES_DATA[name];
       if (!pData) return;
@@ -1537,7 +1558,9 @@
       }
       if (layer) {
         selectedLayer = layer;
-        selectedLayer.setStyle({ weight: 4, color: '#f59e0b', fillOpacity: 1.0 });
+        // GARIS TEPI HITAM NETRAL (NEUTRAL BLACK #000000) & TANPA KOTAK BOUNDING FOCUS
+        selectedLayer.setStyle({ weight: 3.5, color: '#000000', dashArray: '5 5', fillOpacity: 1.0 });
+        selectedLayer.bringToFront();
         map.fitBounds(layer.getBounds(), { padding: [40, 40], maxZoom: 7 });
       }
 
