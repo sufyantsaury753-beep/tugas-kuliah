@@ -20,6 +20,8 @@
       --accent-soft: rgba(245, 158, 11, 0.12);
       --success: #10b981;
       --success-soft: rgba(16, 185, 129, 0.15);
+      --cyan: #06b6d4;
+      --cyan-soft: rgba(6, 182, 212, 0.15);
 
       /* Dark Theme (Default) */
       --bg: #0b0f19;
@@ -42,6 +44,7 @@
       --shadow-glow: 0 0 35px rgba(59, 130, 246, 0.2);
 
       --gradient-brand: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #f59e0b 100%);
+      --gradient-jabar: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #10b981 100%);
       --gradient-card: linear-gradient(145deg, rgba(30, 41, 59, 0.75) 0%, rgba(15, 23, 42, 0.92) 100%);
       --gradient-text: linear-gradient(135deg, #ffffff 30%, #93c5fd 70%, #fcd34d 100%);
     }
@@ -67,6 +70,7 @@
       --shadow-glow: 0 0 35px rgba(59, 130, 246, 0.15);
 
       --gradient-brand: linear-gradient(135deg, #1d4ed8 0%, #4338ca 50%, #d97706 100%);
+      --gradient-jabar: linear-gradient(135deg, #0891b2 0%, #2563eb 50%, #059669 100%);
       --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
       --gradient-text: linear-gradient(135deg, #0f172a 30%, #1e40af 70%, #b45309 100%);
     }
@@ -112,7 +116,7 @@
     }
 
     .container {
-      width: min(1140px, 92%);
+      width: min(1180px, 92%);
       margin: 0 auto;
       position: relative;
       z-index: 2;
@@ -316,7 +320,7 @@
     /* PROJECT CARDS */
     .gis-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 24px;
       margin-bottom: 56px;
     }
@@ -325,7 +329,7 @@
       background: var(--surface-glass);
       border: 1px solid var(--surface-glass-border);
       border-radius: 28px;
-      padding: 32px;
+      padding: 30px;
       box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
@@ -362,6 +366,10 @@
       place-items: center;
       box-shadow: 0 6px 18px rgba(59, 130, 246, 0.3);
     }
+    .icon-box.jabar {
+      background: var(--gradient-jabar);
+      box-shadow: 0 6px 18px rgba(6, 182, 212, 0.35);
+    }
 
     .project-status {
       font-size: 11px;
@@ -374,18 +382,24 @@
       text-transform: uppercase;
       letter-spacing: 0.4px;
     }
+    .project-status.featured {
+      background: var(--cyan-soft);
+      color: var(--cyan);
+      border-color: rgba(6, 182, 212, 0.35);
+    }
 
     .project-card h3 {
-      font-size: 24px;
+      font-size: 21px;
       margin-bottom: 12px;
       font-weight: 800;
+      line-height: 1.3;
     }
 
     .project-card p {
       color: var(--text-soft);
-      font-size: 15px;
-      line-height: 1.75;
-      margin-bottom: 20px;
+      font-size: 14.5px;
+      line-height: 1.7;
+      margin-bottom: 18px;
     }
 
     .feature-points {
@@ -399,19 +413,21 @@
       font-size: 13px;
       color: var(--text-muted);
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 8px;
     }
 
     .feature-points li .bullet-icon {
       color: var(--primary);
+      margin-top: 3px;
+      flex-shrink: 0;
     }
 
     .card-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .mini-tag {
@@ -438,12 +454,14 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 11px 22px;
+      padding: 10px 20px;
       border-radius: 999px;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
       transition: all 0.25s ease;
       cursor: pointer;
+      flex: 1;
+      text-align: center;
     }
 
     .btn-primary {
@@ -451,6 +469,11 @@
       color: #ffffff;
       box-shadow: 0 6px 18px rgba(59, 130, 246, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-primary.btn-jabar {
+      background: var(--gradient-jabar);
+      box-shadow: 0 6px 18px rgba(6, 182, 212, 0.35);
     }
 
     .btn-primary:hover {
@@ -462,6 +485,7 @@
       background: var(--surface-soft);
       border: 1px solid var(--line);
       color: var(--text-soft);
+      flex: initial;
     }
 
     .btn-outline:hover {
@@ -540,7 +564,10 @@
       margin-bottom: 4px;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1040px) {
+      .gis-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
       .gis-grid { grid-template-columns: 1fr; }
       .features-grid { grid-template-columns: 1fr; }
       .gis-header-card { padding: 30px 22px; }
@@ -602,12 +629,12 @@
 
     <!-- FILTER BUTTONS -->
     <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterProjects('all', this)">Semua Proyek</button>
+      <button class="filter-btn active" onclick="filterProjects('all', this)">Semua Proyek (3)</button>
       <button class="filter-btn" onclick="filterProjects('demografi', this)">Demografi & Wilayah</button>
       <button class="filter-btn" onclick="filterProjects('outdoor', this)">Galeri Gunung</button>
     </div>
 
-    <!-- PROJECTS GRID -->
+    <!-- PROJECTS GRID (3 Projects) -->
     <section class="gis-grid">
 
       <!-- Project 1: Peta Kependudukan Indonesia -->
@@ -620,45 +647,93 @@
             <span class="project-status">Live Interactive</span>
           </div>
 
-          <h3>Peta Kependudukan Wilayah Indonesia</h3>
+          <h3>Peta Kependudukan 38 Provinsi Indonesia 2026</h3>
           <p>
-            Peta interaktif berbasis WebGIS yang memvisualisasikan data persebaran dan jumlah penduduk di berbagai provinsi Indonesia, dilengkapi poligon wilayah dan info demografi lengkap.
+            Portal spasial nasional visualisasi data kependudukan, IPM, kemiskinan, dan agama di 38 provinsi Indonesia dengan fitur komparasi dan ekspor data tabel.
           </p>
 
           <ul class="feature-points">
             <li>
               <svg class="icon icon-xs bullet-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-              Pewarnaan tematik (Choropleth) berdasarkan populasi
+              Cakupan lengkap 38 provinsi termasuk 4 DOB Papua
             </li>
             <li>
               <svg class="icon icon-xs bullet-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-              Tooltip & popup interaktif saat hover/klik wilayah
+              Komparasi antar-provinsi & tabel data CSV/JSON
             </li>
             <li>
               <svg class="icon icon-xs bullet-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-              Navigasi zoom & kontrol layer yang responsif
+              Grafik komposisi agama & statistik interaktif
             </li>
           </ul>
 
           <div class="card-tags">
-            <span class="mini-tag">Leaflet</span>
-            <span class="mini-tag">GeoJSON Indonesia</span>
-            <span class="mini-tag">Statistik Kependudukan</span>
+            <span class="mini-tag">Leaflet.js</span>
+            <span class="mini-tag">38 Provinsi</span>
+            <span class="mini-tag">Tabel & CSV</span>
           </div>
         </div>
 
         <div class="card-actions">
           <a href="indonesia.html" class="btn btn-primary">
-            <span>Buka Peta Live</span>
+            <span>Buka Peta Nasional</span>
             <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
           </a>
           <a href="index.html#portfolio" class="btn btn-outline">
-            <span>Detail Portofolio</span>
+            <span>Detail</span>
           </a>
         </div>
       </article>
 
-      <!-- Project 2: Mountain Gallery -->
+      <!-- Project 2: Demografi Jawa Barat 2026 (NEW) -->
+      <article class="project-card" data-category="demografi">
+        <div class="card-top">
+          <div class="card-icon-banner">
+            <div class="icon-box jabar">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"></path></svg>
+            </div>
+            <span class="project-status featured">Baru · Jabar 2026</span>
+          </div>
+
+          <h3>Demografi 27 Kabupaten & Kota Jawa Barat</h3>
+          <p>
+            Dashboard WebGIS khusus wilayah Jawa Barat dengan layer kependudukan, IPM, kemiskinan, struktur ekonomi wilayah, dan fitur download PNG transparan.
+          </p>
+
+          <ul class="feature-points">
+            <li>
+              <svg class="icon icon-xs bullet-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              Detail 27 Kabupaten & Kota se-Jawa Barat
+            </li>
+            <li>
+              <svg class="icon icon-xs bullet-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              Pencarian instan & grafik sektor ekonomi daerah
+            </li>
+            <li>
+              <svg class="icon icon-xs bullet-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              Fitur ekspor gambar poligon PNG transparan HD
+            </li>
+          </ul>
+
+          <div class="card-tags">
+            <span class="mini-tag">27 Kab/Kota</span>
+            <span class="mini-tag">Chart.js Sektor</span>
+            <span class="mini-tag">Export PNG</span>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <a href="jawabarat.html" class="btn btn-primary btn-jabar">
+            <span>Buka Peta Jabar</span>
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+          </a>
+          <a href="index.html#portfolio" class="btn btn-outline">
+            <span>Detail</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- Project 3: Mountain Gallery -->
       <article class="project-card" data-category="outdoor">
         <div class="card-top">
           <div class="card-icon-banner">
