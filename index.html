@@ -1,1178 +1,2166 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portfolio Sufyan Tsaury — layanan academic writing, document formatting, presentation design, editing, dan proofreading dokumen akademik." />
-  <title>Sufyan Tsaury — Academic Portfolio</title>
+  <meta name="description" content="Portfolio Sufyan Tsaury — Layanan Academic Writing, Document Formatting, Presentation Design, WebGIS & Pemetaan Digital." />
+  <meta name="keywords" content="Sufyan Tsaury, Academic Writing, WebGIS, Formatting Dokumen, Presentation Design, Portofolio Mahasiswa Hukum" />
+  <meta name="author" content="Sufyan Tsaury" />
+  <title>Sufyan Tsaury — Academic & Digital Portfolio</title>
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <style>
-    :root{
-      --bg:#f5f7fb;
-      --surface:#ffffff;
-      --surface-soft:#f8fafc;
-      --primary:#173b8f;
-      --primary-2:#3155c7;
-      --accent:#d97706;
-      --accent-soft:#fff4df;
-      --text:#101827;
-      --soft:#4b5563;
-      --muted:#6b7280;
-      --line:rgba(15,23,42,.09);
-      --radius-sm:16px;
-      --radius-md:24px;
-      --radius-lg:36px;
-      --shadow:0 16px 44px rgba(15,23,42,.08);
-      --shadow-soft:0 8px 24px rgba(15,23,42,.06);
-      --shadow-hover:0 24px 60px rgba(15,23,42,.14);
-      --gradient:linear-gradient(135deg,#173b8f 0%,#3155c7 48%,#d97706 100%);
-      --gradient-soft:linear-gradient(135deg,rgba(23,59,143,.10),rgba(217,119,6,.10));
-    }
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      font-family:"Inter",sans-serif;
-      color:var(--text);
-      min-height:100vh;
-      background:
-        radial-gradient(circle at 8% 4%,rgba(49,85,199,.16),transparent 28%),
-        radial-gradient(circle at 92% 12%,rgba(217,119,6,.12),transparent 25%),
-        linear-gradient(180deg,#f8fbff 0%,#f3f6fb 48%,#f8fafc 100%);
-    }
-
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background-image:linear-gradient(rgba(15,23,42,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(15,23,42,.035) 1px,transparent 1px);
-      background-size:44px 44px;
-      mask-image:linear-gradient(to bottom,rgba(0,0,0,.75),transparent 70%);
-    }
-
-    a{
-      color:inherit;
-    }
-
-    .container{
-      width:min(1160px,100%);
-      margin:auto;
-      padding:22px;
-      position:relative;
-      z-index:1;
-    }
-
-    .navbar{
-      position:sticky;
-      top:18px;
-      z-index:20;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:18px;
-      padding:12px 14px;
-      margin-bottom:24px;
-      background:rgba(255,255,255,.82);
-      border:1px solid rgba(255,255,255,.72);
-      border-radius:24px;
-      box-shadow:var(--shadow-soft);
-      backdrop-filter:blur(20px);
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:max-content;
-      text-decoration:none;
-    }
-
-    .brand-mark{
-      width:44px;
-      height:44px;
-      border-radius:16px;
-      display:grid;
-      place-items:center;
-      background:var(--gradient);
-      color:#fff;
-      font-family:"Plus Jakarta Sans",sans-serif;
-      font-weight:900;
-      box-shadow:0 10px 26px rgba(23,59,143,.26);
-    }
-
-    .brand-text strong{
-      display:block;
-      font-family:"Plus Jakarta Sans",sans-serif;
-      font-weight:900;
-      line-height:1.1;
-    }
-
-    .brand-text span{
-      color:var(--muted);
-      font-size:12px;
-      font-weight:700;
-    }
-
-    .nav-links{
-      display:flex;
-      justify-content:flex-end;
-      gap:6px;
-      overflow:auto;
-      scrollbar-width:none;
-    }
-
-    .nav-links::-webkit-scrollbar{
-      display:none;
-    }
-
-    .nav-links a{
-      text-decoration:none;
-      color:var(--soft);
-      font-size:14px;
-      font-weight:800;
-      padding:10px 14px;
-      border-radius:999px;
-      white-space:nowrap;
-      transition:.25s ease;
-    }
-
-    .nav-links a:hover{
-      background:#eff4ff;
-      color:var(--primary);
-    }
-
-    .nav-links a.active{
-      background:var(--primary);
-      color:#fff;
-      box-shadow:0 10px 24px rgba(23,59,143,.18);
-    }
-
-    .hero{
-      min-height:650px;
-      display:grid;
-      grid-template-columns:1.18fr .82fr;
-      align-items:center;
-      gap:30px;
-      padding:64px;
-      margin-bottom:72px;
-      border-radius:44px;
-      background:
-        linear-gradient(135deg,rgba(255,255,255,.96),rgba(248,250,252,.88)),
-        var(--gradient-soft);
-      border:1px solid rgba(255,255,255,.78);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-
-    .hero::before,
-    .hero::after{
-      content:"";
-      position:absolute;
-      border-radius:999px;
-      filter:blur(4px);
-    }
-
-    .hero::before{
-      width:420px;
-      height:420px;
-      top:-190px;
-      right:-120px;
-      background:rgba(23,59,143,.12);
-    }
-
-    .hero::after{
-      width:310px;
-      height:310px;
-      bottom:-140px;
-      left:-110px;
-      background:rgba(217,119,6,.14);
-    }
-
-    .hero-content,
-    .profile-panel{
-      position:relative;
-      z-index:2;
-    }
-
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:9px 16px;
-      margin-bottom:22px;
-      border-radius:999px;
-      background:var(--accent-soft);
-      color:var(--accent);
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:.6px;
-      text-transform:uppercase;
-    }
-
-    h1,h2,h3{
-      font-family:"Plus Jakarta Sans",sans-serif;
-    }
-
-    .hero h1{
-      max-width:780px;
-      font-size:clamp(40px,6vw,76px);
-      line-height:1.02;
-      letter-spacing:-2.2px;
-      font-weight:900;
-      margin-bottom:20px;
-    }
-
-    .hero h1 span{
-      background:var(--gradient);
-      background-clip:text;
-      -webkit-background-clip:text;
-      color:transparent;
-      -webkit-text-fill-color:transparent;
-    }
-
-    .hero-description{
-      max-width:690px;
-      color:var(--soft);
-      font-size:17px;
-      line-height:1.85;
-      margin-bottom:32px;
-    }
-
-    .hero-actions,
-    .contact-actions,
-    .portfolio-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      padding:14px 22px;
-      border-radius:999px;
-      text-decoration:none;
-      font-weight:900;
-      transition:.28s ease;
-      border:1px solid transparent;
-    }
-
-    .btn-primary{
-      color:#fff;
-      background:var(--gradient);
-      box-shadow:0 12px 28px rgba(23,59,143,.20);
-    }
-
-    .btn-primary:hover,
-    .btn-outline:hover{
-      transform:translateY(-3px);
-      box-shadow:var(--shadow-hover);
-    }
-
-    .btn-outline{
-      color:var(--primary);
-      background:#fff;
-      border-color:rgba(23,59,143,.16);
-    }
-
-    .hero-stats{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:14px;
-      margin-top:34px;
-      max-width:660px;
-    }
-
-    .stat{
-      padding:18px;
-      border-radius:22px;
-      background:rgba(255,255,255,.78);
-      border:1px solid var(--line);
-      box-shadow:0 8px 24px rgba(15,23,42,.05);
-    }
-
-    .stat strong{
-      display:block;
-      font-size:24px;
-      font-family:"Plus Jakarta Sans",sans-serif;
-      color:var(--primary);
-      margin-bottom:5px;
-    }
-
-    .stat span{
-      color:var(--muted);
-      font-size:13px;
-      font-weight:700;
-      line-height:1.45;
-    }
-
-    .profile-panel{
-      padding:28px;
-      border-radius:34px;
-      background:rgba(255,255,255,.82);
-      border:1px solid rgba(255,255,255,.76);
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(18px);
-    }
-
-    .profile-visual{
-      position:relative;
-      min-height:245px;
-      border-radius:28px;
-      padding:26px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      color:#fff;
-      overflow:hidden;
-      background:var(--gradient);
-    }
-
-    .profile-visual::before{
-      content:"";
-      position:absolute;
-      width:220px;
-      height:220px;
-      right:-74px;
-      top:-80px;
-      border-radius:50%;
-      background:rgba(255,255,255,.16);
-    }
-
-    .profile-visual::after{
-      content:"";
-      position:absolute;
-      width:150px;
-      height:150px;
-      left:-52px;
-      bottom:-60px;
-      border-radius:50%;
-      background:rgba(255,255,255,.12);
-    }
-
-    .avatar{
-      position:relative;
-      width:92px;
-      height:92px;
-      border-radius:30px;
-      display:grid;
-      place-items:center;
-      background:rgba(255,255,255,.18);
-      border:1px solid rgba(255,255,255,.30);
-      font-family:"Plus Jakarta Sans",sans-serif;
-      font-size:34px;
-      font-weight:900;
-      box-shadow:0 18px 40px rgba(0,0,0,.16);
-    }
-
-    .profile-name{
-      position:relative;
-    }
-
-    .profile-name h2{
-      font-size:30px;
-      font-weight:900;
-      margin-bottom:6px;
-    }
-
-    .profile-name p{
-      color:rgba(255,255,255,.86);
-      line-height:1.6;
-      font-weight:600;
-    }
-
-    .profile-list{
-      display:grid;
-      gap:10px;
-      margin-top:18px;
-    }
-
-    .profile-item{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      padding:14px;
-      border-radius:18px;
-      background:var(--surface-soft);
-      border:1px solid var(--line);
-    }
-
-    .profile-item span{
-      color:var(--muted);
-      font-size:13px;
-      font-weight:800;
-    }
-
-    .profile-item strong{
-      text-align:right;
-      color:var(--text);
-      font-size:14px;
-    }
-
-    .section{
-      margin-bottom:78px;
-    }
-
-    .section-top{
-      display:grid;
-      grid-template-columns:.72fr 1fr;
-      align-items:end;
-      gap:30px;
-      margin-bottom:28px;
-    }
-
-    .section-label{
-      display:inline-block;
-      color:var(--accent);
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:1.5px;
-      text-transform:uppercase;
-      margin-bottom:10px;
-    }
-
-    .section-top h2{
-      font-size:clamp(30px,5vw,48px);
-      line-height:1.1;
-      letter-spacing:-1.2px;
-      font-weight:900;
-    }
-
-    .section-top p{
-      color:var(--soft);
-      line-height:1.8;
-    }
-
-    .card,
-    .about-card,
-    .portfolio-card,
-    .process-card{
-      position:relative;
-      background:rgba(255,255,255,.88);
-      border:1px solid var(--line);
-      border-radius:28px;
-      box-shadow:var(--shadow-soft);
-      transition:.3s ease;
-      overflow:hidden;
-    }
-
-    .card:hover,
-    .portfolio-card:hover,
-    .process-card:hover{
-      transform:translateY(-7px);
-      box-shadow:var(--shadow-hover);
-    }
-
-    .about-card{
-      display:grid;
-      grid-template-columns:1fr .72fr;
-      gap:24px;
-      padding:30px;
-    }
-
-    .about-card p{
-      color:var(--soft);
-      line-height:1.9;
-      font-size:16px;
-    }
-
-    .about-points{
-      display:grid;
-      gap:12px;
-    }
-
-    .about-points li{
-      list-style:none;
-      display:flex;
-      gap:12px;
-      padding:14px;
-      border-radius:18px;
-      background:var(--surface-soft);
-      color:var(--soft);
-      font-weight:700;
-      line-height:1.55;
-    }
-
-    .about-points li::before{
-      content:"✓";
-      flex:0 0 28px;
-      height:28px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      background:#eaf1ff;
-      color:var(--primary);
-      font-weight:900;
-    }
-
-    .grid-3{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-    }
-
-    .grid-4{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:18px;
-    }
-
-    .card{
-      padding:28px;
-    }
-
-    .card-icon{
-      width:58px;
-      height:58px;
-      border-radius:20px;
-      display:grid;
-      place-items:center;
-      margin-bottom:20px;
-      color:#fff;
-      background:var(--gradient);
-      font-size:23px;
-      font-weight:900;
-      box-shadow:0 12px 26px rgba(23,59,143,.20);
-    }
-
-    .card h3{
-      font-size:21px;
-      margin-bottom:10px;
-      line-height:1.25;
-    }
-
-    .card p{
-      color:var(--soft);
-      line-height:1.75;
-      font-size:15px;
-    }
-
-    .portfolio{
-      display:grid;
-      gap:18px;
-    }
-
-    .portfolio-card{
-      display:grid;
-      grid-template-columns:1fr auto;
-      align-items:center;
-      gap:24px;
-      padding:28px;
-    }
-
-    .portfolio-meta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-bottom:12px;
-    }
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      padding:7px 11px;
-      border-radius:999px;
-      background:#f0f5ff;
-      color:var(--primary);
-      font-size:12px;
-      font-weight:900;
-    }
-
-    .pill.orange{
-      background:var(--accent-soft);
-      color:var(--accent);
-    }
-
-    .portfolio-card h3{
-      font-size:28px;
-      line-height:1.2;
-      margin-bottom:10px;
-    }
-
-    .portfolio-card p{
-      color:var(--soft);
-      line-height:1.78;
-      max-width:710px;
-    }
-
-    .process-grid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:18px;
-    }
-
-    .process-card{
-      padding:24px;
-    }
-
-    .process-number{
-      width:42px;
-      height:42px;
-      border-radius:16px;
-      display:grid;
-      place-items:center;
-      background:var(--gradient);
-      color:#fff;
-      font-weight:900;
-      margin-bottom:18px;
-      box-shadow:0 10px 24px rgba(23,59,143,.20);
-    }
-
-    .process-card h3{
-      font-size:19px;
-      margin-bottom:9px;
-    }
-
-    .process-card p{
-      color:var(--soft);
-      line-height:1.7;
-      font-size:14.5px;
+    /* ==========================================================================
+       CSS VARIABLES & THEME CONFIGURATION
+       ========================================================================== */
+    :root {
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --indigo: #6366f1;
+      --accent: #f59e0b;
+      --accent-soft: rgba(245, 158, 11, 0.12);
+      --success: #10b981;
+      --success-soft: rgba(16, 185, 129, 0.15);
+
+      /* Dark Theme (Default) */
+      --bg: #0b0f19;
+      --bg-alt: #111827;
+      --surface: #151d2f;
+      --surface-soft: #1e293b;
+      --surface-hover: #26334d;
+      --surface-glass: rgba(21, 29, 47, 0.78);
+      --surface-glass-border: rgba(255, 255, 255, 0.08);
+
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-soft: #cbd5e1;
+      --line: rgba(255, 255, 255, 0.07);
+      --line-strong: rgba(255, 255, 255, 0.14);
+
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
+      --shadow-md: 0 12px 32px -4px rgba(0, 0, 0, 0.35);
+      --shadow-lg: 0 24px 60px -12px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.22);
+      
+      --gradient-brand: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #f59e0b 100%);
+      --gradient-card: linear-gradient(145deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
+      --gradient-text: linear-gradient(135deg, #ffffff 30%, #93c5fd 70%, #fcd34d 100%);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-alt: #ffffff;
+      --surface: #ffffff;
+      --surface-soft: #f1f5f9;
+      --surface-hover: #e2e8f0;
+      --surface-glass: rgba(255, 255, 255, 0.85);
+      --surface-glass-border: rgba(255, 255, 255, 0.8);
+
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --text-soft: #334155;
+      --line: rgba(15, 23, 42, 0.08);
+      --line-strong: rgba(15, 23, 42, 0.15);
+
+      --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 12px 30px -4px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 24px 50px -12px rgba(15, 23, 42, 0.12);
+      --shadow-glow: 0 0 35px rgba(59, 130, 246, 0.15);
+
+      --gradient-brand: linear-gradient(135deg, #1d4ed8 0%, #4338ca 50%, #d97706 100%);
+      --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+      --gradient-text: linear-gradient(135deg, #0f172a 30%, #1e40af 70%, #b45309 100%);
+    }
+
+    /* ==========================================================================
+       RESET & BASE STYLES
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+      transition: background-color 0.35s ease, color 0.35s ease;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Ambient Background Glows */
+    .ambient-glow {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.45;
+    }
+    .glow-1 {
+      width: 550px;
+      height: 550px;
+      top: -150px;
+      left: -100px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.35), transparent 70%);
+    }
+    .glow-2 {
+      width: 600px;
+      height: 600px;
+      top: 30%;
+      right: -150px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.25), transparent 70%);
+    }
+    .glow-3 {
+      width: 500px;
+      height: 500px;
+      bottom: 5%;
+      left: 10%;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.2), transparent 70%);
+    }
+
+    .grid-pattern {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(var(--line-strong) 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: 0.4;
+      z-index: 0;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.8), transparent 90%);
+    }
+
+    .container {
+      width: min(1200px, 92%);
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.25;
+    }
+
+    /* SVG ICONS HELPER */
+    .icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      stroke-width: 2;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    .icon-xs { width: 14px; height: 14px; }
+    .icon-sm { width: 16px; height: 16px; }
+    .icon-md { width: 20px; height: 20px; }
+    .icon-lg { width: 24px; height: 24px; }
+
+    /* ==========================================================================
+       NAVIGATION BAR
+       ========================================================================== */
+    .header-nav {
+      position: sticky;
+      top: 18px;
+      z-index: 100;
+      margin-bottom: 36px;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: var(--surface-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--surface-glass-border);
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s ease;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--gradient-brand);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-weight: 800;
+      font-size: 15px;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+    }
+
+    .brand-info strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-info span {
+      display: block;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: -2px;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-soft);
+      padding: 8px 16px;
+      border-radius: 999px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+      background: var(--surface-soft);
+    }
+
+    .nav-link.active {
+      color: #ffffff;
+      background: var(--primary);
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--text);
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      transition: all 0.25s ease;
+    }
+
+    .theme-toggle:hover {
+      background: var(--surface-hover);
+      color: var(--primary);
+      transform: rotate(15deg) scale(1.05);
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      background: var(--gradient-brand);
+      color: #ffffff;
+      font-size: 13.5px;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+      transition: all 0.25s ease;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+    }
+
+    .hamburger {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      padding: 0;
+    }
+
+    .hamburger span {
+      width: 18px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+    }
+
+    .mobile-menu-drawer {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.3s ease;
+    }
+
+    .mobile-menu-drawer.open {
+      opacity: 1;
+      pointer-events: auto;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .mobile-menu-panel {
+      width: min(320px, 85vw);
+      height: 100%;
+      background: var(--bg-alt);
+      padding: 30px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: var(--shadow-lg);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .mobile-menu-drawer.open .mobile-menu-panel {
+      transform: translateX(0);
+    }
+
+    .mobile-nav-link {
+      font-size: 16px;
+      font-weight: 700;
+      padding: 12px 16px;
+      border-radius: 12px;
+      color: var(--text-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mobile-nav-link:hover, .mobile-nav-link.active {
+      color: var(--primary);
+      background: var(--surface-soft);
+    }
+
+    /* ==========================================================================
+       HERO SECTION
+       ========================================================================== */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 40px;
+      padding: 48px;
+      margin-bottom: 72px;
+      border-radius: 36px;
+      background: var(--gradient-card);
+      border: 1px solid var(--surface-glass-border);
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-badge-container {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--success-soft);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulseDot 2s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+    }
+
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-size: clamp(38px, 4.8vw, 62px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.08;
+      margin-bottom: 22px;
+    }
+
+    .hero-title .gradient-text {
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-description {
+      color: var(--text-soft);
+      font-size: 16.5px;
+      line-height: 1.8;
+      margin-bottom: 34px;
+      max-width: 600px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 40px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: 999px;
+      font-size: 14.5px;
+      font-weight: 700;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--gradient-brand);
+      color: #ffffff;
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(59, 130, 246, 0.45);
+    }
+
+    .btn-outline {
+      background: var(--surface-glass);
+      color: var(--text);
+      border: 1px solid var(--line-strong);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-outline:hover {
+      background: var(--surface-hover);
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .hero-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      border-top: 1px solid var(--line);
+      padding-top: 24px;
+    }
+
+    .hero-stat-card {
+      background: var(--surface-glass);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px 16px;
+      transition: transform 0.2s ease;
+    }
+
+    .hero-stat-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--line-strong);
+    }
+
+    .hero-stat-card strong {
+      display: block;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--primary);
+      font-family: "Plus Jakarta Sans", sans-serif;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .hero-stat-card span {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      line-height: 1.35;
+      display: block;
+    }
+
+    /* Profile Side Card */
+    .profile-card {
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: 28px;
+      padding: 26px;
+      box-shadow: var(--shadow-lg);
+      backdrop-filter: blur(16px);
+      position: relative;
+    }
+
+    .profile-card-header {
+      background: var(--gradient-brand);
+      border-radius: 20px;
+      padding: 24px;
+      color: #ffffff;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-avatar-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .big-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      font-weight: 900;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-meta-header h3 {
+      font-size: 22px;
+      color: #ffffff;
+      margin-bottom: 2px;
+    }
+
+    .profile-meta-header p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 500;
+    }
+
+    .profile-tagline {
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.9);
+      background: rgba(0, 0, 0, 0.15);
+      padding: 8px 12px;
+      border-radius: 10px;
+    }
+
+    .profile-data-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .profile-data-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      font-size: 13.5px;
+    }
+
+    .profile-data-item .label {
+      color: var(--text-muted);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .profile-data-item .val {
+      font-weight: 700;
+      color: var(--text);
+      text-align: right;
+    }
+
+    .profile-socials {
+      display: flex;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .social-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px;
+      border-radius: 12px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-size: 12.5px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .social-btn:hover {
+      background: var(--surface-hover);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    /* ==========================================================================
+       SECTIONS
+       ========================================================================== */
+    .section {
+      margin-bottom: 96px;
+      position: relative;
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: flex-end;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 3.8vw, 44px);
+      letter-spacing: -0.8px;
+      font-weight: 800;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    /* ABOUT ME */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+    }
+
+    .about-story-card {
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: 28px;
+      padding: 36px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .about-story-card h3 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      font-weight: 800;
+    }
+
+    .about-story-card p {
+      color: var(--text-soft);
+      font-size: 15.5px;
+      line-height: 1.85;
+      margin-bottom: 18px;
+    }
+
+    .highlight-card {
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: 28px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .strength-item {
+      display: flex;
+      gap: 16px;
+      padding: 16px;
+      border-radius: 18px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .strength-item:hover {
+      transform: translateX(4px);
+      border-color: var(--line-strong);
+    }
+
+    .strength-icon {
+      flex: 0 0 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: var(--gradient-brand);
+      color: #fff;
+      display: grid;
+      place-items: center;
+    }
+
+    .strength-text h4 {
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .strength-text p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .skill-card {
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: 26px;
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .skill-icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: var(--gradient-brand);
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25);
+    }
+
+    .skill-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .skill-card p {
+      color: var(--text-soft);
+      font-size: 14.5px;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .skill-tag {
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: var(--surface-soft);
+      color: var(--text-muted);
+      border: 1px solid var(--line);
+    }
+
+    /* PORTFOLIO */
+    .portfolio-grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .showcase-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+      padding: 32px;
+      border-radius: 28px;
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+    }
+
+    .showcase-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--line-strong);
+      box-shadow: var(--shadow-md);
+    }
+
+    .showcase-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .badge-pill {
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      color: var(--text-soft);
+      border: 1px solid var(--line);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-pill.accent {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+
+    .badge-pill.primary {
+      background: rgba(59, 130, 246, 0.12);
+      color: var(--primary);
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+
+    .showcase-card h3 {
+      font-size: 26px;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .showcase-card p {
+      color: var(--text-soft);
+      font-size: 15px;
+      line-height: 1.75;
+      max-width: 680px;
+      margin-bottom: 14px;
+    }
+
+    .showcase-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .showcase-features span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .showcase-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 170px;
+    }
+
+    /* SERVICES */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .service-card {
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: 24px;
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-md);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+    }
+
+    .service-card h3 {
+      font-size: 19px;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .service-card p {
+      color: var(--text-muted);
+      font-size: 13.5px;
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .service-checklist {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .service-checklist li {
+      font-size: 12.5px;
+      color: var(--text-soft);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+
+    .service-checklist li .check-icon {
+      color: var(--success);
+    }
+
+    .service-bottom {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .service-bottom .cta-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* PROCESS */
+    .process-timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .process-step {
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: 24px;
+      padding: 26px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+    }
+
+    .process-step:hover {
+      transform: translateY(-4px);
+      border-color: var(--line-strong);
+    }
+
+    .step-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: var(--gradient-brand);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 900;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.25);
+    }
+
+    .process-step h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .process-step p {
+      color: var(--text-muted);
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+
+    /* CONTACT BANNER */
+    .contact-banner {
+      background: var(--gradient-card);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: 36px;
+      padding: 56px;
+      box-shadow: var(--shadow-lg);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-content h2 {
+      font-size: clamp(32px, 4vw, 48px);
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .contact-content p {
+      color: var(--text-soft);
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 28px;
+      max-width: 580px;
+    }
+
+    .contact-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .contact-card-quick {
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: 24px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .quick-channel-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+    }
+
+    .quick-channel-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .channel-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: var(--surface);
+      color: var(--primary);
+    }
+
+    .channel-meta strong {
+      display: block;
+      font-size: 13.5px;
+    }
+
+    .channel-meta span {
+      display: block;
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    .copy-btn {
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      color: var(--text-soft);
+      font-size: 12px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    /* FOOTER */
+    .site-footer {
+      padding: 40px 0 30px;
+      border-top: 1px solid var(--line);
+      margin-top: 80px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-brand strong {
+      display: block;
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .footer-brand p {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .back-to-top {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      transition: all 0.2s ease;
+    }
+
+    .back-to-top:hover {
+      background: var(--primary);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+
+    /* TOAST */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .toast {
+      padding: 12px 20px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--primary);
+      color: var(--text);
+      font-size: 13.5px;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: slideInToast 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      pointer-events: auto;
+    }
+
+    @keyframes slideInToast {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; padding: 36px; }
+      .section-header { grid-template-columns: 1fr; gap: 14px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-timeline { grid-template-columns: repeat(2, 1fr); }
+      .contact-banner { grid-template-columns: 1fr; padding: 40px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-menu, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .hero { padding: 26px 20px; border-radius: 26px; }
+      .hero-title { font-size: 34px; }
+      .hero-stats-grid { grid-template-columns: 1fr; }
+      .showcase-card { grid-template-columns: 1fr; padding: 24px; }
+      .showcase-actions { flex-direction: row; width: 100%; }
+      .showcase-actions .btn { flex: 1; }
+      .skills-grid, .services-grid, .process-timeline { grid-template-columns: 1fr; }
+      .contact-banner { padding: 28px 20px; border-radius: 26px; }
+      .contact-buttons .btn { width: 100%; }
+      .footer-content { flex-direction: column; align-items: flex-start; }
     }
-
-    .contact{
-      position:relative;
-      overflow:hidden;
-      padding:60px;
-      border-radius:42px;
-      color:#fff;
-      background:var(--gradient);
-      box-shadow:var(--shadow);
-    }
-
-    .contact::before{
-      content:"";
-      position:absolute;
-      width:420px;
-      height:420px;
-      right:-170px;
-      top:-170px;
-      border-radius:50%;
-      background:rgba(255,255,255,.14);
-    }
-
-    .contact::after{
-      content:"";
-      position:absolute;
-      width:260px;
-      height:260px;
-      left:-90px;
-      bottom:-100px;
-      border-radius:50%;
-      background:rgba(255,255,255,.10);
-    }
-
-    .contact-content{
-      position:relative;
-      z-index:2;
-      max-width:780px;
-    }
-
-    .contact h2{
-      font-size:clamp(34px,5vw,58px);
-      line-height:1.08;
-      letter-spacing:-1.6px;
-      margin-bottom:18px;
-    }
-
-    .contact p{
-      color:rgba(255,255,255,.86);
-      line-height:1.82;
-      margin-bottom:28px;
-      font-size:16.5px;
-    }
-
-    .contact .btn-primary{
-      background:#fff;
-      color:var(--primary);
-    }
-
-    .contact .btn-outline{
-      background:rgba(255,255,255,.12);
-      color:#fff;
-      border-color:rgba(255,255,255,.28);
-      backdrop-filter:blur(10px);
-    }
-
-    footer{
-      padding:34px 12px 18px;
-      text-align:center;
-      color:var(--muted);
-    }
-
-    footer strong{
-      display:block;
-      color:var(--text);
-      font-family:"Plus Jakarta Sans",sans-serif;
-      font-size:18px;
-      margin-bottom:8px;
-    }
-
-    .reveal{
-      animation:fadeUp .7s ease both;
-    }
-
-    @keyframes fadeUp{
-      from{
-        opacity:0;
-        transform:translateY(18px);
-      }
-      to{
-        opacity:1;
-        transform:translateY(0);
-      }
-    }
-
-    @media(max-width:980px){
-      .navbar{
-        align-items:flex-start;
-        flex-direction:column;
-      }
-
-      .nav-links{
-        width:100%;
-        justify-content:flex-start;
-      }
-
-      .hero{
-        grid-template-columns:1fr;
-        padding:40px;
-        min-height:auto;
-      }
-
-      .section-top,
-      .about-card{
-        grid-template-columns:1fr;
-      }
-
-      .grid-3,
-      .grid-4,
-      .process-grid{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .portfolio-card{
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media(max-width:620px){
-      .container{
-        padding:14px;
-      }
-
-      .hero{
-        padding:28px;
-        border-radius:30px;
-      }
-
-      .hero h1{
-        letter-spacing:-1.2px;
-      }
-
-      .hero-stats,
-      .grid-3,
-      .grid-4,
-      .process-grid{
-        grid-template-columns:1fr;
-      }
-
-      .btn,
-      .portfolio-actions,
-      .contact-actions{
-        width:100%;
-      }
-
-      .btn{
-        padding:14px 18px;
-      }
-
-      .portfolio-actions,
-      .contact-actions{
-        flex-direction:column;
-      }
-
-      .contact{
-        padding:36px 26px;
-        border-radius:30px;
-      }
-    }
-
-    @media(prefers-reduced-motion:reduce){
-      html{
-        scroll-behavior:auto;
-      }
-
-      .reveal{
-        animation:none;
-      }
-
-      .btn,
-      .card,
-      .portfolio-card,
-      .process-card{
-        transition:none;
-      }
-    }
-
-/* Khusus card WebGIS */
-.portfolio-card.webgis {
-  display: grid;
-  grid-template-columns: 1fr auto; /* konten di kiri, tombol di kanan */
-  align-items: start; /* memastikan tombol sejajar atas */
-  gap: 24px;
-  padding: 28px;
-}
-
-.portfolio-card.webgis .portfolio-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.portfolio-card.webgis h3 {
-  font-size: 28px;
-  line-height: 1.2;
-  margin-bottom: 10px;
-}
-
-.portfolio-card.webgis p {
-  color: var(--soft);
-  line-height: 1.78;
-  max-width: 710px;
-}
-
-.portfolio-card.webgis .portfolio-actions {
-  display: flex;
-  flex-direction: column; /* tetap responsif jika sempit */
-  justify-content: flex-start;
-  gap: 10px;
-}
-
-/* Optional: responsif */
-@media(max-width:980px){
-  .portfolio-card.webgis {
-    grid-template-columns: 1fr;
-  }
-
-  .portfolio-card.webgis .portfolio-actions {
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 12px;
-  }
-}
-    
   </style>
 </head>
 
 <body>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+  <div class="grid-pattern"></div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
   <div class="container">
-    <nav class="navbar" aria-label="Navigasi utama">
-      <a class="brand" href="#home" aria-label="Sufyan Portfolio">
-        <div class="brand-mark">ST</div>
-        <div class="brand-text">
-          <strong>Sufyan Tsaury</strong>
-          <span>Academic Portfolio</span>
+    
+    <!-- STICKY HEADER NAVIGATION -->
+    <header class="header-nav">
+      <nav class="navbar" aria-label="Navigasi Utama">
+        <a href="#home" class="brand" aria-label="Sufyan Tsaury Home">
+          <div class="brand-avatar">ST</div>
+          <div class="brand-info">
+            <strong>Sufyan Tsaury</strong>
+            <span>Academic & GIS Specialist</span>
+          </div>
+        </a>
+
+        <ul class="nav-menu">
+          <li><a href="#home" class="nav-link active">Beranda</a></li>
+          <li><a href="#about" class="nav-link">Tentang</a></li>
+          <li><a href="#skills" class="nav-link">Keahlian</a></li>
+          <li><a href="#portfolio" class="nav-link">Karya</a></li>
+          <li><a href="#services" class="nav-link">Layanan</a></li>
+          <li><a href="#process" class="nav-link">Alur Kerja</a></li>
+          <li><a href="#contact" class="nav-link">Kontak</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="theme-toggle" id="themeToggleBtn" aria-label="Ganti Tema (Gelap/Terang)">
+            <svg class="icon icon-md" id="themeIconSun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg class="icon icon-md" id="themeIconMoon" viewBox="0 0 24 24" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </button>
+          <a href="#contact" class="nav-cta">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>Konsultasi Dokumen</span>
+          </a>
+          <button class="hamburger" id="hamburgerBtn" aria-label="Buka Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
-      </a>
+      </nav>
+    </header>
 
-      <div class="nav-links">
-        <a class="active" href="#home">Beranda</a>
-        <a href="#about">Tentang</a>
-        <a href="#skills">Keahlian</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#services">Layanan</a>
-        <a href="#contact">Kontak</a>
+    <!-- MOBILE MENU DRAWER -->
+    <div class="mobile-menu-drawer" id="mobileDrawer">
+      <div class="mobile-menu-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 14px;">
+          <div class="brand-info">
+            <strong>Sufyan Tsaury</strong>
+            <span>Menu Navigasi</span>
+          </div>
+          <button id="closeDrawerBtn" style="color: var(--text); padding: 4px;">
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+        <a href="#home" class="mobile-nav-link active">Beranda <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+        <a href="#about" class="mobile-nav-link">Tentang Saya <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+        <a href="#skills" class="mobile-nav-link">Keahlian <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+        <a href="#portfolio" class="mobile-nav-link">Karya Pilihan <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+        <a href="#services" class="mobile-nav-link">Layanan <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+        <a href="#process" class="mobile-nav-link">Alur Kerja <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+        <a href="#contact" class="mobile-nav-link">Hubungi Saya <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+        <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--line);">
+          <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 100%;">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            <span>Chat Telegram</span>
+          </a>
+        </div>
       </div>
-    </nav>
+    </div>
 
-    <header class="hero reveal" id="home">
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
       <div class="hero-content">
-        <span class="eyebrow">✦ Academic Writing & Document Specialist</span>
-        <h1>Merapikan gagasan menjadi dokumen akademik yang <span>kuat, elegan.</span></h1>
+        <div class="hero-badge-container">
+          <span class="status-badge">
+            <span class="status-dot"></span>
+            Siap Kolaborasi & Pengerjaan Dokumen
+          </span>
+          <span class="tag-badge">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            Academic Writing & GIS
+          </span>
+        </div>
+
+        <h1 class="hero-title">
+          Merapikan ide menjadi karya akademik yang <span class="gradient-text">presisi, elegan & kuat.</span>
+        </h1>
+
         <p class="hero-description">
-          Menyediakan layanan penyusunan naskah akademik, formatting dokumen, desain presentasi, editing, dan pengembangan materi pembelajaran dengan struktur yang rapi, visual modern, serta mudah dipahami pembaca.
+          Membantu mahasiswa, akademisi, dan profesional dalam penulisan naskah, formatting dokumen terstandar, desain slide presentasi yang memukau, serta pengembangan peta interaktif WebGIS.
         </p>
 
         <div class="hero-actions">
-          <a href="#portfolio" class="btn btn-primary">Lihat Portfolio →</a>
-          <a href="#contact" class="btn btn-outline">Hubungi Sekarang</a>
+          <a href="#portfolio" class="btn btn-primary">
+            <span>Eksplorasi Portofolio</span>
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+          <a href="#contact" class="btn btn-outline">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span>Hubungi Saya</span>
+          </a>
         </div>
 
-        <div class="hero-stats" aria-label="Ringkasan layanan">
-          <div class="stat">
+        <div class="hero-stats-grid">
+          <div class="hero-stat-card">
             <strong>04+</strong>
-            <span>Fokus layanan akademik</span>
+            <span>Fokus Layanan Spesialis</span>
           </div>
-          <div class="stat">
+          <div class="hero-stat-card">
             <strong>100%</strong>
-            <span>Layout rapi dan konsisten</span>
+            <span>Ketepatan Format & Sistematika</span>
           </div>
-          <div class="stat">
+          <div class="hero-stat-card">
             <strong>2026</strong>
-            <span>Portfolio personal modern</span>
+            <span>Portofolio Digital Modern</span>
           </div>
         </div>
       </div>
 
-      <aside class="profile-panel" aria-label="Profil singkat">
-        <div class="profile-visual">
-          <div class="avatar">ST</div>
-          <div class="profile-name">
-            <h2>Sufyan Tsaury</h2>
-            <p>Law Student · Academic Writing · WebGIS Enthusiast</p>
+      <!-- Hero Profile Panel -->
+      <aside class="profile-card" aria-label="Ringkasan Profil">
+        <div class="profile-card-header">
+          <div class="profile-avatar-row">
+            <div class="big-avatar">ST</div>
+            <div class="profile-meta-header">
+              <h3>Sufyan Tsaury</h3>
+              <p>Law Student & Academic Specialist</p>
+            </div>
+          </div>
+          <div class="profile-tagline">
+            "Fokus pada kerapian struktur naskah, presisi data wilayah, dan estetika visual presentasi."
           </div>
         </div>
 
-        <div class="profile-list">
-  <div class="profile-item">
-    <span>Usia</span>
-    <strong>20 Tahun</strong>
-  </div>
-  <div class="profile-item">
-    <span>Status</span>
-    <strong>Mahasiswa S1 Hukum Keluarga</strong>
-  </div>
-  <div class="profile-item">
-    <span>Pendidikan</span>
-    <strong>Lulusan TKJ SMK Negeri 7 Garut (2025)</strong>
-  </div>
-  <div class="profile-item">
-    <span>Domisili</span>
-    <strong>Sumedang, Jawa Barat</strong>
-  </div>
-</div>
+        <div class="profile-data-list">
+          <div class="profile-data-item">
+            <span class="label">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+              Status
+            </span>
+            <span class="val">Mahasiswa S1 Hukum Keluarga</span>
+          </div>
+          <div class="profile-data-item">
+            <span class="label">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M4 10l8-6 8 6"></path></svg>
+              Background
+            </span>
+            <span class="val">TKJ SMKN 7 Garut (2025)</span>
+          </div>
+          <div class="profile-data-item">
+            <span class="label">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              Domisili
+            </span>
+            <span class="val">Sumedang, Jawa Barat</span>
+          </div>
+          <div class="profile-data-item">
+            <span class="label">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              Usia
+            </span>
+            <span class="val">20 Tahun</span>
+          </div>
+        </div>
+
+        <div class="profile-socials">
+          <a href="mailto:sufyantsaury.id@gmail.com" class="social-btn" title="Kirim Email">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span>Email</span>
+          </a>
+          <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="social-btn" title="Telegram">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            <span>Telegram</span>
+          </a>
+          <button class="social-btn" onclick="copyEmail()" title="Salin Email">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span>Salin</span>
+          </button>
+        </div>
       </aside>
-    </header>
+    </section>
 
-    <main>
-      <section class="section reveal" id="about">
-        <div class="section-top">
-          <div>
-            <span class="section-label">Tentang Saya</span>
-            <h2>Profil akademik yang jelas dan terpercaya.</h2>
+    <!-- ABOUT SECTION -->
+    <section class="section" id="about">
+      <div class="section-header">
+        <div>
+          <span class="section-label">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            Tentang Saya
+          </span>
+          <h2 class="section-title">Dedikasi Pada Kualitas Naskah & Visual Spasial.</h2>
+        </div>
+        <p class="section-subtitle">
+          Kombinasi pemikiran kritis hukum, ketelitian formatting akademik, dan keterampilan teknologi jaringan/GIS untuk menghasilkan dokumen berstandar tinggi.
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-story-card">
+          <h3>Menjembatani Riset & Keindahan Penyajian</h3>
+          <p>
+            Ketertarikan saya berpusat pada penulisan akademik yang argumentatif, perapian tata letak dokumen formal, serta visualisasi data geospasial melalui WebGIS.
+          </p>
+          <p>
+            Dengan latar belakang teknik komputer jaringan (TKJ) dan studi di bidang ilmu hukum, saya memiliki pendekatan yang sistematis: memastikan kebenaran alur logika, ketepatan sitasi, serta keselarasan tata letak grafis yang nyaman dibaca oleh dosen penguji, reviewer, maupun audiens seminar.
+          </p>
+        </div>
+
+        <div class="highlight-card">
+          <div class="strength-item">
+            <div class="strength-icon">
+              <svg class="icon icon-md" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+            <div class="strength-text">
+              <h4>Sistematika & Alur Logis</h4>
+              <p>Struktur naskah ditata runtut, menghindari redudansi, dan memperkuat substansi gagasan.</p>
+            </div>
           </div>
-          <p>
-            Saya berfokus pada penyusunan karya akademik, pengembangan modul pembelajaran, formatting dokumen, dan desain presentasi yang informatif serta profesional.
-          </p>
-        </div>
 
-        <div class="about-card">
-          <p>
-            Ketertarikan saya berada pada dunia penulisan akademik, pengelolaan dokumen profesional, dan penyajian materi pembelajaran. Dalam setiap pekerjaan, saya menekankan kerapian struktur, ketepatan format, konsistensi visual, serta kemudahan pembaca dalam memahami isi dokumen.
-          </p>
-
-          <ul class="about-points">
-            <li>Dokumen disusun dengan alur yang sistematis dan mudah dibaca.</li>
-            <li>Format dibuat konsisten agar terlihat profesional.</li>
-            <li>Desain presentasi dibuat ringkas, menarik, dan komunikatif.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="section reveal" id="skills">
-        <div class="section-top">
-          <div>
-            <span class="section-label">Keahlian</span>
-            <h2>Skills & Expertise</h2>
+          <div class="strength-item">
+            <div class="strength-icon">
+              <svg class="icon icon-md" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <div class="strength-text">
+              <h4>Standarisasi Format & Sitasi</h4>
+              <p>Penerapan gaya selingkung kampus, APA/IEEE/Chicago, heading otomatis, dan daftar isi presisi.</p>
+            </div>
           </div>
-          <p>
-            Keahlian utama yang mendukung penyusunan dokumen akademik, materi pembelajaran, dan presentasi profesional.
-          </p>
-        </div>
 
-        <div class="grid-3">
-          <article class="card">
-            <div class="card-icon">✎</div>
+          <div class="strength-item">
+            <div class="strength-icon">
+              <svg class="icon icon-md" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+            </div>
+            <div class="strength-text">
+              <h4>Visualisasi Data & Interaktivitas</h4>
+              <p>Penyajian visual melalui slide modern serta peta digital interaktif WebGIS berbasis web.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section class="section" id="skills">
+      <div class="section-header">
+        <div>
+          <span class="section-label">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+            Kompetensi
+          </span>
+          <h2 class="section-title">Keahlian & Bidang Spesialisasi</h2>
+        </div>
+        <p class="section-subtitle">
+          Kumpulan keahlian teknis dan metodologis yang siap diandalkan untuk menyelesaikan berbagai proyek akademik dan digital.
+        </p>
+      </div>
+
+      <div class="skills-grid">
+        <article class="skill-card">
+          <div class="skill-icon-wrap">
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+          </div>
+          <h3>Academic Writing & Research</h3>
+          <p>Penyusunan naskah makalah, artikel ilmiah, modul pembelajaran, dan telaah pustaka dengan argumen akademik yang kokoh.</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Makalah</span>
+            <span class="skill-tag">Modul Ajar</span>
+            <span class="skill-tag">Buku Ajar</span>
+          </div>
+        </article>
+
+        <article class="skill-card">
+          <div class="skill-icon-wrap">
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+          </div>
+          <h3>WebGIS & Spatial Mapping</h3>
+          <p>Pengolahan data geospasial, pembuatan peta interaktif berbasis Leaflet.js, integrasi layer GeoJSON, dan analisis statistik wilayah.</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Leaflet.js</span>
+            <span class="skill-tag">GeoJSON</span>
+            <span class="skill-tag">Visual Spasial</span>
+            <span class="skill-tag">Demografi</span>
+          </div>
+        </article>
+
+        <article class="skill-card">
+          <div class="skill-icon-wrap">
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          </div>
+          <h3>Presentation Design</h3>
+          <p>Perancangan slide presentasi dengan visual hierarki modern, micro-animation, serta keterbacaan tinggi untuk sidang, seminar, atau perkuliahan.</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Slide Seminar</span>
+            <span class="skill-tag">Animasi PPT</span>
+            <span class="skill-tag">Infografis</span>
+            <span class="skill-tag">Layout Bersih</span>
+          </div>
+        </article>
+
+        <article class="skill-card">
+          <div class="skill-icon-wrap">
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          </div>
+          <h3>Document Formatting & Styling</h3>
+          <p>Perapian format dokumen menyeluruh: pengaturan margin, penomoran halaman romawi/arab terpisah, navigasi TOC, dan konsistensi tipografi.</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Auto TOC</span>
+            <span class="skill-tag">Selingkung</span>
+            <span class="skill-tag">Tata Letak Buku</span>
+          </div>
+        </article>
+
+        <article class="skill-card">
+          <div class="skill-icon-wrap">
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><path d="M11 8v6"></path><path d="M8 11h6"></path></svg>
+          </div>
+          <h3>Editing & Proofreading</h3>
+          <p>Pemeriksaan tanda baca, perbaikan kalimat ambigu (PUEBI/EYD), konsistensi istilah teknis, dan verifikasi kelengkapan referensi.</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Koreksi EYD</span>
+            <span class="skill-tag">Parafrase</span>
+            <span class="skill-tag">Verifikasi Sitasi</span>
+          </div>
+        </article>
+
+        <article class="skill-card">
+          <div class="skill-icon-wrap">
+            <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 3v18"></path><path d="M3 7l9-4 9 4"></path><path d="M6 14l-3-7 6 0-3 7z"></path><path d="M18 14l-3-7 6 0-3 7z"></path><circle cx="6" cy="14" r="2"></circle><circle cx="18" cy="14" r="2"></circle></svg>
+          </div>
+          <h3>Legal & Policy Analysis</h3>
+          <p>Pemahaman dasar-dasar hukum keluarga Islam, hukum positif Indonesia, perancangan draft dokumen hukum sederhana, dan resume perkara.</p>
+          <div class="skill-tags">
+            <span class="skill-tag">Hukum Keluarga</span>
+            <span class="skill-tag">Legal Drafting</span>
+            <span class="skill-tag">Resume Putusan</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- FEATURED PORTFOLIO SHOWCASE -->
+    <section class="section" id="portfolio">
+      <div class="section-header">
+        <div>
+          <span class="section-label">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            Karya Terpilih
+          </span>
+          <h2 class="section-title">Portofolio & Showcase Proyek</h2>
+        </div>
+        <p class="section-subtitle">
+          Eksplorasi karya dalam penyusunan buku, peta digital interaktif, serta slide presentasi siap pakai.
+        </p>
+      </div>
+
+      <div class="portfolio-grid">
+        <!-- Project 1: Buku Manajemen Pendidikan -->
+        <article class="showcase-card">
+          <div>
+            <div class="showcase-badges">
+              <span class="badge-pill accent">
+                <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                Buku Akademik
+              </span>
+              <span class="badge-pill">Layout & Formatting</span>
+              <span class="badge-pill">PDF Siap Cetak</span>
+            </div>
+            <h3>Buku Manajemen Pendidikan</h3>
+            <p>
+              Penyusunan dan perapian dokumen buku akademik komprehensif. Meliputi struktur hierarki bab yang teratur, integrasi tabel & bagan terstandar, serta penataan tata letak elegan untuk kenyamanan pembaca.
+            </p>
+            <div class="showcase-features">
+              <span>
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                Format: PDF Dokumen
+              </span>
+              <span>
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                Kerapian: Heading Terstruktur
+              </span>
+              <span>
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                Kategori: Karya Ilmiah
+              </span>
+            </div>
+          </div>
+          <div class="showcase-actions">
+            <a href="Buku-Manajemen-Pendidikan.pdf" target="_blank" class="btn btn-primary">
+              <span>Buka Dokumen</span>
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 2: WebGIS & Pemetaan Digital -->
+        <article class="showcase-card">
+          <div>
+            <div class="showcase-badges">
+              <span class="badge-pill primary">
+                <svg class="icon icon-xs" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+                WebGIS & Leaflet
+              </span>
+              <span class="badge-pill accent">Interaktif</span>
+              <span class="badge-pill">Katalog Proyek</span>
+            </div>
+            <h3>Katalog WebGIS & Pemetaan Digital</h3>
+            <p>
+              Pusat proyek peta digital interaktif berbasis web. Berisi visualisasi data kependudukan Indonesia, batas wilayah administratif GeoJSON, serta galeri peta petualangan gunung (Mountain Gallery).
+            </p>
+            <div class="showcase-features">
+              <span>
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                Tech: Leaflet.js & GeoJSON
+              </span>
+              <span>
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                Konten: Demografi & Galeri Gunung
+              </span>
+              <span>
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                Responsif & Ringan
+              </span>
+            </div>
+          </div>
+          <div class="showcase-actions">
+            <a href="webgis.html" class="btn btn-primary">
+              <span>Katalog WebGIS</span>
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Project 3: Presentasi Akademik & Slide Deck -->
+        <article class="showcase-card">
+          <div>
+            <div class="showcase-badges">
+              <span class="badge-pill accent">
+                <svg class="icon icon-xs" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                Presentasi Modern
+              </span>
+              <span class="badge-pill">Slide Animasi</span>
+              <span class="badge-pill">Versi PDF / Web</span>
+            </div>
+            <h3>Wadah Presentasi & Slide Akademik</h3>
+            <p>
+              Koleksi slide presentasi kuliah, seminar, dan materi akademik yang dirancang secara profesional. Dilengkapi versi PDF mobile-friendly dan versi HTML dengan animasi interaktif.
+            </p>
+            <div class="showcase-features">
+              <span>
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                Format: PDF & HTML Animasi
+              </span>
+              <span>
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path></svg>
+                Kategori: Slide Kuliah & Seminar
+              </span>
+              <span>
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                Desain Visual Bersih
+              </span>
+            </div>
+          </div>
+          <div class="showcase-actions">
+            <a href="ppt.html" class="btn btn-primary">
+              <span>Buka Presentasi</span>
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="section" id="services">
+      <div class="section-header">
+        <div>
+          <span class="section-label">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M20 7h-7L10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path></svg>
+            Layanan Profesional
+          </span>
+          <h2 class="section-title">Solusi Pengerjaan Dokumen & Digital</h2>
+        </div>
+        <p class="section-subtitle">
+          Layanan terarah dengan standar kualitas tinggi, komunikasi responsif, dan estimasi waktu yang jelas.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <article class="service-card">
+          <div>
+            <div class="service-icon">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            </div>
             <h3>Academic Writing</h3>
-            <p>Menyusun makalah, buku ajar, modul pembelajaran, artikel, dan naskah akademik secara sistematis sesuai kebutuhan.</p>
-          </article>
-
-          <article class="card">
-  <div class="card-icon">⌖</div>
-  <h3>GIS & Mapping</h3>
-  <p>Membuat peta digital interaktif, mengolah data wilayah, dan menampilkan visualisasi spasial menggunakan WebGIS, Leaflet, dan GeoJSON.</p>
-</article>
-
-          <article class="card">
-            <div class="card-icon">◈</div>
-            <h3>Presentation Design</h3>
-            <p>Mendesain slide akademik yang bersih, menarik, terarah, dan efektif untuk kuliah, maupun presentasi.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section reveal" id="portfolio">
-        <div class="section-top">
-          <div>
-            <span class="section-label">Portfolio</span>
-            <h2>Karya Pilihan</h2>
+            <p>Bantuan penyusunan makalah, draf modul ajar, artikel akademik, dan ringkasan teori.</p>
+            <ul class="service-checklist">
+              <li>
+                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Struktur logis & orisinalitas ide
+              </li>
+              <li>
+                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Penyusunan daftar pustaka
+              </li>
+              <li>
+                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Pengembangan bab & sub-bab
+              </li>
+            </ul>
           </div>
-          <p>
-            Beberapa contoh proyek akademik dan pengembangan materi yang dapat ditampilkan sebagai bukti kompetensi.
-          </p>
-        </div>
-
-        <div class="portfolio">
-          <article class="portfolio-card">
-  <div>
-    <div class="portfolio-meta">
-      <span class="pill orange">Buku</span>
-      <span class="pill">Layout Akademik</span>
-    </div>
-    <h3>Buku Manajemen Pendidikan</h3>
-    <p>Penyusunan dan perapian dokumen buku akademik dengan struktur isi yang jelas, dan format yang konsisten.</p>
-  </div>
-  <div class="portfolio-actions">
-    <a href="Buku-Manajemen-Pendidikan.pdf" class="btn btn-primary">Preview</a>
-  </div>
-</article>
-
-<article class="portfolio-card">
-  <div>
-    <div class="portfolio-meta">
-      <span class="pill orange">WebGIS</span>
-      <span class="pill">Peta Interaktif</span>
-    </div>
-    <h3>WebGIS & Pemetaan Digital</h3>
-    <p>Pembuatan peta interaktif berbasis web, visualisasi data wilayah, dan pemetaan digital menggunakan Leaflet, GeoJSON, serta data statistik.</p>
-  </div>
-  <div class="portfolio-actions">
-    <a href="webgis.html" class="btn btn-primary">Preview</a>
-  </div>
-</article>
-
-<article class="portfolio-card">
-  <div>
-    <div class="portfolio-meta">
-      <span class="pill orange">PPT</span>
-      <span class="pill">Presentation</span>
-    </div>
-    <h3>Desain Presentasi Akademik</h3>
-    <p>Menyediakan slide presentasi rapi, modern, dan siap pakai untuk kuliah, maupun presentasi akademik lainnya, lengkap dengan desain visual yang menarik.</p>
-  </div>
-  <div class="portfolio-actions">
-    <a href="ppt.html" class="btn btn-primary">Preview</a>
-  </div>
-</article>
-          
-        </div>
-      </section>
-
-      <section class="section reveal" id="services">
-        <div class="section-top">
-          <div>
-            <span class="section-label">Layanan</span>
-            <h2>Services</h2>
+          <div class="service-bottom">
+            <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="cta-text">
+              <span>Konsultasi Layanan</span>
+              <svg class="icon icon-xs" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
           </div>
-          <p>
-            Solusi penyusunan dan perapian dokumen akademik yang siap digunakan untuk kebutuhan kuliah, seminar, publikasi, maupun kegiatan profesional.
-          </p>
-        </div>
+        </article>
 
-        <div class="grid-4">
-          <article class="card">
-            <div class="card-icon">✎</div>
-            <h3>Academic Writing</h3>
-            <p>Penyusunan buku ajar, modul, makalah, artikel, dan naskah akademik sesuai kebutuhan.</p>
-          </article>
-
-          <article class="card">
-            <div class="card-icon">✦</div>
+        <article class="service-card">
+          <div>
+            <div class="service-icon">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+            </div>
             <h3>Document Formatting</h3>
-            <p>Perapian format, layout, sitasi, heading, daftar isi, dan struktur dokumen akademik.</p>
-          </article>
+            <p>Perapian format dokumen skripsi, laporan, buku, dan karya ilmiah sesuai pedoman.</p>
+            <ul class="service-checklist">
+              <li>
+                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Daftar isi, gambar & tabel otomatis
+              </li>
+              <li>
+                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Penomoran halaman terpisah
+              </li>
+              <li>
+                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Penataan margin & heading rapi
+              </li>
+            </ul>
+          </div>
+          <div class="service-bottom">
+            <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="cta-text">
+              <span>Konsultasi Layanan</span>
+              <svg class="icon icon-xs" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </article>
 
-          <article class="card">
-            <div class="card-icon">◈</div>
-            <h3>Presentation Design</h3>
-            <p>Desain presentasi profesional yang ringkas, menarik, dan efektif dalam menyampaikan informasi.</p>
-          </article>
-
-          <article class="card">
-  <div class="card-icon">🗺️</div>
-  <h3>GIS & Mapping</h3>
-  <p>Menyusun peta digital interaktif, memvisualisasikan data wilayah, dan melakukan analisis spasial menggunakan GIS tools dan GeoJSON.</p>
-</article>
-        </div>
-      </section>
-
-      <section class="section reveal" id="process">
-        <div class="section-top">
+        <article class="service-card">
           <div>
-            <span class="section-label">Alur Kerja</span>
-            <h2>Proses kerja yang sederhana.</h2>
+            <div class="service-icon">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            </div>
+            <h3>Slide Presentation</h3>
+            <p>Desain slide presentasi yang komunikatif, menarik, elegan, dan siap digunakan.</p>
+            <ul class="service-checklist">
+              <li>
+                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Visual hierarchy yang jelas
+              </li>
+              <li>
+                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Template modern custom
+              </li>
+              <li>
+                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Format PDF & presentasi interaktif
+              </li>
+            </ul>
           </div>
-          <p>
-            Alur dibuat jelas agar kebutuhan dokumen dapat dipahami sejak awal dan hasil akhirnya lebih sesuai dengan target pengguna.
-          </p>
-        </div>
-
-        <div class="process-grid">
-          <article class="process-card">
-            <div class="process-number">1</div>
-            <h3>Konsultasi</h3>
-            <p>Menentukan kebutuhan, jenis dokumen, format, dan target hasil.</p>
-          </article>
-
-          <article class="process-card">
-            <div class="process-number">2</div>
-            <h3>Penyusunan</h3>
-            <p>Dokumen mulai disusun atau dirapikan sesuai struktur yang disepakati.</p>
-          </article>
-
-          <article class="process-card">
-            <div class="process-number">3</div>
-            <h3>Review</h3>
-            <p>Isi, bahasa, layout, dan konsistensi format diperiksa kembali.</p>
-          </article>
-
-          <article class="process-card">
-            <div class="process-number">4</div>
-            <h3>Finalisasi</h3>
-            <p>File akhir disiapkan agar siap digunakan atau dipresentasikan.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="contact reveal" id="contact">
-        <div class="contact-content">
-          <h2>Siap membuat dokumen akademik terlihat lebih profesional?</h2>
-          <p>
-            Hubungi saya untuk penyusunan karya akademik, pengembangan modul pembelajaran, desain presentasi, editing, proofreading, dan pengelolaan dokumen profesional dengan hasil yang rapi, sistematis, dan berkualitas.
-          </p>
-
-          <div class="contact-actions">
-            <a href="mailto:sufyantsaury.id@gmail.com" class="btn btn-primary">Email Saya</a>
-            <a href="https://t.me/piantsa" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
-  Telegram
-</a>
+          <div class="service-bottom">
+            <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="cta-text">
+              <span>Konsultasi Layanan</span>
+              <svg class="icon icon-xs" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
           </div>
-        </div>
-      </section>
-    </main>
+        </article>
 
-    <footer>
-      <strong>✦ Sufyan Tsaury Portfolio</strong>
-      <p>Modern Personal Branding Website · © 2026 All Rights Reserved</p>
+        <article class="service-card">
+          <div>
+            <div class="service-icon">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+            </div>
+            <h3>WebGIS & Spatial Data</h3>
+            <p>Pembuatan peta digital interaktif web untuk menampilkan visualisasi data wilayah.</p>
+            <ul class="service-checklist">
+              <li>
+                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Peta berbasis Leaflet & GeoJSON
+              </li>
+              <li>
+                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Popup data atribut interaktif
+              </li>
+              <li>
+                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Tampilan responsif & cepat
+              </li>
+            </ul>
+          </div>
+          <div class="service-bottom">
+            <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="cta-text">
+              <span>Konsultasi Layanan</span>
+              <svg class="icon icon-xs" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- PROCESS SECTION -->
+    <section class="section" id="process">
+      <div class="section-header">
+        <div>
+          <span class="section-label">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            Alur Kerja
+          </span>
+          <h2 class="section-title">4 Tahap Menuju Hasil Maksimal</h2>
+        </div>
+        <p class="section-subtitle">
+          Proses kolaborasi yang terstruktur dan transparan demi memastikan hasil akhir sesuai ekspektasi.
+        </p>
+      </div>
+
+      <div class="process-timeline">
+        <div class="process-step">
+          <div class="step-badge">1</div>
+          <h3>Konsultasi & Brief</h3>
+          <p>Diskusi kebutuhan dokumen, tenggat waktu, panduan selingkung, serta tujuan materi.</p>
+        </div>
+
+        <div class="process-step">
+          <div class="step-badge">2</div>
+          <h3>Penyusunan & Pengerjaan</h3>
+          <p>Naskah atau format mulai digarap secara teliti dan sistematis sesuai kesepakatan.</p>
+        </div>
+
+        <div class="process-step">
+          <div class="step-badge">3</div>
+          <h3>Review & Koreksi</h3>
+          <p>Pemeriksaan draf bersama klien untuk memastikan kelengkapan isi dan tata letak.</p>
+        </div>
+
+        <div class="process-step">
+          <div class="step-badge">4</div>
+          <h3>Finalisasi & Serah File</h3>
+          <p>Pengiriman berkas akhir siap pakai dalam format dokumen, PDF, atau tautan interaktif.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT CTA SECTION -->
+    <section class="contact-banner" id="contact">
+      <div class="contact-content">
+        <h2>Siap Membuat Dokumen Anda Tampil Lebih Profesional?</h2>
+        <p>
+          Diskusikan naskah akademik, kebutuhan format buku, desain presentasi, maupun proyek peta digital Anda bersama saya. Saya siap membantu dengan dedikasi penuh terhadap kualitas dan ketepatan waktu.
+        </p>
+        <div class="contact-buttons">
+          <a href="mailto:sufyantsaury.id@gmail.com" class="btn btn-primary">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            <span>Kirim Email</span>
+          </a>
+          <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            <span>Telegram (@piantsa)</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-card-quick">
+        <div class="quick-channel-item">
+          <div class="quick-channel-info">
+            <div class="channel-icon">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            </div>
+            <div class="channel-meta">
+              <strong>Email Kontak</strong>
+              <span>sufyantsaury.id@gmail.com</span>
+            </div>
+          </div>
+          <button class="copy-btn" onclick="copyEmail()">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <span>Salin</span>
+          </button>
+        </div>
+
+        <div class="quick-channel-item">
+          <div class="quick-channel-info">
+            <div class="channel-icon">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </div>
+            <div class="channel-meta">
+              <strong>Direct Telegram</strong>
+              <span>@piantsa</span>
+            </div>
+          </div>
+          <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="copy-btn">
+            <span>Buka</span>
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+          </a>
+        </div>
+
+        <div class="quick-channel-item">
+          <div class="quick-channel-info">
+            <div class="channel-icon">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </div>
+            <div class="channel-meta">
+              <strong>Lokasi Kerja</strong>
+              <span>Sumedang & Online Seluruh Indonesia</span>
+            </div>
+          </div>
+          <span style="font-size: 11px; color: var(--success); font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+            <span style="width:6px; height:6px; border-radius:50%; background:var(--success);"></span> Online
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <strong>Sufyan Tsaury</strong>
+          <p>Academic Writing, Document Formatting & WebGIS · Portofolio Modern 2026</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="#home">Beranda</a>
+          <a href="#about">Tentang</a>
+          <a href="#portfolio">Karya</a>
+          <a href="webgis.html">WebGIS</a>
+          <a href="ppt.html">Presentasi</a>
+          <a href="#contact">Kontak</a>
+        </div>
+
+        <a href="#home" class="back-to-top" title="Kembali ke atas" aria-label="Kembali ke atas">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+        </a>
+      </div>
     </footer>
+
   </div>
+
+  <!-- INTERACTIVE SCRIPTS -->
+  <script>
+    // Theme Management
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIconSun = document.getElementById('themeIconSun');
+    const themeIconMoon = document.getElementById('themeIconMoon');
+    const htmlEl = document.documentElement;
+
+    function getSavedTheme() {
+      const saved = localStorage.getItem('theme_preference');
+      if (saved) return saved;
+      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+
+    function applyTheme(theme) {
+      htmlEl.setAttribute('data-theme', theme);
+      if (theme === 'dark') {
+        themeIconSun.style.display = 'inline-block';
+        themeIconMoon.style.display = 'none';
+      } else {
+        themeIconSun.style.display = 'none';
+        themeIconMoon.style.display = 'inline-block';
+      }
+      localStorage.setItem('theme_preference', theme);
+    }
+
+    applyTheme(getSavedTheme());
+
+    themeToggleBtn.addEventListener('click', () => {
+      const current = htmlEl.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      showToast(`Tema berganti ke mode ${next === 'dark' ? 'Gelap' : 'Terang'}`);
+    });
+
+    // Mobile Drawer
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+    hamburgerBtn.addEventListener('click', () => mobileDrawer.classList.add('open'));
+    closeDrawerBtn.addEventListener('click', () => mobileDrawer.classList.remove('open'));
+    mobileDrawer.addEventListener('click', (e) => {
+      if (e.target === mobileDrawer) mobileDrawer.classList.remove('open');
+    });
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => mobileDrawer.classList.remove('open'));
+    });
+
+    // Active Nav Link on Scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+      let scrollY = window.pageYOffset;
+      sections.forEach(current => {
+        const sectionHeight = current.offsetHeight;
+        const sectionTop = current.offsetTop - 120;
+        const sectionId = current.getAttribute('id');
+
+        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+          navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${sectionId}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    });
+
+    // Toast Notification & Clipboard
+    function showToast(message) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<svg class="icon icon-sm" viewBox="0 0 24 24" style="color:var(--primary);"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>${message}</span>`;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(20px)';
+        toast.style.transition = '0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    function copyEmail() {
+      const email = 'sufyantsaury.id@gmail.com';
+      navigator.clipboard.writeText(email).then(() => {
+        showToast('Email berhasil disalin ke papan klip!');
+      }).catch(() => {
+        showToast('Gagal menyalin email otomatis.');
+      });
+    }
+  </script>
 </body>
-</html>
+</html>\n
