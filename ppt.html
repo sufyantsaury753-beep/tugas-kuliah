@@ -1,232 +1,815 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Wadah Presentasi & Slide Akademik Sufyan Tsaury — Slide Kuliah, Seminar, Animasi Web, dan Format PDF Siap Pakai." />
+  <title>Wadah Presentasi & Slide Akademik — Sufyan Tsaury</title>
 
-  <title>PPT</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <style>
-    * {
+    :root {
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --indigo: #6366f1;
+      --accent: #f59e0b;
+      --accent-soft: rgba(245, 158, 11, 0.12);
+      --success: #10b981;
+
+      /* Dark Theme (Default) */
+      --bg: #0b0f19;
+      --bg-alt: #111827;
+      --surface: #151d2f;
+      --surface-soft: #1e293b;
+      --surface-hover: #26334d;
+      --surface-glass: rgba(21, 29, 47, 0.8);
+      --surface-glass-border: rgba(255, 255, 255, 0.08);
+
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-soft: #cbd5e1;
+      --line: rgba(255, 255, 255, 0.07);
+      --line-strong: rgba(255, 255, 255, 0.14);
+
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
+      --shadow-md: 0 12px 32px -4px rgba(0, 0, 0, 0.35);
+      --shadow-lg: 0 24px 60px -12px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 35px rgba(59, 130, 246, 0.2);
+
+      --gradient-brand: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #f59e0b 100%);
+      --gradient-card: linear-gradient(145deg, rgba(30, 41, 59, 0.75) 0%, rgba(15, 23, 42, 0.92) 100%);
+      --gradient-text: linear-gradient(135deg, #ffffff 30%, #93c5fd 70%, #fcd34d 100%);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-alt: #ffffff;
+      --surface: #ffffff;
+      --surface-soft: #f1f5f9;
+      --surface-hover: #e2e8f0;
+      --surface-glass: rgba(255, 255, 255, 0.85);
+      --surface-glass-border: rgba(255, 255, 255, 0.8);
+
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --text-soft: #334155;
+      --line: rgba(15, 23, 42, 0.08);
+      --line-strong: rgba(15, 23, 42, 0.15);
+
+      --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 12px 30px -4px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 24px 50px -12px rgba(15, 23, 42, 0.12);
+      --shadow-glow: 0 0 35px rgba(59, 130, 246, 0.15);
+
+      --gradient-brand: linear-gradient(135deg, #1d4ed8 0%, #4338ca 50%, #d97706 100%);
+      --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+      --gradient-text: linear-gradient(135deg, #0f172a 30%, #1e40af 70%, #b45309 100%);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      background: #f5f7fb;
-      color: #111827;
+      font-family: "Inter", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+      min-height: 100vh;
+      transition: background-color 0.35s ease, color 0.35s ease;
+      padding-bottom: 60px;
     }
 
-    h1 {
-      margin-bottom: 20px;
-      color: #173b8f;
-      font-size: 36px;
+    .ambient-glow {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.4;
+    }
+    .glow-1 {
+      width: 550px;
+      height: 550px;
+      top: -100px;
+      left: -100px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.3), transparent 70%);
+    }
+    .glow-2 {
+      width: 500px;
+      height: 500px;
+      bottom: 5%;
+      right: -100px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.2), transparent 70%);
     }
 
-    .subtitle {
+    .container {
+      width: min(1160px, 92%);
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.25;
+    }
+
+    /* SVG ICONS */
+    .icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      stroke-width: 2;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    .icon-xs { width: 14px; height: 14px; }
+    .icon-sm { width: 16px; height: 16px; }
+    .icon-md { width: 20px; height: 20px; }
+    .icon-lg { width: 24px; height: 24px; }
+    .icon-xl { width: 40px; height: 40px; }
+
+    /* TOP BAR */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0 36px;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
+      color: var(--text-soft);
+      font-size: 14px;
+      font-weight: 700;
+      backdrop-filter: blur(16px);
+      transition: all 0.25s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .back-btn:hover {
+      background: var(--surface-hover);
+      color: var(--primary);
+      transform: translateX(-3px);
+      border-color: var(--primary);
+    }
+
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--text);
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
+      cursor: pointer;
+      backdrop-filter: blur(16px);
+      transition: all 0.25s ease;
+    }
+
+    .theme-toggle:hover {
+      background: var(--surface-hover);
+      color: var(--primary);
+      transform: rotate(15deg) scale(1.05);
+    }
+
+    /* HERO CARD */
+    .ppt-hero-card {
+      background: var(--gradient-card);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: 32px;
+      padding: 44px;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ppt-hero-card::after {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      right: -70px;
+      top: -70px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.25), transparent 70%);
+      pointer-events: none;
+    }
+
+    .ppt-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .ppt-hero-card h1 {
+      font-size: clamp(32px, 4.5vw, 52px);
+      letter-spacing: -1.2px;
+      margin-bottom: 14px;
+    }
+
+    .ppt-hero-card .gradient-text {
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .ppt-hero-card p {
+      color: var(--text-soft);
+      font-size: 16.5px;
+      line-height: 1.8;
+      max-width: 740px;
+    }
+
+    /* FILTER BAR */
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       margin-bottom: 28px;
-      font-size: 18px;
-      color: #374151;
+      overflow-x: auto;
+      padding-bottom: 6px;
     }
 
+    .filter-btn {
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: var(--text-soft);
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover {
+      background: var(--surface-hover);
+      color: var(--text);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+    }
+
+    /* PRESENTATION CARDS */
     .ppt-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 24px;
+      margin-bottom: 56px;
     }
 
     .ppt-card {
-      background: #ffffff;
-      padding: 28px;
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
       border-radius: 28px;
-      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
-      transition: 0.3s ease;
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 260px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
     }
 
     .ppt-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 22px 55px rgba(15, 23, 42, 0.14);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .card-top {
+      margin-bottom: 24px;
+    }
+
+    .card-header-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .deck-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--gradient-brand);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.25);
+    }
+
+    .deck-category {
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: var(--text-muted);
     }
 
     .ppt-card h3 {
-      margin-bottom: 12px;
-      font-size: 28px;
-      color: #173b8f;
+      font-size: 24px;
+      margin-bottom: 10px;
+      font-weight: 800;
     }
 
     .ppt-card p {
-      margin-bottom: 24px;
-      color: #4b5563;
+      color: var(--text-soft);
+      font-size: 14.5px;
       line-height: 1.7;
-      font-size: 17px;
+      margin-bottom: 18px;
     }
 
-    .button-group {
+    .meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .meta-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: var(--text-muted);
+    }
+
+    .card-actions {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
     }
 
     .btn {
-      text-decoration: none;
-      display: inline-block;
-      color: #ffffff;
-      padding: 13px 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
       border-radius: 999px;
-      font-weight: 900;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.25s ease;
+      cursor: pointer;
       text-align: center;
-      transition: 0.25s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18);
     }
 
     .btn-pdf {
-      background: linear-gradient(135deg, #173b8f 0%, #3155c7 48%, #d97706 100%);
+      background: var(--gradient-brand);
+      color: #ffffff;
+      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-pdf:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(59, 130, 246, 0.35);
     }
 
     .btn-animasi {
-      background: #071d35;
+      background: var(--surface-soft);
+      border: 1px solid var(--line-strong);
+      color: var(--text);
     }
 
-    .note {
-      margin-top: 14px;
-      font-size: 14px;
+    .btn-animasi:hover {
+      background: var(--surface-hover);
+      color: var(--primary);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .device-tip {
+      font-size: 12px;
+      color: var(--text-muted);
       line-height: 1.5;
-      color: #6b7280;
+      margin-top: 6px;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    /* DEVICE MODAL */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      place-items: center;
+      padding: 20px;
+      animation: fadeInModal 0.25s ease;
+    }
+
+    .modal-backdrop.active {
+      display: grid;
+    }
+
+    @keyframes fadeInModal {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-box {
+      background: var(--bg-alt);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: 26px;
+      padding: 32px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      animation: popUpModal 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes popUpModal {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-icon-wrap {
+      width: 64px;
+      height: 64px;
+      border-radius: 20px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      margin: 0 auto 16px;
+    }
+
+    .modal-box h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .modal-box p {
+      color: var(--text-soft);
+      font-size: 14.5px;
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* FOOTER */
+    .ppt-footer {
+      text-align: center;
+      padding-top: 36px;
+      border-top: 1px solid var(--line);
+      color: var(--text-muted);
+      font-size: 13.5px;
+    }
+
+    .ppt-footer strong {
+      display: block;
+      color: var(--text);
+      font-size: 16px;
+      margin-bottom: 4px;
     }
 
     @media (max-width: 768px) {
-      body {
-        padding: 24px 16px;
-      }
-
-      h1 {
-        font-size: 30px;
-      }
-
-      .subtitle {
-        font-size: 16px;
-      }
-
-      .ppt-card {
-        padding: 26px;
-        border-radius: 26px;
-      }
-
-      .btn-animasi {
-        opacity: 0.55;
-      }
+      .ppt-hero-card { padding: 28px 20px; }
     }
   </style>
 </head>
 
 <body>
-  <h1>Wadah Presentasi</h1>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
 
-  <p class="subtitle">
-    Pilih slide atau file presentasi yang ingin dibuka:
-  </p>
+  <div class="container">
+    
+    <!-- TOP BAR -->
+    <header class="top-bar">
+      <a href="index.html" class="back-btn">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Kembali ke Beranda</span>
+      </a>
 
-  <div class="ppt-grid">
+      <button class="theme-toggle" id="themeToggleBtn" aria-label="Ganti Tema">
+        <svg class="icon icon-md" id="themeIconSun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <svg class="icon icon-md" id="themeIconMoon" viewBox="0 0 24 24" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+    </header>
 
-    <!-- PPT 1 -->
-    <div class="ppt-card">
-      <div>
-        <h3>PPT 1</h3>
-        <p>
-          Slide materi kuliah dengan pilihan versi PDF dan versi animasi.
-        </p>
-      </div>
+    <!-- HERO CARD -->
+    <section class="ppt-hero-card">
+      <span class="ppt-badge">
+        <svg class="icon icon-xs" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        Presentation & Slide Deck Showcase
+      </span>
+      <h1>
+        Wadah Presentasi & <span class="gradient-text">Slide Akademik</span>
+      </h1>
+      <p>
+        Pilih slide atau materi presentasi kuliah dan seminar yang ingin dibuka. Tersedia versi PDF yang ringan untuk perangkat mobile serta versi animasi web interaktif untuk pengalaman terbaik di laptop/desktop.
+      </p>
+    </section>
 
-      <div>
-        <div class="button-group">
-          <a href="ppt_portofolio_1.pdf" class="btn btn-pdf">
-            Buka PPT
-          </a>
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterDecks('all', this)">Semua Slide</button>
+      <button class="filter-btn" onclick="filterDecks('kuliah', this)">Materi Kuliah</button>
+      <button class="filter-btn" onclick="filterDecks('seminar', this)">Seminar & Presentasi</button>
+    </div>
 
-          <a href="ppt/ppt_1.html" class="btn btn-animasi" onclick="return cekLaptop(event)">
-            PPT Animasi
-          </a>
+    <!-- PRESENTATION DECKS GRID -->
+    <section class="ppt-grid">
+
+      <!-- PPT 1 -->
+      <article class="ppt-card" data-category="kuliah">
+        <div class="card-top">
+          <div class="card-header-meta">
+            <div class="deck-icon">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            </div>
+            <span class="deck-category">Kuliah & Interaktif</span>
+          </div>
+
+          <h3>PPT 1 — Slide Kuliah & Animasi</h3>
+          <p>
+            Slide materi perkuliahan dengan dua pilihan format: dokumen PDF yang cepat dan versi animasi interaktif dengan transisi halus.
+          </p>
+
+          <div class="meta-pills">
+            <span class="meta-pill">Dual Format</span>
+            <span class="meta-pill">Animasi Web</span>
+            <span class="meta-pill">Slide Interaktif</span>
+          </div>
         </div>
 
-        <p class="note">
-          Versi PDF cocok untuk HP. Versi animasi disarankan dibuka melalui laptop.
-        </p>
-      </div>
-    </div>
+        <div class="card-actions">
+          <a href="ppt_portofolio_1.pdf" target="_blank" class="btn btn-pdf">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            <span>Buka Versi PDF</span>
+          </a>
 
-    <!-- PPT 2 -->
-    <div class="ppt-card">
-      <div>
-        <h3>PPT 2</h3>
-        <p>
-          Slide materi kuliah dan seminar yang sudah dirapikan.
-        </p>
-      </div>
+          <a href="ppt/ppt_1.html" class="btn btn-animasi" onclick="handleAnimationClick(event, 'ppt/ppt_1.html')">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <span>PPT Animasi Web</span>
+          </a>
 
-      <div class="button-group">
-        <a href="ppt_portofolio_2.pdf" class="btn btn-pdf">
-          Buka PPT
-        </a>
-      </div>
-    </div>
+          <div class="device-tip">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+            <span>PDF cocok untuk HP. Animasi disarankan diakses via laptop.</span>
+          </div>
+        </div>
+      </article>
 
-    <!-- PPT 3 -->
-    <div class="ppt-card">
-      <div>
-        <h3>PPT 3</h3>
-        <p>
-          Slide materi kuliah dan seminar yang sudah dirapikan.
-        </p>
-      </div>
+      <!-- PPT 2 -->
+      <article class="ppt-card" data-category="seminar">
+        <div class="card-top">
+          <div class="card-header-meta">
+            <div class="deck-icon">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+            </div>
+            <span class="deck-category">Seminar Akademik</span>
+          </div>
 
-      <div class="button-group">
-        <a href="ppt_portofolio_3.pdf" class="btn btn-pdf">
-          Buka PPT
-        </a>
-      </div>
-    </div>
+          <h3>PPT 2 — Slide Seminar & Diskusi</h3>
+          <p>
+            Materi presentasi seminar dan diskusi ilmiah yang telah dirapikan secara sistematis dengan visualisasi poin-poin utama yang tajam.
+          </p>
 
-    <!-- PPT 4 -->
-    <div class="ppt-card">
-      <div>
-        <h3>PPT 4</h3>
-        <p>
-          Slide materi kuliah dan seminar yang sudah dirapikan.
-        </p>
-      </div>
+          <div class="meta-pills">
+            <span class="meta-pill">Format PDF</span>
+            <span class="meta-pill">Seminar Ready</span>
+            <span class="meta-pill">Tata Letak Rapi</span>
+          </div>
+        </div>
 
-      <div class="button-group">
-        <a href="ppt_portofolio_4.pdf" class="btn btn-pdf">
-          Buka PPT
-        </a>
-      </div>
-    </div>
+        <div class="card-actions">
+          <a href="ppt_portofolio_2.pdf" target="_blank" class="btn btn-pdf">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            <span>Buka Presentasi PDF</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- PPT 3 -->
+      <article class="ppt-card" data-category="kuliah">
+        <div class="card-top">
+          <div class="card-header-meta">
+            <div class="deck-icon">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            </div>
+            <span class="deck-category">Materi Kuliah</span>
+          </div>
+
+          <h3>PPT 3 — Slide Paparan Teori</h3>
+          <p>
+            Rangkuman slide paparan materi kuliah terstruktur dengan bagan alur konsep yang mempermudah audiens memahami inti pembahasan.
+          </p>
+
+          <div class="meta-pills">
+            <span class="meta-pill">Format PDF</span>
+            <span class="meta-pill">Teori & Skema</span>
+            <span class="meta-pill">Elegan & Bersih</span>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <a href="ppt_portofolio_3.pdf" target="_blank" class="btn btn-pdf">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            <span>Buka Presentasi PDF</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- PPT 4 -->
+      <article class="ppt-card" data-category="seminar">
+        <div class="card-top">
+          <div class="card-header-meta">
+            <div class="deck-icon">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <span class="deck-category">Karya Ilmiah</span>
+          </div>
+
+          <h3>PPT 4 — Slide Presentasi Ilmiah</h3>
+          <p>
+            Slide presentasi tugas akhir dan seminar riset dengan tipografi jelas, kontras warna optimal, dan tata letak profesional.
+          </p>
+
+          <div class="meta-pills">
+            <span class="meta-pill">Format PDF</span>
+            <span class="meta-pill">Karya Ilmiah</span>
+            <span class="meta-pill">Siap Sidang</span>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <a href="ppt_portofolio_4.pdf" target="_blank" class="btn btn-pdf">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            <span>Buka Presentasi PDF</span>
+          </a>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="ppt-footer">
+      <strong>Sufyan Tsaury — Presentation Specialist</strong>
+      <p>Desain Presentasi Akademik & Profesional · 2026</p>
+    </footer>
 
   </div>
 
-  <script>
-    function cekLaptop(event) {
-      const isMobile = window.innerWidth <= 900;
+  <!-- DEVICE NOTICE MODAL -->
+  <div class="modal-backdrop" id="deviceModal">
+    <div class="modal-box">
+      <div class="modal-icon-wrap">
+        <svg class="icon icon-xl" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="2" y1="20" x2="22" y2="20"></line></svg>
+      </div>
+      <h3>Saran Perangkat Desktop</h3>
+      <p>
+        PPT Animasi menggunakan efek transisi interaktif yang dioptimalkan untuk tampilan layar lebar (Laptop/Komputer). Apakah Anda ingin tetap membuka versi animasi atau beralih ke versi PDF?
+      </p>
+      <div class="modal-actions">
+        <a href="#" id="modalContinueBtn" class="btn btn-animasi">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span>Tetap Buka Animasi</span>
+        </a>
+        <a href="ppt_portofolio_1.pdf" target="_blank" class="btn btn-pdf" onclick="closeModal()">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          <span>Buka Versi PDF Saja</span>
+        </a>
+        <button onclick="closeModal()" style="font-size: 13px; color: var(--text-muted); margin-top: 6px;">Batal</button>
+      </div>
+    </div>
+  </div>
 
+  <script>
+    // Theme Management
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIconSun = document.getElementById('themeIconSun');
+    const themeIconMoon = document.getElementById('themeIconMoon');
+    const htmlEl = document.documentElement;
+
+    function applyTheme(theme) {
+      htmlEl.setAttribute('data-theme', theme);
+      if (theme === 'dark') {
+        themeIconSun.style.display = 'inline-block';
+        themeIconMoon.style.display = 'none';
+      } else {
+        themeIconSun.style.display = 'none';
+        themeIconMoon.style.display = 'inline-block';
+      }
+      localStorage.setItem('theme_preference', theme);
+    }
+
+    const savedTheme = localStorage.getItem('theme_preference') || 
+      (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    applyTheme(savedTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+      const current = htmlEl.getAttribute('data-theme');
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Filter Decks
+    function filterDecks(category, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.ppt-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Interactive Device Check Modal
+    const deviceModal = document.getElementById('deviceModal');
+    const modalContinueBtn = document.getElementById('modalContinueBtn');
+
+    function handleAnimationClick(e, targetUrl) {
+      const isMobile = window.innerWidth <= 900;
       if (isMobile) {
-        event.preventDefault();
-        alert("PPT animasi hanya disarankan dibuka menggunakan laptop. Silakan buka versi PDF untuk tampilan HP.");
+        e.preventDefault();
+        modalContinueBtn.setAttribute('href', targetUrl);
+        deviceModal.classList.add('active');
         return false;
       }
-
       return true;
     }
+
+    function closeModal() {
+      deviceModal.classList.remove('active');
+    }
+
+    deviceModal.addEventListener('click', (e) => {
+      if (e.target === deviceModal) closeModal();
+    });
   </script>
 </body>
 </html>
