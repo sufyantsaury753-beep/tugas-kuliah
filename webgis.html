@@ -1,209 +1,797 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Katalog WebGIS & Pemetaan Digital</title>
+  <meta name="description" content="Katalog Proyek WebGIS & Pemetaan Digital oleh Sufyan Tsaury — Visualisasi Geospasial, Leaflet.js, GeoJSON & Peta Interaktif." />
+  <title>WebGIS & Pemetaan Digital — Sufyan Tsaury</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <style>
-    * {
+    :root {
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --indigo: #6366f1;
+      --accent: #f59e0b;
+      --accent-soft: rgba(245, 158, 11, 0.12);
+      --success: #10b981;
+      --success-soft: rgba(16, 185, 129, 0.15);
+
+      /* Dark Theme (Default) */
+      --bg: #0b0f19;
+      --bg-alt: #111827;
+      --surface: #151d2f;
+      --surface-soft: #1e293b;
+      --surface-hover: #26334d;
+      --surface-glass: rgba(21, 29, 47, 0.8);
+      --surface-glass-border: rgba(255, 255, 255, 0.08);
+
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-soft: #cbd5e1;
+      --line: rgba(255, 255, 255, 0.07);
+      --line-strong: rgba(255, 255, 255, 0.14);
+
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
+      --shadow-md: 0 12px 32px -4px rgba(0, 0, 0, 0.35);
+      --shadow-lg: 0 24px 60px -12px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 35px rgba(59, 130, 246, 0.2);
+
+      --gradient-brand: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #f59e0b 100%);
+      --gradient-card: linear-gradient(145deg, rgba(30, 41, 59, 0.75) 0%, rgba(15, 23, 42, 0.92) 100%);
+      --gradient-text: linear-gradient(135deg, #ffffff 30%, #93c5fd 70%, #fcd34d 100%);
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --bg-alt: #ffffff;
+      --surface: #ffffff;
+      --surface-soft: #f1f5f9;
+      --surface-hover: #e2e8f0;
+      --surface-glass: rgba(255, 255, 255, 0.85);
+      --surface-glass-border: rgba(255, 255, 255, 0.8);
+
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --text-soft: #334155;
+      --line: rgba(15, 23, 42, 0.08);
+      --line-strong: rgba(15, 23, 42, 0.15);
+
+      --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 12px 30px -4px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 24px 50px -12px rgba(15, 23, 42, 0.12);
+      --shadow-glow: 0 0 35px rgba(59, 130, 246, 0.15);
+
+      --gradient-brand: linear-gradient(135deg, #1d4ed8 0%, #4338ca 50%, #d97706 100%);
+      --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+      --gradient-text: linear-gradient(135deg, #0f172a 30%, #1e40af 70%, #b45309 100%);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
+      font-family: "Inter", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
       min-height: 100vh;
-      font-family: Arial, sans-serif;
-      color: #101827;
-      background: linear-gradient(180deg, #f8fbff, #f3f6fb);
-      padding: 40px 22px;
+      transition: background-color 0.35s ease, color 0.35s ease;
+      padding-bottom: 60px;
     }
 
-    .gis-container {
-      width: min(1100px, 100%);
-      margin: auto;
+    .ambient-glow {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.4;
+    }
+    .glow-1 {
+      width: 550px;
+      height: 550px;
+      top: -100px;
+      right: -100px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.3), transparent 70%);
+    }
+    .glow-2 {
+      width: 500px;
+      height: 500px;
+      bottom: 10%;
+      left: -100px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.2), transparent 70%);
     }
 
-    .gis-header {
-      margin-bottom: 34px;
+    .container {
+      width: min(1140px, 92%);
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
     }
 
-    .gis-label {
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.25;
+    }
+
+    /* SVG ICONS */
+    .icon {
       display: inline-block;
-      margin-bottom: 12px;
-      color: #d97706;
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
+      width: 20px;
+      height: 20px;
+      stroke-width: 2;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    .icon-xs { width: 14px; height: 14px; }
+    .icon-sm { width: 16px; height: 16px; }
+    .icon-md { width: 20px; height: 20px; }
+    .icon-lg { width: 24px; height: 24px; }
+
+    /* TOP BAR */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0 36px;
     }
 
-    .gis-header h1 {
-      font-size: clamp(34px, 5vw, 56px);
-      line-height: 1.1;
-      margin-bottom: 14px;
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
+      color: var(--text-soft);
+      font-size: 14px;
+      font-weight: 700;
+      backdrop-filter: blur(16px);
+      transition: all 0.25s ease;
+      box-shadow: var(--shadow-sm);
     }
 
-    .gis-header p {
-      max-width: 720px;
-      color: #4b5563;
-      font-size: 17px;
-      line-height: 1.8;
+    .back-btn:hover {
+      background: var(--surface-hover);
+      color: var(--primary);
+      transform: translateX(-3px);
+      border-color: var(--primary);
     }
 
-    .gis-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 22px;
-  align-items: stretch;
-}
-
-    .gis-card {
-      background: #ffffff;
-      border: 1px solid rgba(15, 23, 42, .09);
-      border-radius: 28px;
-      padding: 30px;
-      box-shadow: 0 12px 32px rgba(15, 23, 42, .08);
-      transition: .3s ease;
-    }
-
-    .gis-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 22px 55px rgba(15, 23, 42, .14);
-    }
-
-    .gis-icon {
-      width: 58px;
-      height: 58px;
-      margin-bottom: 22px;
-      border-radius: 20px;
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
       display: grid;
       place-items: center;
-      color: #ffffff;
-      font-size: 24px;
-      font-weight: 900;
-      background: linear-gradient(135deg, #173b8f 0%, #3155c7 48%, #d97706 100%);
+      color: var(--text);
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
+      cursor: pointer;
+      backdrop-filter: blur(16px);
+      transition: all 0.25s ease;
     }
 
-    .gis-card h3 {
-      font-size: 26px;
-      margin-bottom: 12px;
-      line-height: 1.2;
+    .theme-toggle:hover {
+      background: var(--surface-hover);
+      color: var(--primary);
+      transform: rotate(15deg) scale(1.05);
     }
 
-    .gis-card p {
-      color: #4b5563;
-      font-size: 15.5px;
+    /* HEADER CARD */
+    .gis-header-card {
+      background: var(--gradient-card);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: 32px;
+      padding: 44px;
+      margin-bottom: 44px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gis-header-card::after {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      right: -80px;
+      top: -80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.2), transparent 70%);
+      pointer-events: none;
+    }
+
+    .gis-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .gis-header-card h1 {
+      font-size: clamp(32px, 4.5vw, 52px);
+      letter-spacing: -1.2px;
+      margin-bottom: 16px;
+    }
+
+    .gis-header-card .gradient-text {
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gis-header-card p {
+      color: var(--text-soft);
+      font-size: 16.5px;
       line-height: 1.8;
+      max-width: 720px;
+    }
+
+    .header-tech-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .tech-pill {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* FILTER BAR */
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+    }
+
+    .filter-btn {
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: var(--text-soft);
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover {
+      background: var(--surface-hover);
+      color: var(--text);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+    }
+
+    /* PROJECT CARDS */
+    .gis-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 56px;
+    }
+
+    .project-card {
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .card-top {
       margin-bottom: 24px;
     }
 
-    .gis-card a {
+    .card-icon-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: var(--gradient-brand);
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 6px 18px rgba(59, 130, 246, 0.3);
+    }
+
+    .project-status {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: var(--success-soft);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .project-card h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      font-weight: 800;
+    }
+
+    .project-card p {
+      color: var(--text-soft);
+      font-size: 15px;
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    .feature-points {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .feature-points li {
+      font-size: 13px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .feature-points li .bullet-icon {
+      color: var(--primary);
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .mini-tag {
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: var(--text-muted);
+    }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 13px 22px;
+      gap: 8px;
+      padding: 11px 22px;
       border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--gradient-brand);
       color: #ffffff;
-      font-weight: 900;
-      text-decoration: none;
-      background: linear-gradient(135deg, #173b8f 0%, #3155c7 48%, #d97706 100%);
-      box-shadow: 0 12px 28px rgba(23, 59, 143, .20);
-      transition: .25s ease;
+      box-shadow: 0 6px 18px rgba(59, 130, 246, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
-    .gis-card a:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 18px 40px rgba(23, 59, 143, .30);
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(59, 130, 246, 0.4);
     }
 
-    .back-link {
-      display: inline-flex;
-      margin-bottom: 26px;
-      color: #173b8f;
-      font-weight: 900;
-      text-decoration: none;
+    .btn-outline {
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: var(--text-soft);
     }
 
-    .back-link:hover {
-      text-decoration: underline;
+    .btn-outline:hover {
+      background: var(--surface-hover);
+      color: var(--primary);
+      border-color: var(--primary);
+      transform: translateY(-2px);
     }
 
-    @media (max-width: 760px) {
-      body {
-        padding: 26px 16px;
-      }
-
-      .gis-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .gis-card {
-        padding: 24px;
-      }
+    /* TECHNICAL CAPABILITIES */
+    .section-title-wrap {
+      margin-bottom: 28px;
     }
 
-.gis-card {
-  display: flex;
-  flex-direction: column;
-}
+    .section-title-wrap h2 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
 
-.gis-card a {
-  margin-top: auto;
-  width: fit-content;
-}
+    .section-title-wrap p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
 
-.gis-actions {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 60px;
+    }
+
+    .feature-box {
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .feature-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+    }
+
+    .feature-box h4 {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .feature-box p {
+      color: var(--text-muted);
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+
+    /* FOOTER */
+    .gis-footer {
+      text-align: center;
+      padding-top: 36px;
+      border-top: 1px solid var(--line);
+      color: var(--text-muted);
+      font-size: 13.5px;
+    }
+
+    .gis-footer strong {
+      display: block;
+      color: var(--text);
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 900px) {
+      .gis-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .gis-header-card { padding: 30px 22px; }
+    }
   </style>
 </head>
 
 <body>
-  <main class="gis-container">
-    <a href="index.html" class="back-link">← Kembali ke Portfolio</a>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
 
-    <section class="gis-header">
-      <span class="gis-label">WebGIS Portfolio</span>
-      <h1>WebGIS & Pemetaan Digital</h1>
+  <div class="container">
+    
+    <!-- TOP BAR -->
+    <header class="top-bar">
+      <a href="index.html" class="back-btn">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Kembali ke Beranda</span>
+      </a>
+
+      <button class="theme-toggle" id="themeToggleBtn" aria-label="Ganti Tema">
+        <svg class="icon icon-md" id="themeIconSun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <svg class="icon icon-md" id="themeIconMoon" viewBox="0 0 24 24" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+    </header>
+
+    <!-- HEADER CARD -->
+    <section class="gis-header-card">
+      <span class="gis-badge">
+        <svg class="icon icon-xs" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+        WebGIS & Geospatial Projects
+      </span>
+      <h1>
+        Katalog WebGIS & <span class="gradient-text">Pemetaan Digital</span>
+      </h1>
       <p>
-        Kumpulan proyek peta interaktif berbasis web untuk menampilkan data wilayah,
-        batas administratif, titik lokasi, dan informasi geospasial secara visual.
+        Kumpulan proyek peta interaktif berbasis web untuk visualisasi demografi wilayah Indonesia, batas spasial GeoJSON, serta galeri petualangan gunung terintegrasi.
       </p>
+
+      <div class="header-tech-pills">
+        <div class="tech-pill">
+          <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          Leaflet.js
+        </div>
+        <div class="tech-pill">
+          <svg class="icon icon-xs" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+          GeoJSON MultiPolygon
+        </div>
+        <div class="tech-pill">
+          <svg class="icon icon-xs" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+          OpenStreetMap Tiles
+        </div>
+        <div class="tech-pill">
+          <svg class="icon icon-xs" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          Visualisasi Tematik
+        </div>
+      </div>
     </section>
 
+    <!-- FILTER BUTTONS -->
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterProjects('all', this)">Semua Proyek</button>
+      <button class="filter-btn" onclick="filterProjects('demografi', this)">Demografi & Wilayah</button>
+      <button class="filter-btn" onclick="filterProjects('outdoor', this)">Galeri Gunung</button>
+    </div>
+
+    <!-- PROJECTS GRID -->
     <section class="gis-grid">
-      <article class="gis-card">
-        <div class="gis-icon">⌖</div>
-        <h3>Peta Kependudukan Wilayah Indonesia</h3>
-        <p>
-          Peta Kependudukan wilayah Indonesia dengan informasi jumlah penduduk tiap daerah,
-          visualisasi area, dan navigasi interaktif berbasis web.
-        </p>
-        <div class="gis-actions">
-  <a href="indonesia.html">Buka Peta</a>
-</div>
+
+      <!-- Project 1: Peta Kependudukan Indonesia -->
+      <article class="project-card" data-category="demografi">
+        <div class="card-top">
+          <div class="card-icon-banner">
+            <div class="icon-box">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="22" y1="12" x2="18" y2="12"></line><line x1="6" y1="12" x2="2" y2="12"></line><line x1="12" y1="6" x2="12" y2="2"></line><line x1="12" y1="22" x2="12" y2="18"></line></svg>
+            </div>
+            <span class="project-status">Live Interactive</span>
+          </div>
+
+          <h3>Peta Kependudukan Wilayah Indonesia</h3>
+          <p>
+            Peta interaktif berbasis WebGIS yang memvisualisasikan data persebaran dan jumlah penduduk di berbagai provinsi Indonesia, dilengkapi poligon wilayah dan info demografi lengkap.
+          </p>
+
+          <ul class="feature-points">
+            <li>
+              <svg class="icon icon-xs bullet-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              Pewarnaan tematik (Choropleth) berdasarkan populasi
+            </li>
+            <li>
+              <svg class="icon icon-xs bullet-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              Tooltip & popup interaktif saat hover/klik wilayah
+            </li>
+            <li>
+              <svg class="icon icon-xs bullet-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              Navigasi zoom & kontrol layer yang responsif
+            </li>
+          </ul>
+
+          <div class="card-tags">
+            <span class="mini-tag">Leaflet</span>
+            <span class="mini-tag">GeoJSON Indonesia</span>
+            <span class="mini-tag">Statistik Kependudukan</span>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <a href="indonesia.html" class="btn btn-primary">
+            <span>Buka Peta Live</span>
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+          </a>
+          <a href="index.html#portfolio" class="btn btn-outline">
+            <span>Detail Portofolio</span>
+          </a>
+        </div>
       </article>
 
-      <article class="gis-card">
-  <div class="gis-icon">▲</div>
+      <!-- Project 2: Mountain Gallery -->
+      <article class="project-card" data-category="outdoor">
+        <div class="card-top">
+          <div class="card-icon-banner">
+            <div class="icon-box">
+              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M8 3l4 8 5-5 5 15H2L8 3z"></path></svg>
+            </div>
+            <span class="project-status">Live Project</span>
+          </div>
 
-  <h3>Mountain Gallery</h3>
+          <h3>Mountain Gallery & Interactive Map</h3>
+          <p>
+            Platform peta digital interaktif yang menyajikan sebaran gunung di Indonesia, data ketinggian (MDPL), jalur pendakian resmi, serta dokumentasi visual galeri foto.
+          </p>
 
-  <p>
-    Mountain Gallery adalah website peta interaktif untuk menampilkan lokasi gunung,
-    informasi singkat, dan dokumentasi foto pendakian.
-  </p>
+          <ul class="feature-points">
+            <li>
+              <svg class="icon icon-xs bullet-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              Pin marker interaktif untuk setiap lokasi gunung
+            </li>
+            <li>
+              <svg class="icon icon-xs bullet-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              Popup galeri foto dan rangkuman ketinggian
+            </li>
+            <li>
+              <svg class="icon icon-xs bullet-icon" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              Integrasi base map OpenStreetMap resolusi tinggi
+            </li>
+          </ul>
 
-  <a href="https://sufyantsaury753-beep.github.io/mountain-gallery/">Buka Peta</a>
-</article>
-      
+          <div class="card-tags">
+            <span class="mini-tag">Outdoor GIS</span>
+            <span class="mini-tag">Gallery Modal</span>
+            <span class="mini-tag">Elevation Data</span>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <a href="https://sufyantsaury753-beep.github.io/mountain-gallery/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <span>Buka Mountain Gallery</span>
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+          </a>
+          <a href="index.html#portfolio" class="btn btn-outline">
+            <span>Detail Proyek</span>
+          </a>
+        </div>
+      </article>
+
     </section>
-  </main>
+
+    <!-- TECHNICAL CAPABILITIES SECTION -->
+    <section>
+      <div class="section-title-wrap">
+        <h2>Kemampuan Teknis WebGIS</h2>
+        <p>Fitur dan keunggulan dalam pengembangan peta berbasis web</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="feature-icon-wrap">
+            <svg class="icon icon-md" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          </div>
+          <h4>Performa Ringan & Cepat</h4>
+          <p>Dibuat menggunakan script native yang teroptimasi tanpa library berat yang memperlambat browser.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrap">
+            <svg class="icon icon-md" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          </div>
+          <h4>Responsif di Berbagai Layar</h4>
+          <p>Peta dapat dinavigasi dengan mudah melalui cubit layar (pinch-to-zoom) pada smartphone maupun mouse di desktop.</p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-icon-wrap">
+            <svg class="icon icon-md" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+          </div>
+          <h4>Desain Estetik & Tematik</h4>
+          <p>Kombinasi warna poligon dan UI kontrol yang dirancang bersih, modern, dan mudah dipahami pengguna.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="gis-footer">
+      <strong>Sufyan Tsaury — WebGIS Specialist</strong>
+      <p>Portofolio Pemetaan Digital & Visualisasi Geospasial · 2026</p>
+    </footer>
+
+  </div>
+
+  <script>
+    // Theme Management
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIconSun = document.getElementById('themeIconSun');
+    const themeIconMoon = document.getElementById('themeIconMoon');
+    const htmlEl = document.documentElement;
+
+    function applyTheme(theme) {
+      htmlEl.setAttribute('data-theme', theme);
+      if (theme === 'dark') {
+        themeIconSun.style.display = 'inline-block';
+        themeIconMoon.style.display = 'none';
+      } else {
+        themeIconSun.style.display = 'none';
+        themeIconMoon.style.display = 'inline-block';
+      }
+      localStorage.setItem('theme_preference', theme);
+    }
+
+    const savedTheme = localStorage.getItem('theme_preference') || 
+      (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    applyTheme(savedTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+      const current = htmlEl.getAttribute('data-theme');
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Filter Projects
+    function filterProjects(category, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const cards = document.querySelectorAll('.project-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
 </body>
 </html>
