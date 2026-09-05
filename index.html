@@ -1,2193 +1,854 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="dark">
+<html lang="id" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portfolio Sufyan Tsaury — Layanan Academic Writing, Document Formatting, Presentation Design, WebGIS & Pemetaan Digital." />
-  <meta name="keywords" content="Sufyan Tsaury, Academic Writing, WebGIS, Formatting Dokumen, Presentation Design, Portofolio Mahasiswa Hukum" />
+  <meta name="description" content="Portfolio Sufyan Tsaury — Web Development (Next.js, React, Supabase), WebGIS & Pemetaan Spasial, Pembuatan Buku Ajar & Naskah Akademik." />
   <meta name="author" content="Sufyan Tsaury" />
-  <title>Sufyan Tsaury — Academic & Digital Portfolio</title>
-
-  <!-- Google Fonts -->
+  <title>Sufyan Tsaury — Web Developer & Digital Specialist</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            primary: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          },
+          animation: {
+            'float': 'float 4s ease-in-out infinite',
+            'float-delayed': 'float 4.5s ease-in-out 2s infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
 
   <style>
-    /* ==========================================================================
-       CSS VARIABLES & THEME CONFIGURATION
-       ========================================================================== */
-    :root {
-      --primary: #3b82f6;
-      --primary-hover: #2563eb;
-      --indigo: #6366f1;
-      --accent: #f59e0b;
-      --accent-soft: rgba(245, 158, 11, 0.12);
-      --success: #10b981;
-      --success-soft: rgba(16, 185, 129, 0.15);
-
-      /* Dark Theme (Default) */
-      --bg: #0b0f19;
-      --bg-alt: #111827;
-      --surface: #151d2f;
-      --surface-soft: #1e293b;
-      --surface-hover: #26334d;
-      --surface-glass: rgba(21, 29, 47, 0.78);
-      --surface-glass-border: rgba(255, 255, 255, 0.08);
-
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-soft: #cbd5e1;
-      --line: rgba(255, 255, 255, 0.07);
-      --line-strong: rgba(255, 255, 255, 0.14);
-
-      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
-      --shadow-md: 0 12px 32px -4px rgba(0, 0, 0, 0.35);
-      --shadow-lg: 0 24px 60px -12px rgba(0, 0, 0, 0.5);
-      --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.22);
-      
-      --gradient-brand: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #f59e0b 100%);
-      --gradient-card: linear-gradient(145deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%);
-      --gradient-text: linear-gradient(135deg, #ffffff 30%, #93c5fd 70%, #fcd34d 100%);
-    }
-
-    [data-theme="light"] {
-      --bg: #f8fafc;
-      --bg-alt: #ffffff;
-      --surface: #ffffff;
-      --surface-soft: #f1f5f9;
-      --surface-hover: #e2e8f0;
-      --surface-glass: rgba(255, 255, 255, 0.85);
-      --surface-glass-border: rgba(255, 255, 255, 0.8);
-
-      --text: #0f172a;
-      --text-muted: #64748b;
-      --text-soft: #334155;
-      --line: rgba(15, 23, 42, 0.08);
-      --line-strong: rgba(15, 23, 42, 0.15);
-
-      --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.04);
-      --shadow-md: 0 12px 30px -4px rgba(15, 23, 42, 0.08);
-      --shadow-lg: 0 24px 50px -12px rgba(15, 23, 42, 0.12);
-      --shadow-glow: 0 0 35px rgba(59, 130, 246, 0.15);
-
-      --gradient-brand: linear-gradient(135deg, #1d4ed8 0%, #4338ca 50%, #d97706 100%);
-      --gradient-card: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-      --gradient-text: linear-gradient(135deg, #0f172a 30%, #1e40af 70%, #b45309 100%);
-    }
-
-    /* ==========================================================================
-       RESET & BASE STYLES
-       ========================================================================== */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 90px;
-    }
-
-    body {
-      font-family: "Inter", sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-      overflow-x: hidden;
-      transition: background-color 0.35s ease, color 0.35s ease;
-      min-height: 100vh;
-      position: relative;
-    }
-
-    /* Ambient Background Glows */
-    .ambient-glow {
-      position: fixed;
-      pointer-events: none;
-      z-index: 0;
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.45;
-    }
-    .glow-1 {
-      width: 550px;
-      height: 550px;
-      top: -150px;
-      left: -100px;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.35), transparent 70%);
-    }
-    .glow-2 {
-      width: 600px;
-      height: 600px;
-      top: 30%;
-      right: -150px;
-      background: radial-gradient(circle, rgba(99, 102, 241, 0.25), transparent 70%);
-    }
-    .glow-3 {
-      width: 500px;
-      height: 500px;
-      bottom: 5%;
-      left: 10%;
-      background: radial-gradient(circle, rgba(245, 158, 11, 0.2), transparent 70%);
-    }
-
-    .grid-pattern {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image: radial-gradient(var(--line-strong) 1px, transparent 1px);
-      background-size: 32px 32px;
-      opacity: 0.4;
-      z-index: 0;
-      mask-image: linear-gradient(180deg, rgba(0,0,0,0.8), transparent 90%);
-    }
-
-    .container {
-      width: min(1200px, 92%);
-      margin: 0 auto;
-      position: relative;
-      z-index: 2;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button {
-      font-family: inherit;
-      cursor: pointer;
-      border: none;
-      background: none;
-    }
-
-    h1, h2, h3, h4 {
-      font-family: "Plus Jakarta Sans", sans-serif;
-      font-weight: 800;
-      color: var(--text);
-      line-height: 1.25;
-    }
-
-    /* SVG ICONS HELPER */
-    .icon {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      stroke-width: 2;
-      stroke: currentColor;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      vertical-align: middle;
-      flex-shrink: 0;
-    }
-    .icon-xs { width: 14px; height: 14px; }
-    .icon-sm { width: 16px; height: 16px; }
-    .icon-md { width: 20px; height: 20px; }
-    .icon-lg { width: 24px; height: 24px; }
-
-    /* ==========================================================================
-       NAVIGATION BAR
-       ========================================================================== */
-    .header-nav {
-      position: sticky;
-      top: 18px;
-      z-index: 100;
-      margin-bottom: 36px;
-    }
-
-    .navbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 10px 18px;
-      border-radius: 999px;
-      background: var(--surface-glass);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid var(--surface-glass-border);
-      box-shadow: var(--shadow-md);
-      transition: all 0.3s ease;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
-
-    .brand-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--gradient-brand);
-      color: #fff;
-      display: grid;
-      place-items: center;
-      font-family: "Plus Jakarta Sans", sans-serif;
-      font-weight: 800;
-      font-size: 15px;
-      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
-    }
-
-    .brand-info strong {
-      display: block;
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: -0.3px;
-    }
-
-    .brand-info span {
-      display: block;
-      font-size: 11px;
-      color: var(--text-muted);
-      font-weight: 600;
-      margin-top: -2px;
-    }
-
-    .nav-menu {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      list-style: none;
-    }
-
-    .nav-link {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-soft);
-      padding: 8px 16px;
-      border-radius: 999px;
-      transition: all 0.2s ease;
-    }
-
-    .nav-link:hover {
-      color: var(--text);
-      background: var(--surface-soft);
-    }
-
-    .nav-link.active {
-      color: #ffffff;
-      background: var(--primary);
-      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .theme-toggle {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      color: var(--text);
-      background: var(--surface-soft);
-      border: 1px solid var(--line);
-      transition: all 0.25s ease;
-    }
-
-    .theme-toggle:hover {
-      background: var(--surface-hover);
-      color: var(--primary);
-      transform: rotate(15deg) scale(1.05);
-    }
-
-    .nav-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 9px 18px;
-      border-radius: 999px;
-      background: var(--gradient-brand);
-      color: #ffffff;
-      font-size: 13.5px;
-      font-weight: 700;
-      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
-      transition: all 0.25s ease;
-    }
-
-    .nav-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
-    }
-
-    .hamburger {
-      display: none;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--surface-soft);
-      border: 1px solid var(--line);
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
-      padding: 0;
-    }
-
-    .hamburger span {
-      width: 18px;
-      height: 2px;
-      background: var(--text);
-      border-radius: 2px;
-    }
-
-    .mobile-menu-drawer {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      background: rgba(0, 0, 0, 0.65);
-      backdrop-filter: blur(10px);
-      opacity: 0;
-      pointer-events: none;
-      transition: 0.3s ease;
-    }
-
-    .mobile-menu-drawer.open {
-      opacity: 1;
-      pointer-events: auto;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .mobile-menu-panel {
-      width: min(320px, 85vw);
-      height: 100%;
-      background: var(--bg-alt);
-      padding: 30px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      box-shadow: var(--shadow-lg);
-      transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .mobile-menu-drawer.open .mobile-menu-panel {
-      transform: translateX(0);
-    }
-
-    .mobile-nav-link {
-      font-size: 16px;
-      font-weight: 700;
-      padding: 12px 16px;
-      border-radius: 12px;
-      color: var(--text-soft);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .mobile-nav-link:hover, .mobile-nav-link.active {
-      color: var(--primary);
-      background: var(--surface-soft);
-    }
-
-    /* ==========================================================================
-       HERO SECTION
-       ========================================================================== */
-    .hero {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      align-items: center;
-      gap: 40px;
-      padding: 48px;
-      margin-bottom: 72px;
-      border-radius: 36px;
-      background: var(--gradient-card);
-      border: 1px solid var(--surface-glass-border);
-      box-shadow: var(--shadow-md);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-badge-container {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 22px;
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: var(--success-soft);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      color: #34d399;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 10px #10b981;
-      animation: pulseDot 2s infinite;
-    }
-
-    @keyframes pulseDot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(1.3); }
-    }
-
-    .tag-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      border: 1px solid rgba(245, 158, 11, 0.25);
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.4px;
-      text-transform: uppercase;
-    }
-
-    .hero-title {
-      font-size: clamp(38px, 4.8vw, 62px);
-      font-weight: 800;
-      letter-spacing: -1.5px;
-      line-height: 1.08;
-      margin-bottom: 22px;
-    }
-
-    .hero-title .gradient-text {
-      background: var(--gradient-text);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-description {
-      color: var(--text-soft);
-      font-size: 16.5px;
-      line-height: 1.8;
-      margin-bottom: 34px;
-      max-width: 600px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 40px;
-    }
-
-    /* Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 13px 26px;
-      border-radius: 999px;
-      font-size: 14.5px;
-      font-weight: 700;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .btn-primary {
-      background: var(--gradient-brand);
-      color: #ffffff;
-      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(59, 130, 246, 0.45);
-    }
-
-    .btn-outline {
-      background: var(--surface-glass);
-      color: var(--text);
-      border: 1px solid var(--line-strong);
-      backdrop-filter: blur(10px);
-    }
-
-    .btn-outline:hover {
-      background: var(--surface-hover);
-      border-color: var(--primary);
-      color: var(--primary);
-      transform: translateY(-3px);
-    }
-
-    .hero-stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      border-top: 1px solid var(--line);
-      padding-top: 24px;
-    }
-
-    .hero-stat-card {
-      background: var(--surface-glass);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 14px 16px;
-      transition: transform 0.2s ease;
-    }
-
-    .hero-stat-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--line-strong);
-    }
-
-    .hero-stat-card strong {
-      display: block;
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--primary);
-      font-family: "Plus Jakarta Sans", sans-serif;
-      line-height: 1.1;
-      margin-bottom: 4px;
-    }
-
-    .hero-stat-card span {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-muted);
-      line-height: 1.35;
-      display: block;
-    }
-
-    /* Profile Side Card */
-    .profile-card {
-      background: var(--surface-glass);
-      border: 1px solid var(--surface-glass-border);
-      border-radius: 28px;
-      padding: 26px;
-      box-shadow: var(--shadow-lg);
-      backdrop-filter: blur(16px);
-      position: relative;
-    }
-
-    .profile-card-header {
-      background: var(--gradient-brand);
-      border-radius: 20px;
-      padding: 24px;
-      color: #ffffff;
-      margin-bottom: 20px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .profile-avatar-row {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 14px;
-    }
-
-    .big-avatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.2);
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      display: grid;
-      place-items: center;
-      font-size: 24px;
-      font-weight: 900;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .profile-meta-header h3 {
-      font-size: 22px;
-      color: #ffffff;
-      margin-bottom: 2px;
-    }
-
-    .profile-meta-header p {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.85);
-      font-weight: 500;
-    }
-
-    .profile-tagline {
-      font-size: 12.5px;
-      line-height: 1.5;
-      color: rgba(255, 255, 255, 0.9);
-      background: rgba(0, 0, 0, 0.15);
-      padding: 8px 12px;
-      border-radius: 10px;
-    }
-
-    .profile-data-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    .profile-data-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: var(--surface-soft);
-      border: 1px solid var(--line);
-      font-size: 13.5px;
-    }
-
-    .profile-data-item .label {
-      color: var(--text-muted);
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .profile-data-item .val {
-      font-weight: 700;
-      color: var(--text);
-      text-align: right;
-    }
-
-    .profile-socials {
-      display: flex;
-      gap: 8px;
-      margin-top: 18px;
-    }
-
-    .social-btn {
-      flex: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 10px;
-      border-radius: 12px;
-      background: var(--surface-soft);
-      border: 1px solid var(--line);
-      color: var(--text);
-      font-size: 12.5px;
-      font-weight: 700;
-      transition: all 0.2s ease;
-    }
-
-    .social-btn:hover {
-      background: var(--surface-hover);
-      color: var(--primary);
-      border-color: var(--primary);
-    }
-
-    /* ==========================================================================
-       SECTIONS
-       ========================================================================== */
-    .section {
-      margin-bottom: 96px;
-      position: relative;
-    }
-
-    .section-header {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: flex-end;
-      gap: 30px;
-      margin-bottom: 40px;
-    }
-
-    .section-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 1.4px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
-
-    .section-title {
-      font-size: clamp(28px, 3.8vw, 44px);
-      letter-spacing: -0.8px;
-      font-weight: 800;
-    }
-
-    .section-subtitle {
-      color: var(--text-muted);
-      font-size: 16px;
-      line-height: 1.75;
-    }
-
-    /* ABOUT ME */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 24px;
-    }
-
-    .about-story-card {
-      background: var(--surface-glass);
-      border: 1px solid var(--surface-glass-border);
-      border-radius: 28px;
-      padding: 36px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .about-story-card h3 {
-      font-size: 24px;
-      margin-bottom: 16px;
-      font-weight: 800;
-    }
-
-    .about-story-card p {
-      color: var(--text-soft);
-      font-size: 15.5px;
-      line-height: 1.85;
-      margin-bottom: 18px;
-    }
-
-    .highlight-card {
-      background: var(--surface-glass);
-      border: 1px solid var(--surface-glass-border);
-      border-radius: 28px;
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .strength-item {
-      display: flex;
-      gap: 16px;
-      padding: 16px;
-      border-radius: 18px;
-      background: var(--surface-soft);
-      border: 1px solid var(--line);
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .strength-item:hover {
-      transform: translateX(4px);
-      border-color: var(--line-strong);
-    }
-
-    .strength-icon {
-      flex: 0 0 36px;
-      height: 36px;
-      border-radius: 12px;
-      background: var(--gradient-brand);
-      color: #fff;
-      display: grid;
-      place-items: center;
-    }
-
-    .strength-text h4 {
-      font-size: 15px;
-      margin-bottom: 4px;
-    }
-
-    .strength-text p {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    /* SKILLS */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .skill-card {
-      background: var(--surface-glass);
-      border: 1px solid var(--surface-glass-border);
-      border-radius: 26px;
-      padding: 30px;
-      box-shadow: var(--shadow-sm);
-      transition: all 0.3s ease;
-    }
-
-    .skill-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--primary);
-      box-shadow: var(--shadow-glow);
-    }
-
-    .skill-icon-wrap {
-      width: 52px;
-      height: 52px;
-      border-radius: 16px;
-      background: var(--gradient-brand);
-      color: #ffffff;
-      display: grid;
-      place-items: center;
-      margin-bottom: 20px;
-      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25);
-    }
-
-    .skill-card h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-
-    .skill-card p {
-      color: var(--text-soft);
-      font-size: 14.5px;
-      line-height: 1.7;
-      margin-bottom: 18px;
-    }
-
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .skill-tag {
-      font-size: 11.5px;
-      font-weight: 600;
-      padding: 5px 10px;
-      border-radius: 8px;
-      background: var(--surface-soft);
-      color: var(--text-muted);
-      border: 1px solid var(--line);
-    }
-
-    /* PORTFOLIO */
-    .portfolio-grid {
-      display: grid;
-      gap: 22px;
-    }
-
-    .showcase-card {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 28px;
-      padding: 32px;
-      border-radius: 28px;
-      background: var(--surface-glass);
-      border: 1px solid var(--surface-glass-border);
-      box-shadow: var(--shadow-sm);
-      transition: all 0.3s ease;
-    }
-
-    .showcase-card:hover {
+    * {
+      transition-property: color, background-color, border-color, opacity, box-shadow, transform;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 200ms;
+    }
+    .card-hover:hover {
       transform: translateY(-4px);
-      border-color: var(--line-strong);
-      box-shadow: var(--shadow-md);
     }
-
-    .showcase-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .badge-pill {
-      font-size: 11.5px;
-      font-weight: 700;
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: var(--surface-soft);
-      color: var(--text-soft);
-      border: 1px solid var(--line);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .badge-pill.accent {
-      background: var(--accent-soft);
-      color: var(--accent);
-      border-color: rgba(245, 158, 11, 0.3);
-    }
-
-    .badge-pill.primary {
-      background: rgba(59, 130, 246, 0.12);
-      color: var(--primary);
-      border-color: rgba(59, 130, 246, 0.3);
-    }
-
-    .showcase-card h3 {
-      font-size: 26px;
-      margin-bottom: 10px;
-      font-weight: 800;
-    }
-
-    .showcase-card p {
-      color: var(--text-soft);
-      font-size: 15px;
-      line-height: 1.75;
-      max-width: 680px;
-      margin-bottom: 14px;
-    }
-
-    .showcase-features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      font-size: 13px;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .showcase-features span {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .showcase-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      min-width: 170px;
-    }
-
-    /* SERVICES */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .service-card {
-      background: var(--surface-glass);
-      border: 1px solid var(--surface-glass-border);
-      border-radius: 24px;
-      padding: 26px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.3s ease;
-    }
-
-    .service-card:hover {
-      transform: translateY(-5px);
-      border-color: var(--primary);
-      box-shadow: var(--shadow-md);
-    }
-
-    .service-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      background: var(--surface-soft);
-      border: 1px solid var(--line);
-      color: var(--primary);
-      display: grid;
-      place-items: center;
-      margin-bottom: 18px;
-    }
-
-    .service-card h3 {
-      font-size: 19px;
-      margin-bottom: 10px;
-      font-weight: 800;
-    }
-
-    .service-card p {
-      color: var(--text-muted);
-      font-size: 13.5px;
-      line-height: 1.65;
-      margin-bottom: 16px;
-    }
-
-    .service-checklist {
-      list-style: none;
-      display: grid;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .service-checklist li {
-      font-size: 12.5px;
-      color: var(--text-soft);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 500;
-    }
-
-    .service-checklist li .check-icon {
-      color: var(--success);
-    }
-
-    .service-bottom {
-      margin-top: 20px;
-      padding-top: 16px;
-      border-top: 1px solid var(--line);
-    }
-
-    .service-bottom .cta-text {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--primary);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* PROCESS */
-    .process-timeline {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .process-step {
-      background: var(--surface-glass);
-      border: 1px solid var(--surface-glass-border);
-      border-radius: 24px;
-      padding: 26px;
-      box-shadow: var(--shadow-sm);
-      transition: all 0.3s ease;
-    }
-
-    .process-step:hover {
-      transform: translateY(-4px);
-      border-color: var(--line-strong);
-    }
-
-    .step-badge {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: var(--gradient-brand);
-      color: #fff;
-      font-size: 16px;
-      font-weight: 900;
-      display: grid;
-      place-items: center;
-      margin-bottom: 18px;
-      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.25);
-    }
-
-    .process-step h3 {
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
-
-    .process-step p {
-      color: var(--text-muted);
-      font-size: 13.5px;
-      line-height: 1.65;
-    }
-
-    /* CONTACT BANNER */
-    .contact-banner {
-      background: var(--gradient-card);
-      border: 1px solid var(--surface-glass-border);
-      border-radius: 36px;
-      padding: 56px;
-      box-shadow: var(--shadow-lg);
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      align-items: center;
-      gap: 40px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .contact-content h2 {
-      font-size: clamp(32px, 4vw, 48px);
-      letter-spacing: -1px;
-      margin-bottom: 16px;
-    }
-
-    .contact-content p {
-      color: var(--text-soft);
-      font-size: 16px;
-      line-height: 1.8;
-      margin-bottom: 28px;
-      max-width: 580px;
-    }
-
-    .contact-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .contact-card-quick {
-      background: var(--surface-glass);
-      border: 1px solid var(--surface-glass-border);
-      border-radius: 24px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .quick-channel-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px;
-      border-radius: 14px;
-      background: var(--surface-soft);
-      border: 1px solid var(--line);
-    }
-
-    .quick-channel-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .channel-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      background: var(--surface);
-      color: var(--primary);
-    }
-
-    .channel-meta strong {
-      display: block;
-      font-size: 13.5px;
-    }
-
-    .channel-meta span {
-      display: block;
-      font-size: 11.5px;
-      color: var(--text-muted);
-    }
-
-    .copy-btn {
-      padding: 6px 12px;
-      border-radius: 8px;
-      background: var(--surface);
-      border: 1px solid var(--line);
-      color: var(--text-soft);
-      font-size: 12px;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: all 0.2s ease;
-    }
-
-    .copy-btn:hover {
-      color: var(--primary);
-      border-color: var(--primary);
-    }
-
-    /* FOOTER */
-    .site-footer {
-      padding: 40px 0 30px;
-      border-top: 1px solid var(--line);
-      margin-top: 80px;
-    }
-
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .footer-brand strong {
-      display: block;
-      font-family: "Plus Jakarta Sans", sans-serif;
-      font-size: 17px;
-      font-weight: 800;
-    }
-
-    .footer-brand p {
-      font-size: 12.5px;
-      color: var(--text-muted);
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 20px;
-    }
-
-    .footer-links a {
-      font-size: 13.5px;
-      font-weight: 600;
-      color: var(--text-muted);
-      transition: color 0.2s ease;
-    }
-
-    .footer-links a:hover {
-      color: var(--primary);
-    }
-
-    .back-to-top {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: var(--surface-soft);
-      border: 1px solid var(--line);
-      color: var(--text);
-      display: grid;
-      place-items: center;
-      transition: all 0.2s ease;
-    }
-
-    .back-to-top:hover {
-      background: var(--primary);
-      color: #fff;
-      transform: translateY(-3px);
-    }
-
-    /* TOAST */
-    .toast-container {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      pointer-events: none;
-    }
-
-    .toast {
-      padding: 12px 20px;
-      border-radius: 12px;
-      background: var(--surface);
-      border: 1px solid var(--primary);
-      color: var(--text);
-      font-size: 13.5px;
-      font-weight: 600;
-      box-shadow: var(--shadow-lg);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      animation: slideInToast 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      pointer-events: auto;
-    }
-
-    @keyframes slideInToast {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 1024px) {
-      .hero { grid-template-columns: 1fr; padding: 36px; }
-      .section-header { grid-template-columns: 1fr; gap: 14px; }
-      .about-grid { grid-template-columns: 1fr; }
-      .skills-grid { grid-template-columns: repeat(2, 1fr); }
-      .services-grid { grid-template-columns: repeat(2, 1fr); }
-      .process-timeline { grid-template-columns: repeat(2, 1fr); }
-      .contact-banner { grid-template-columns: 1fr; padding: 40px; }
-    }
-
-    @media (max-width: 768px) {
-      .nav-menu, .nav-cta { display: none; }
-      .hamburger { display: flex; }
-      .hero { padding: 26px 20px; border-radius: 26px; }
-      .hero-title { font-size: 34px; }
-      .hero-stats-grid { grid-template-columns: 1fr; }
-      .showcase-card { grid-template-columns: 1fr; padding: 24px; }
-      .showcase-actions { flex-direction: row; width: 100%; }
-      .showcase-actions .btn { flex: 1; }
-      .skills-grid, .services-grid, .process-timeline { grid-template-columns: 1fr; }
-      .contact-banner { padding: 28px 20px; border-radius: 26px; }
-      .contact-buttons .btn { width: 100%; }
-      .footer-content { flex-direction: column; align-items: flex-start; }
+    /* State aktif saat kartu diklik */
+    .stat-card.active {
+      border-color: #2563eb !important;
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.15) !important;
     }
   </style>
 </head>
+<body class="bg-white text-slate-800 font-sans antialiased selection:bg-primary-600 selection:text-white">
 
-<body>
-  <div class="ambient-glow glow-1"></div>
-  <div class="ambient-glow glow-2"></div>
-  <div class="ambient-glow glow-3"></div>
-  <div class="grid-pattern"></div>
-
-  <div class="toast-container" id="toastContainer"></div>
-
-  <div class="container">
-    
-    <!-- STICKY HEADER NAVIGATION -->
-    <header class="header-nav">
-      <nav class="navbar" aria-label="Navigasi Utama">
-        <a href="#home" class="brand" aria-label="Sufyan Tsaury Home">
-          <div class="brand-avatar">ST</div>
-          <div class="brand-info">
-            <strong>Sufyan Tsaury</strong>
-            <span>Academic & GIS Specialist</span>
-          </div>
-        </a>
-
-        <ul class="nav-menu">
-          <li><a href="#home" class="nav-link active">Beranda</a></li>
-          <li><a href="#about" class="nav-link">Tentang</a></li>
-          <li><a href="#skills" class="nav-link">Keahlian</a></li>
-          <li><a href="#portfolio" class="nav-link">Karya</a></li>
-          <li><a href="#services" class="nav-link">Layanan</a></li>
-          <li><a href="#process" class="nav-link">Alur Kerja</a></li>
-          <li><a href="#contact" class="nav-link">Kontak</a></li>
-        </ul>
-
-        <div class="nav-actions">
-          <button class="theme-toggle" id="themeToggleBtn" aria-label="Ganti Tema (Gelap/Terang)">
-            <svg class="icon icon-md" id="themeIconSun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-            <svg class="icon icon-md" id="themeIconMoon" viewBox="0 0 24 24" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-          </button>
-          <a href="#contact" class="nav-cta">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-            <span>Konsultasi Dokumen</span>
-          </a>
-          <button class="hamburger" id="hamburgerBtn" aria-label="Buka Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
+  <!-- ==================== NAVBAR ==================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#beranda" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-primary-600 flex items-center justify-center text-white font-extrabold text-base shadow-md shadow-primary-600/20 group-hover:scale-105 transition-transform">
+          ST
         </div>
+        <div>
+          <span class="text-lg font-extrabold tracking-tight text-slate-900 block leading-tight">
+            Sufyan Tsaury<span class="text-primary-600">.</span>
+          </span>
+          <span class="text-[11px] font-semibold text-slate-500 block">
+            Web Developer & Digital Specialist
+          </span>
+        </div>
+      </a>
+
+      <!-- Menu Desktop -->
+      <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
+        <a href="#beranda" class="hover:text-primary-600">Beranda</a>
+        <a href="#portofolio" class="hover:text-primary-600">Proyek Web</a>
+        <a href="#statistik" class="hover:text-primary-600">Statistik</a>
+        <a href="#layanan" class="hover:text-primary-600">Layanan</a>
+        <a href="#tentang" class="hover:text-primary-600">Tentang</a>
+        <a href="#alur" class="hover:text-primary-600">Alur Kerja</a>
+        <a href="#kontak" class="hover:text-primary-600">Kontak</a>
       </nav>
-    </header>
 
-    <!-- MOBILE MENU DRAWER -->
-    <div class="mobile-menu-drawer" id="mobileDrawer">
-      <div class="mobile-menu-panel">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 14px;">
-          <div class="brand-info">
-            <strong>Sufyan Tsaury</strong>
-            <span>Menu Navigasi</span>
-          </div>
-          <button id="closeDrawerBtn" style="color: var(--text); padding: 4px;">
-            <svg class="icon icon-lg" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          </button>
-        </div>
-        <a href="#home" class="mobile-nav-link active">Beranda <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-        <a href="#about" class="mobile-nav-link">Tentang Saya <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-        <a href="#skills" class="mobile-nav-link">Keahlian <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-        <a href="#portfolio" class="mobile-nav-link">Karya Pilihan <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-        <a href="https://kelas-hk-a-uinssc-2025.vercel.app" target="_blank" rel="noopener noreferrer" class="mobile-nav-link">Web Kelas (HK A) <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
-        <a href="#services" class="mobile-nav-link">Layanan <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-        <a href="#process" class="mobile-nav-link">Alur Kerja <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-        <a href="#contact" class="mobile-nav-link">Hubungi Saya <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-        <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--line);">
-          <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 100%;">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-            <span>Chat Telegram</span>
-          </a>
-        </div>
+      <!-- Action Button -->
+      <div class="hidden sm:flex items-center gap-3">
+        <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-full bg-primary-600 hover:bg-primary-700 text-white text-sm font-bold shadow-sm transition-all hover:shadow-md hover:shadow-primary-600/25 flex items-center gap-2">
+          <i data-lucide="send" class="w-4 h-4"></i>
+          <span>Konsultasi Proyek</span>
+        </a>
       </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-xl text-slate-700 hover:bg-slate-100" aria-label="Toggle Menu">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
     </div>
 
-    <!-- HERO SECTION -->
-    <section class="hero" id="home">
-      <div class="hero-content">
-        <div class="hero-badge-container">
-          <span class="status-badge">
-            <span class="status-dot"></span>
-            Siap Kolaborasi & Pengerjaan Dokumen
-          </span>
-          <span class="tag-badge">
-            <svg class="icon icon-xs" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-            Academic Writing & GIS
-          </span>
-        </div>
-
-        <h1 class="hero-title">
-          Merapikan ide menjadi karya akademik yang <span class="gradient-text">presisi, elegan & kuat.</span>
-        </h1>
-
-        <p class="hero-description">
-          Membantu mahasiswa, akademisi, dan profesional dalam penulisan naskah, formatting dokumen terstandar, desain slide presentasi yang memukau, serta pengembangan peta interaktif WebGIS.
-        </p>
-
-        <div class="hero-actions">
-          <a href="#portfolio" class="btn btn-primary">
-            <span>Eksplorasi Portofolio</span>
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </a>
-          <a href="#contact" class="btn btn-outline">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            <span>Hubungi Saya</span>
-          </a>
-        </div>
-
-        <div class="hero-stats-grid">
-          <div class="hero-stat-card">
-            <strong>04+</strong>
-            <span>Fokus Layanan Spesialis</span>
-          </div>
-          <div class="hero-stat-card">
-            <strong>100%</strong>
-            <span>Ketepatan Format & Sistematika</span>
-          </div>
-          <div class="hero-stat-card">
-            <strong>2026</strong>
-            <span>Portofolio Digital Modern</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hero Profile Panel -->
-      <aside class="profile-card" aria-label="Ringkasan Profil">
-        <div class="profile-card-header">
-          <div class="profile-avatar-row">
-            <div class="big-avatar">ST</div>
-            <div class="profile-meta-header">
-              <h3>Sufyan Tsaury</h3>
-              <p>Law Student & Academic Specialist</p>
-            </div>
-          </div>
-          <div class="profile-tagline">
-            "Fokus pada kerapian struktur naskah, presisi data wilayah, dan estetika visual presentasi."
-          </div>
-        </div>
-
-        <div class="profile-data-list">
-          <div class="profile-data-item">
-            <span class="label">
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
-              Status
-            </span>
-            <span class="val">Mahasiswa S1 Hukum Keluarga</span>
-          </div>
-          <div class="profile-data-item">
-            <span class="label">
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M4 10l8-6 8 6"></path></svg>
-              Background
-            </span>
-            <span class="val">TKJ SMKN 7 Garut (2025)</span>
-          </div>
-          <div class="profile-data-item">
-            <span class="label">
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-              Domisili
-            </span>
-            <span class="val">Sumedang, Jawa Barat</span>
-          </div>
-          <div class="profile-data-item">
-            <span class="label">
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-              Usia
-            </span>
-            <span class="val">20 Tahun</span>
-          </div>
-        </div>
-
-        <div class="profile-socials">
-          <a href="mailto:sufyantsaury.id@gmail.com" class="social-btn" title="Kirim Email">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            <span>Email</span>
-          </a>
-          <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="social-btn" title="Telegram">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-            <span>Telegram</span>
-          </a>
-          <button class="social-btn" onclick="copyEmail()" title="Salin Email">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            <span>Salin</span>
-          </button>
-        </div>
-      </aside>
-    </section>
-
-    <!-- ABOUT SECTION -->
-    <section class="section" id="about">
-      <div class="section-header">
-        <div>
-          <span class="section-label">
-            <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-            Tentang Saya
-          </span>
-          <h2 class="section-title">Dedikasi Pada Kualitas Naskah & Visual Spasial.</h2>
-        </div>
-        <p class="section-subtitle">
-          Kombinasi pemikiran kritis hukum, ketelitian formatting akademik, dan keterampilan teknologi jaringan/GIS untuk menghasilkan dokumen berstandar tinggi.
-        </p>
-      </div>
-
-      <div class="about-grid">
-        <div class="about-story-card">
-          <h3>Menjembatani Riset & Keindahan Penyajian</h3>
-          <p>
-            Ketertarikan saya berpusat pada penulisan akademik yang argumentatif, perapian tata letak dokumen formal, serta visualisasi data geospasial melalui WebGIS.
-          </p>
-          <p>
-            Dengan latar belakang teknik komputer jaringan (TKJ) dan studi di bidang ilmu hukum, saya memiliki pendekatan yang sistematis: memastikan kebenaran alur logika, ketepatan sitasi, serta keselarasan tata letak grafis yang nyaman dibaca oleh dosen penguji, reviewer, maupun audiens seminar.
-          </p>
-        </div>
-
-        <div class="highlight-card">
-          <div class="strength-item">
-            <div class="strength-icon">
-              <svg class="icon icon-md" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-            </div>
-            <div class="strength-text">
-              <h4>Sistematika & Alur Logis</h4>
-              <p>Struktur naskah ditata runtut, menghindari redudansi, dan memperkuat substansi gagasan.</p>
-            </div>
-          </div>
-
-          <div class="strength-item">
-            <div class="strength-icon">
-              <svg class="icon icon-md" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-            </div>
-            <div class="strength-text">
-              <h4>Standarisasi Format & Sitasi</h4>
-              <p>Penerapan gaya selingkung kampus, APA/IEEE/Chicago, heading otomatis, dan daftar isi presisi.</p>
-            </div>
-          </div>
-
-          <div class="strength-item">
-            <div class="strength-icon">
-              <svg class="icon icon-md" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
-            </div>
-            <div class="strength-text">
-              <h4>Visualisasi Data & Interaktivitas</h4>
-              <p>Penyajian visual melalui slide modern serta peta digital interaktif WebGIS berbasis web.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SKILLS SECTION -->
-    <section class="section" id="skills">
-      <div class="section-header">
-        <div>
-          <span class="section-label">
-            <svg class="icon icon-xs" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-            Kompetensi
-          </span>
-          <h2 class="section-title">Keahlian & Bidang Spesialisasi</h2>
-        </div>
-        <p class="section-subtitle">
-          Kumpulan keahlian teknis dan metodologis yang siap diandalkan untuk menyelesaikan berbagai proyek akademik dan digital.
-        </p>
-      </div>
-
-      <div class="skills-grid">
-        <article class="skill-card">
-          <div class="skill-icon-wrap">
-            <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-          </div>
-          <h3>Academic Writing & Research</h3>
-          <p>Penyusunan naskah makalah, artikel ilmiah, modul pembelajaran, dan telaah pustaka dengan argumen akademik yang kokoh.</p>
-          <div class="skill-tags">
-            <span class="skill-tag">Makalah</span>
-            <span class="skill-tag">Modul Ajar</span>
-            <span class="skill-tag">Buku Ajar</span>
-          </div>
-        </article>
-
-        <article class="skill-card">
-          <div class="skill-icon-wrap">
-            <svg class="icon icon-lg" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
-          </div>
-          <h3>WebGIS & Spatial Mapping</h3>
-          <p>Pengolahan data geospasial, pembuatan peta interaktif berbasis Leaflet.js, integrasi layer GeoJSON, dan analisis statistik wilayah.</p>
-          <div class="skill-tags">
-            <span class="skill-tag">Leaflet.js</span>
-            <span class="skill-tag">GeoJSON</span>
-            <span class="skill-tag">Visual Spasial</span>
-            <span class="skill-tag">Demografi</span>
-          </div>
-        </article>
-
-        <article class="skill-card">
-          <div class="skill-icon-wrap">
-            <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-          </div>
-          <h3>Presentation Design</h3>
-          <p>Perancangan slide presentasi dengan visual hierarki modern, micro-animation, serta keterbacaan tinggi untuk sidang, seminar, atau perkuliahan.</p>
-          <div class="skill-tags">
-            <span class="skill-tag">Slide Seminar</span>
-            <span class="skill-tag">Animasi PPT</span>
-            <span class="skill-tag">Infografis</span>
-            <span class="skill-tag">Layout Bersih</span>
-          </div>
-        </article>
-
-        <article class="skill-card">
-          <div class="skill-icon-wrap">
-            <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-          </div>
-          <h3>Document Formatting & Styling</h3>
-          <p>Perapian format dokumen menyeluruh: pengaturan margin, penomoran halaman romawi/arab terpisah, navigasi TOC, dan konsistensi tipografi.</p>
-          <div class="skill-tags">
-            <span class="skill-tag">Auto TOC</span>
-            <span class="skill-tag">Selingkung</span>
-            <span class="skill-tag">Tata Letak Buku</span>
-          </div>
-        </article>
-
-        <article class="skill-card">
-          <div class="skill-icon-wrap">
-            <svg class="icon icon-lg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><path d="M11 8v6"></path><path d="M8 11h6"></path></svg>
-          </div>
-          <h3>Editing & Proofreading</h3>
-          <p>Pemeriksaan tanda baca, perbaikan kalimat ambigu (PUEBI/EYD), konsistensi istilah teknis, dan verifikasi kelengkapan referensi.</p>
-          <div class="skill-tags">
-            <span class="skill-tag">Koreksi EYD</span>
-            <span class="skill-tag">Parafrase</span>
-            <span class="skill-tag">Verifikasi Sitasi</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- FEATURED PORTFOLIO SHOWCASE -->
-    <section class="section" id="portfolio">
-      <div class="section-header">
-        <div>
-          <span class="section-label">
-            <svg class="icon icon-xs" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-            Karya Terpilih
-          </span>
-          <h2 class="section-title">Portofolio & Showcase Proyek</h2>
-        </div>
-        <p class="section-subtitle">
-          Eksplorasi karya dalam pengembangan portal web interaktif, penyusunan buku akademik, peta digital WebGIS, serta slide presentasi siap pakai.
-        </p>
-      </div>
-
-      <div class="portfolio-grid">
-        <!-- Project 1: Buku Manajemen Pendidikan -->
-        <article class="showcase-card">
-          <div>
-            <div class="showcase-badges">
-              <span class="badge-pill accent">
-                <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-                Buku Akademik
-              </span>
-              <span class="badge-pill">Layout & Formatting</span>
-              <span class="badge-pill">PDF Siap Cetak</span>
-            </div>
-            <h3>Buku Manajemen Pendidikan</h3>
-            <p>
-              Penyusunan dan perapian dokumen buku akademik komprehensif. Meliputi struktur hierarki bab yang teratur, integrasi tabel & bagan terstandar, serta penataan tata letak elegan untuk kenyamanan pembaca.
-            </p>
-            <div class="showcase-features">
-              <span>
-                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                Format: PDF Dokumen
-              </span>
-              <span>
-                <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                Kerapian: Heading Terstruktur
-              </span>
-              <span>
-                <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-                Kategori: Karya Ilmiah
-              </span>
-            </div>
-          </div>
-          <div class="showcase-actions">
-            <a href="Buku-Manajemen-Pendidikan.pdf" target="_blank" class="btn btn-primary">
-              <span>Buka Dokumen</span>
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-            </a>
-          </div>
-        </article>
-
-        <!-- Project 2: Web Kelas HK A 2025 -->
-        <article class="showcase-card">
-          <div>
-            <div class="showcase-badges">
-              <span class="badge-pill primary">
-                <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                Web Application
-              </span>
-              <span class="badge-pill accent">Sistem Akademik</span>
-              <span class="badge-pill">Next.js & Supabase</span>
-              <span class="badge-pill">Live Production</span>
-            </div>
-            <h3>Portal Web Kelas</h3>
-            <p>
-              Platform sistem informasi akademik dan repositori perkuliahan terpadu untuk mahasiswa Hukum Keluarga A 2025 UIN Siber Syekh Nurjati Cirebon. Dilengkapi presensi digital realtime, manajemen jadwal kuliah, repositori berkas 11 mata kuliah, dan pusat informasi mahasiswa.
-            </p>
-            <div class="showcase-features">
-              <span>
-                <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                Tech: Next.js 15, React 19 & Supabase
-              </span>
-              <span>
-                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                Fitur: Presensi Realtime, Jadwal & Repositori
-              </span>
-              <span>
-                <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
-                Deployment: Vercel Cloud Server
-              </span>
-            </div>
-          </div>
-          <div class="showcase-actions">
-            <a href="https://kelas-hk-a-uinssc-2025.vercel.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-              <span>Kunjungi Website</span>
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-            </a>
-          </div>
-        </article>
-
-        <!-- Project 3: WebGIS & Pemetaan Digital -->
-        <article class="showcase-card">
-          <div>
-            <div class="showcase-badges">
-              <span class="badge-pill primary">
-                <svg class="icon icon-xs" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
-                WebGIS & Leaflet
-              </span>
-              <span class="badge-pill accent">Interaktif</span>
-              <span class="badge-pill">Katalog Proyek</span>
-            </div>
-            <h3>Katalog WebGIS & Pemetaan Digital</h3>
-            <p>
-              Pusat proyek peta digital interaktif berbasis web. Berisi visualisasi data kependudukan Indonesia, batas wilayah administratif GeoJSON, serta galeri peta petualangan gunung (Mountain Gallery).
-            </p>
-            <div class="showcase-features">
-              <span>
-                <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                Tech: Leaflet.js & GeoJSON
-              </span>
-              <span>
-                <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-                Konten: Demografi & Galeri Gunung
-              </span>
-              <span>
-                <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-                Responsif & Ringan
-              </span>
-            </div>
-          </div>
-          <div class="showcase-actions">
-            <a href="webgis.html" class="btn btn-primary">
-              <span>Katalog WebGIS</span>
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-          </div>
-        </article>
-
-        <!-- Project 4: Presentasi Akademik & Slide Deck -->
-        <article class="showcase-card">
-          <div>
-            <div class="showcase-badges">
-              <span class="badge-pill accent">
-                <svg class="icon icon-xs" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                Presentasi Modern
-              </span>
-              <span class="badge-pill">Slide Animasi</span>
-              <span class="badge-pill">Versi PDF / Web</span>
-            </div>
-            <h3>Wadah Presentasi & Slide Akademik</h3>
-            <p>
-              Koleksi slide presentasi kuliah, seminar, dan materi akademik yang dirancang secara profesional. Dilengkapi versi PDF mobile-friendly dan versi HTML dengan animasi interaktif.
-            </p>
-            <div class="showcase-features">
-              <span>
-                <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                Format: PDF & HTML Animasi
-              </span>
-              <span>
-                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path></svg>
-                Kategori: Slide Kuliah & Seminar
-              </span>
-              <span>
-                <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                Desain Visual Bersih
-              </span>
-            </div>
-          </div>
-          <div class="showcase-actions">
-            <a href="ppt.html" class="btn btn-primary">
-              <span>Buka Presentasi</span>
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- SERVICES SECTION -->
-    <section class="section" id="services">
-      <div class="section-header">
-        <div>
-          <span class="section-label">
-            <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M20 7h-7L10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path></svg>
-            Layanan Profesional
-          </span>
-          <h2 class="section-title">Solusi Pengerjaan Dokumen & Digital</h2>
-        </div>
-        <p class="section-subtitle">
-          Layanan terarah dengan standar kualitas tinggi, komunikasi responsif, dan estimasi waktu yang jelas.
-        </p>
-      </div>
-
-      <div class="services-grid">
-        <article class="service-card">
-          <div>
-            <div class="service-icon">
-              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-            </div>
-            <h3>Academic Writing</h3>
-            <p>Bantuan penyusunan makalah, draf modul ajar, artikel akademik, dan ringkasan teori.</p>
-            <ul class="service-checklist">
-              <li>
-                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Struktur logis & orisinalitas ide
-              </li>
-              <li>
-                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Penyusunan daftar pustaka
-              </li>
-              <li>
-                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Pengembangan bab & sub-bab
-              </li>
-            </ul>
-          </div>
-          <div class="service-bottom">
-            <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="cta-text">
-              <span>Konsultasi Layanan</span>
-              <svg class="icon icon-xs" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-          </div>
-        </article>
-
-        <article class="service-card">
-          <div>
-            <div class="service-icon">
-              <svg class="icon icon-lg" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
-            </div>
-            <h3>Document Formatting</h3>
-            <p>Perapian format dokumen skripsi, laporan, buku, dan karya ilmiah sesuai pedoman.</p>
-            <ul class="service-checklist">
-              <li>
-                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Daftar isi, gambar & tabel otomatis
-              </li>
-              <li>
-                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Penomoran halaman terpisah
-              </li>
-              <li>
-                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Penataan margin & heading rapi
-              </li>
-            </ul>
-          </div>
-          <div class="service-bottom">
-            <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="cta-text">
-              <span>Konsultasi Layanan</span>
-              <svg class="icon icon-xs" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-          </div>
-        </article>
-
-        <article class="service-card">
-          <div>
-            <div class="service-icon">
-              <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-            </div>
-            <h3>Slide Presentation</h3>
-            <p>Desain slide presentasi yang komunikatif, menarik, elegan, dan siap digunakan.</p>
-            <ul class="service-checklist">
-              <li>
-                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Visual hierarchy yang jelas
-              </li>
-              <li>
-                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Template modern custom
-              </li>
-              <li>
-                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Format PDF & presentasi interaktif
-              </li>
-            </ul>
-          </div>
-          <div class="service-bottom">
-            <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="cta-text">
-              <span>Konsultasi Layanan</span>
-              <svg class="icon icon-xs" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-          </div>
-        </article>
-
-        <article class="service-card">
-          <div>
-            <div class="service-icon">
-              <svg class="icon icon-lg" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
-            </div>
-            <h3>WebGIS & Spatial Data</h3>
-            <p>Pembuatan peta digital interaktif web untuk menampilkan visualisasi data wilayah.</p>
-            <ul class="service-checklist">
-              <li>
-                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Peta berbasis Leaflet & GeoJSON
-              </li>
-              <li>
-                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Popup data atribut interaktif
-              </li>
-              <li>
-                <svg class="icon icon-xs check-icon" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                Tampilan responsif & cepat
-              </li>
-            </ul>
-          </div>
-          <div class="service-bottom">
-            <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="cta-text">
-              <span>Konsultasi Layanan</span>
-              <svg class="icon icon-xs" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- PROCESS SECTION -->
-    <section class="section" id="process">
-      <div class="section-header">
-        <div>
-          <span class="section-label">
-            <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            Alur Kerja
-          </span>
-          <h2 class="section-title">4 Tahap Menuju Hasil Maksimal</h2>
-        </div>
-        <p class="section-subtitle">
-          Proses kolaborasi yang terstruktur dan transparan demi memastikan hasil akhir sesuai ekspektasi.
-        </p>
-      </div>
-
-      <div class="process-timeline">
-        <div class="process-step">
-          <div class="step-badge">1</div>
-          <h3>Konsultasi & Brief</h3>
-          <p>Diskusi kebutuhan dokumen, tenggat waktu, panduan selingkung, serta tujuan materi.</p>
-        </div>
-
-        <div class="process-step">
-          <div class="step-badge">2</div>
-          <h3>Penyusunan & Pengerjaan</h3>
-          <p>Naskah atau format mulai digarap secara teliti dan sistematis sesuai kesepakatan.</p>
-        </div>
-
-        <div class="process-step">
-          <div class="step-badge">3</div>
-          <h3>Review & Koreksi</h3>
-          <p>Pemeriksaan draf bersama klien untuk memastikan kelengkapan isi dan tata letak.</p>
-        </div>
-
-        <div class="process-step">
-          <div class="step-badge">4</div>
-          <h3>Finalisasi & Serah File</h3>
-          <p>Pengiriman berkas akhir siap pakai dalam format dokumen, PDF, atau tautan interaktif.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT CTA SECTION -->
-    <section class="contact-banner" id="contact">
-      <div class="contact-content">
-        <h2>Siap Membuat Dokumen Anda Tampil Lebih Profesional?</h2>
-        <p>
-          Diskusikan naskah akademik, kebutuhan format buku, desain presentasi, maupun proyek peta digital Anda bersama saya. Saya siap membantu dengan dedikasi penuh terhadap kualitas dan ketepatan waktu.
-        </p>
-        <div class="contact-buttons">
-          <a href="mailto:sufyantsaury.id@gmail.com" class="btn btn-primary">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            <span>Kirim Email</span>
-          </a>
-          <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-            <span>Telegram (@piantsa)</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="contact-card-quick">
-        <div class="quick-channel-item">
-          <div class="quick-channel-info">
-            <div class="channel-icon">
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-            </div>
-            <div class="channel-meta">
-              <strong>Email Kontak</strong>
-              <span>sufyantsaury.id@gmail.com</span>
-            </div>
-          </div>
-          <button class="copy-btn" onclick="copyEmail()">
-            <svg class="icon icon-xs" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-            <span>Salin</span>
-          </button>
-        </div>
-
-        <div class="quick-channel-item">
-          <div class="quick-channel-info">
-            <div class="channel-icon">
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-            </div>
-            <div class="channel-meta">
-              <strong>Direct Telegram</strong>
-              <span>@piantsa</span>
-            </div>
-          </div>
-          <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="copy-btn">
-            <span>Buka</span>
-            <svg class="icon icon-xs" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-          </a>
-        </div>
-
-        <div class="quick-channel-item">
-          <div class="quick-channel-info">
-            <div class="channel-icon">
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-            </div>
-            <div class="channel-meta">
-              <strong>Lokasi Kerja</strong>
-              <span>Sumedang & Online Seluruh Indonesia</span>
-            </div>
-          </div>
-          <span style="font-size: 11px; color: var(--success); font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
-            <span style="width:6px; height:6px; border-radius:50%; background:var(--success);"></span> Online
-          </span>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="site-footer">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <strong>Sufyan Tsaury</strong>
-          <p>Academic Writing, Document Formatting & WebGIS · Portofolio Modern 2026</p>
-        </div>
-
-        <div class="footer-links">
-          <a href="#home">Beranda</a>
-          <a href="#about">Tentang</a>
-          <a href="#portfolio">Karya</a>
-          <a href="https://kelas-hk-a-uinssc-2025.vercel.app" target="_blank" rel="noopener noreferrer">Web Kelas</a>
-          <a href="webgis.html">WebGIS</a>
-          <a href="ppt.html">Presentasi</a>
-          <a href="#contact">Kontak</a>
-        </div>
-
-        <a href="#home" class="back-to-top" title="Kembali ke atas" aria-label="Kembali ke atas">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    <!-- Dropdown Mobile Menu -->
+    <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-100 px-6 py-5 flex flex-col gap-4 font-semibold text-slate-700 shadow-xl">
+      <a href="#beranda" class="hover:text-primary-600">Beranda</a>
+      <a href="#portofolio" class="hover:text-primary-600">Proyek Web & Karya</a>
+      <a href="#statistik" class="hover:text-primary-600">Statistik</a>
+      <a href="#layanan" class="hover:text-primary-600">Layanan</a>
+      <a href="#tentang" class="hover:text-primary-600">Tentang Saya</a>
+      <a href="#alur" class="hover:text-primary-600">Alur Kerja</a>
+      <a href="#kontak" class="hover:text-primary-600">Hubungi Saya</a>
+      <div class="pt-2 border-t border-slate-100 flex flex-col gap-2">
+        <a href="https://t.me/piantsa" target="_blank" class="w-full text-center py-2.5 rounded-full bg-primary-600 text-white font-bold text-sm">
+          Chat via Telegram (@piantsa)
         </a>
       </div>
-    </footer>
+    </div>
+  </header>
 
+  <main class="pt-24">
+    <!-- ==================== HERO SECTION (FOKUS WEB DEVELOPMENT) ==================== -->
+    <section id="beranda" class="min-h-[85vh] flex items-center py-12 md:py-20">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-12 gap-12 items-center">
+        
+        <!-- Sisi Kiri: Headline Fokus Pembuatan Web & Solusi Digital -->
+        <div class="md:col-span-7 space-y-6 text-left">
+          <!-- Badge Pill Status -->
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-primary-700 text-xs font-bold uppercase tracking-wider">
+            <span class="w-2.5 h-2.5 rounded-full bg-primary-600 animate-pulse"></span>
+            Web Developer & Digital Project
+          </div>
+
+          <!-- Headline Utama -->
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.12]">
+            Membangun solusi <span class="text-primary-600">web modern,</span> sistem informasi & karya akademik.
+          </h1>
+
+          <!-- Deskripsi Ringkas -->
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-xl">
+            Pembuatan aplikasi web (Next.js & Supabase), pemetaan digital WebGIS interaktif, serta didukung pembuatan dan penyusunan naskah akademik.
+          </p>
+
+          <!-- Tombol CTA -->
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a href="#portofolio" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary-600 hover:bg-primary-700 text-white font-bold text-sm shadow-lg shadow-primary-600/25 transition-all hover:scale-[1.02]">
+              <span>Lihat Proyek Web</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+
+            <a href="https://t.me/piantsa" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-white hover:bg-slate-50 border border-slate-200 text-slate-800 font-bold text-sm shadow-sm transition-all hover:scale-[1.02]">
+              <i data-lucide="send" class="w-4 h-4 text-primary-600"></i>
+              <span>Diskusi Proyek di Telegram</span>
+            </a>
+          </div>
+
+          <!-- Jalur Komunikasi Ringkas -->
+          <div class="flex flex-wrap items-center gap-4 pt-4 text-slate-400 text-xs font-semibold">
+            <span class="uppercase tracking-wider text-slate-500">Akses Cepat:</span>
+            <a href="https://kelas-hk-a-uinssc-2025.vercel.app" target="_blank" class="hover:text-primary-600 flex items-center gap-1.5 transition-colors bg-slate-50 hover:bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700">
+              <i data-lucide="globe" class="w-3.5 h-3.5 text-primary-600"></i>
+              <span>Live Web Kelas (HK A)</span>
+            </a>
+            <button onclick="copyEmail()" class="hover:text-primary-600 flex items-center gap-1.5 transition-colors bg-slate-50 hover:bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700">
+              <i data-lucide="mail" class="w-3.5 h-3.5 text-primary-600"></i>
+              <span id="quickCopyEmailText">sufyantsaury.id@gmail.com</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sisi Kanan: Foto Bersih dengan 2 Floating Badge (Fokus Web & Spasial) -->
+        <div class="md:col-span-5 relative flex justify-center">
+          <div class="relative w-full max-w-sm">
+            
+            <!-- Foto Utama Bersih -->
+            <div class="w-full aspect-[4/4.8] rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-slate-100">
+              <img 
+                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" 
+                alt="Pengembangan Web & Karya Digital" 
+                class="w-full h-full object-cover"
+              />
+            </div>
+
+            <!-- Floating Badge 1 (Kiri Atas - Fokus Web Project) -->
+            <div class="absolute -top-4 -left-4 sm:-left-6 bg-white p-3.5 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3 animate-float">
+              <div class="w-10 h-10 rounded-full bg-blue-50 text-primary-600 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="code-2" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-xs font-extrabold text-slate-900">Modern Web App</p>
+                <p class="text-[11px] text-slate-500 font-medium">Next.js, React & Supabase</p>
+              </div>
+            </div>
+
+            <!-- Floating Badge 2 (Kanan Bawah - WebGIS) -->
+            <div class="absolute -bottom-5 -right-4 sm:-right-6 bg-white p-3.5 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3 animate-float-delayed">
+              <div class="w-10 h-10 rounded-full bg-blue-50 text-primary-600 flex items-center justify-center flex-shrink-0">
+                <i data-lucide="map" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-xs font-extrabold text-slate-900">WebGIS & Digital Map</p>
+                <p class="text-[11px] text-slate-500 font-medium">Leaflet.js & Spasial Interaktif</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ==================== PORTOFOLIO PROYEK UTAMA (WEB & DIGITAL) ==================== -->
+    <section id="portofolio" class="py-20 bg-slate-50/70 border-t border-slate-100">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+          <div class="space-y-3">
+            <span class="text-xs font-bold uppercase tracking-wider text-primary-600 bg-blue-50 px-4 py-1 rounded-full border border-blue-100">Showcase Proyek</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Koleksi Proyek Web & Karya</h2>
+            <p class="text-slate-600 text-sm sm:text-base">Pengembangan aplikasi web terintegrasi, visualisasi geospasial, serta penyusunan buku ajar.</p>
+          </div>
+          <a href="https://kelas-hk-a-uinssc-2025.vercel.app" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-primary-600 hover:text-primary-700">
+            <span>Buka Web Kelas HK A</span>
+            <i data-lucide="external-link" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          
+          <!-- Proyek 1: Web Kelas HK A 2025 (HIGHLIGHT UTAMA) -->
+          <div class="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 flex flex-col justify-between p-7">
+            <div class="space-y-4">
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs font-bold bg-blue-50 text-primary-700 border border-blue-200 px-3 py-1 rounded-full flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-primary-600 animate-pulse"></span> Live Production
+                </span>
+                <span class="text-xs font-bold bg-slate-100 text-slate-700 px-3 py-1 rounded-full">Next.js 15 & Supabase</span>
+              </div>
+              <h3 class="text-2xl font-bold text-slate-900">Portal Sistem Informasi Web Kelas</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                Platform web sistem informasi akademik dan repositori perkuliahan terpadu untuk mahasiswa Hukum Keluarga A 2025 UIN Siber Syekh Nurjati Cirebon. Dilengkapi presensi digital realtime, manajemen jadwal kuliah, dan repositori berkas 11 mata kuliah.
+              </p>
+              <div class="grid grid-cols-2 gap-2 text-xs text-slate-500 pt-2">
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-primary-600"></i> Presensi Realtime</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-primary-600"></i> Repositori 11 Matkul</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-primary-600"></i> Jadwal Kuliah Dinamis</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-primary-600"></i> Deploy di Vercel</span>
+              </div>
+            </div>
+            <div class="pt-6 mt-6 border-t border-slate-100">
+              <a href="https://kelas-hk-a-uinssc-2025.vercel.app" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-sm transition-all shadow-md shadow-primary-600/20">
+                <span>Kunjungi Website Kelas</span>
+                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Proyek 2: WebGIS & Pemetaan Digital (WEB PROJECT) -->
+          <div class="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 flex flex-col justify-between p-7">
+            <div class="space-y-4">
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs font-bold bg-blue-50 text-primary-700 border border-blue-200 px-3 py-1 rounded-full">
+                  WebGIS & Leaflet
+                </span>
+                <span class="text-xs font-bold bg-slate-100 text-slate-700 px-3 py-1 rounded-full">Peta Interaktif</span>
+              </div>
+              <h3 class="text-2xl font-bold text-slate-900">Katalog WebGIS & Pemetaan Digital</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                Pusat proyek peta digital interaktif berbasis web. Berisi visualisasi data kependudukan Indonesia, batas wilayah administratif GeoJSON, serta galeri peta petualangan gunung (Mountain Gallery).
+              </p>
+              <div class="grid grid-cols-2 gap-2 text-xs text-slate-500 pt-2">
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-primary-600"></i> Leaflet.js & GeoJSON</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-primary-600"></i> Visualisasi Demografi</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-primary-600"></i> Galeri Peta Gunung</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-primary-600"></i> Antarmuka Responsif</span>
+              </div>
+            </div>
+            <div class="pt-6 mt-6 border-t border-slate-100">
+              <a href="webgis.html" class="inline-flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-sm transition-all shadow-md shadow-primary-600/20">
+                <span>Buka Katalog WebGIS</span>
+                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Proyek 3: Buku Manajemen Pendidikan (KARYA BUKU AJAR) -->
+          <div class="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 flex flex-col justify-between p-7">
+            <div class="space-y-4">
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs font-bold bg-blue-50 text-primary-700 border border-blue-200 px-3 py-1 rounded-full">
+                  Buku Ajar & Naskah
+                </span>
+                <span class="text-xs font-bold bg-slate-100 text-slate-700 px-3 py-1 rounded-full">PDF Siap Cetak</span>
+              </div>
+              <h3 class="text-2xl font-bold text-slate-900">Buku Manajemen Pendidikan</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                Penyusunan dan perapian dokumen buku ajar akademik komprehensif. Meliputi struktur hierarki bab yang teratur, integrasi tabel & bagan terstandar, serta penataan tata letak elegan untuk kenyamanan pembaca.
+              </p>
+              <div class="grid grid-cols-2 gap-2 text-xs text-slate-500 pt-2">
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-primary-600"></i> Format PDF Dokumen</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-primary-600"></i> Struktur Bab Rapi</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-primary-600"></i> Tabel & Bagan Presisi</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-primary-600"></i> Siap Terbit / Cetak</span>
+              </div>
+            </div>
+            <div class="pt-6 mt-6 border-t border-slate-100">
+              <a href="Buku-Manajemen-Pendidikan.pdf" target="_blank" class="inline-flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-slate-900 hover:bg-primary-600 text-white font-bold text-sm transition-all shadow-md">
+                <span>Buka Dokumen Buku (PDF)</span>
+                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Proyek 4: Slide Presentasi & Web Interaktif -->
+          <div class="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 flex flex-col justify-between p-7">
+            <div class="space-y-4">
+              <div class="flex flex-wrap gap-2">
+                <span class="text-xs font-bold bg-blue-50 text-primary-700 border border-blue-200 px-3 py-1 rounded-full">
+                  Presentasi Interaktif
+                </span>
+                <span class="text-xs font-bold bg-slate-100 text-slate-700 px-3 py-1 rounded-full">HTML & PDF</span>
+              </div>
+              <h3 class="text-2xl font-bold text-slate-900">Wadah Presentasi & Slide Web</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                Koleksi slide presentasi kuliah, seminar, dan materi akademik yang dirancang secara profesional. Dilengkapi versi PDF mobile-friendly dan versi HTML dengan animasi interaktif.
+              </p>
+              <div class="grid grid-cols-2 gap-2 text-xs text-slate-500 pt-2">
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-primary-600"></i> Format Web & PDF</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-primary-600"></i> Slide Kuliah & Seminar</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-primary-600"></i> Animasi Transisi Halus</span>
+                <span class="flex items-center gap-1.5"><i data-lucide="check" class="w-4 h-4 text-primary-600"></i> Desain Visual Bersih</span>
+              </div>
+            </div>
+            <div class="pt-6 mt-6 border-t border-slate-100">
+              <a href="ppt.html" class="inline-flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-slate-900 hover:bg-primary-600 text-white font-bold text-sm transition-all shadow-md">
+                <span>Buka Presentasi</span>
+                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== STATISTIK DENGAN BORDER NETRAL & EFEK KLIK/HOVER ==================== -->
+    <section id="statistik" class="py-16 bg-white border-b border-slate-100">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        
+        <div class="max-w-2xl mx-auto text-center space-y-3 mb-12">
+          <span class="text-xs font-bold uppercase tracking-wider text-primary-600 bg-blue-50 px-4 py-1 rounded-full border border-blue-100">
+            Data & Rekam Jejak
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Statistik Proyek & Standar Kerja
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base">
+            Metrik pengerjaan proyek web, kepatuhan struktur dokumen, serta dedikasi komunikasi cepat.
+          </p>
+        </div>
+
+        <!-- 4 Kartu Statistik (SEMUA BORDER AWALNYA NETRAL, TIDAK HIJAU TERUS-MENERUS) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Card 1 -->
+          <div class="stat-card bg-white rounded-3xl p-7 text-center border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 cursor-pointer flex flex-col items-center justify-center group" onclick="selectStatCard(this)">
+            <div class="w-14 h-14 rounded-2xl bg-blue-50 text-primary-600 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="code" class="w-7 h-7"></i>
+            </div>
+            <div class="flex items-baseline justify-center mb-2">
+              <span class="stat-counter text-4xl sm:text-5xl font-extrabold text-primary-600" data-target="5">0</span>
+              <span class="text-3xl font-extrabold text-primary-600">+</span>
+            </div>
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              Proyek Web & Digital
+            </p>
+          </div>
+
+          <!-- Card 2 (Border Bersih Netral, Hanya Highlight saat Hover / Klik) -->
+          <div class="stat-card bg-white rounded-3xl p-7 text-center border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 cursor-pointer flex flex-col items-center justify-center group" onclick="selectStatCard(this)">
+            <div class="w-14 h-14 rounded-2xl bg-blue-50 text-primary-600 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="check-circle-2" class="w-7 h-7"></i>
+            </div>
+            <div class="flex items-baseline justify-center mb-2">
+              <span class="stat-counter text-4xl sm:text-5xl font-extrabold text-primary-600" data-target="100">0</span>
+              <span class="text-3xl font-extrabold text-primary-600">%</span>
+            </div>
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              Ketepatan Format & Kualitas
+            </p>
+          </div>
+
+          <!-- Card 3 (Tahun 2026 Bersih Tanpa Titik) -->
+          <div class="stat-card bg-white rounded-3xl p-7 text-center border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 cursor-pointer flex flex-col items-center justify-center group" onclick="selectStatCard(this)">
+            <div class="w-14 h-14 rounded-2xl bg-blue-50 text-primary-600 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="layers" class="w-7 h-7"></i>
+            </div>
+            <div class="flex items-baseline justify-center mb-2">
+              <span class="stat-counter text-4xl sm:text-5xl font-extrabold text-primary-600" data-target="2026" data-raw="true">0</span>
+            </div>
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              Standar Web Modern
+            </p>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="stat-card bg-white rounded-3xl p-7 text-center border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 cursor-pointer flex flex-col items-center justify-center group" onclick="selectStatCard(this)">
+            <div class="w-14 h-14 rounded-2xl bg-blue-50 text-primary-600 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="message-square" class="w-7 h-7"></i>
+            </div>
+            <div class="flex items-baseline justify-center mb-2">
+              <span class="stat-counter text-4xl sm:text-5xl font-extrabold text-primary-600" data-target="24">0</span>
+              <span class="text-3xl font-extrabold text-primary-600">/7</span>
+            </div>
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              Komunikasi Responsif
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== LAYANAN (DENGAN PRIORITAS WEB DEVELOPMENT) ==================== -->
+    <section id="layanan" class="py-20 bg-slate-50/70 border-b border-slate-100">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        
+        <div class="max-w-2xl mx-auto text-center space-y-3 mb-16">
+          <span class="text-xs font-bold uppercase tracking-wider text-primary-600 bg-blue-50 px-4 py-1 rounded-full border border-blue-100">
+            Layanan Terintegrasi
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Layanan & Solusi yang Saya Tawarkan
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base">
+            Mulai dari pembuatan website dinamis, visualisasi peta digital, hingga penyusunan naskah buku ajar akademik.
+          </p>
+        </div>
+
+        <!-- 4 Layanan: Ikon Satu Warna Biru Seragam -->
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Layanan 1: Web Development (FOKUS UTAMA) -->
+          <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 flex flex-col justify-between">
+            <div>
+              <div class="w-11 h-11 rounded-xl bg-blue-50 text-primary-600 flex items-center justify-center mb-5">
+                <i data-lucide="layout" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 mb-2">Web Development</h3>
+              <p class="text-slate-600 text-xs leading-relaxed mb-4">
+                Pembuatan aplikasi web modern, portal kelas, sistem repositori, dan landing page menggunakan Next.js & Supabase.
+              </p>
+              <ul class="space-y-2 text-xs text-slate-600 border-t border-slate-100 pt-3">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-primary-600"></i> Next.js 15 & React 19</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-primary-600"></i> Database realtime Supabase</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-primary-600"></i> Tampilan responsif di HP & PC</li>
+              </ul>
+            </div>
+            <div class="pt-5 mt-4 border-t border-slate-100">
+              <a href="https://t.me/piantsa" target="_blank" class="text-xs font-bold text-primary-600 hover:text-primary-700 flex items-center gap-1">
+                <span>Konsultasi Web</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Layanan 2: WebGIS & Peta Spasial -->
+          <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 flex flex-col justify-between">
+            <div>
+              <div class="w-11 h-11 rounded-xl bg-blue-50 text-primary-600 flex items-center justify-center mb-5">
+                <i data-lucide="map-pin" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 mb-2">WebGIS & Pemetaan</h3>
+              <p class="text-slate-600 text-xs leading-relaxed mb-4">
+                Pembuatan peta digital interaktif web untuk menampilkan visualisasi data demografi dan batas wilayah GeoJSON.
+              </p>
+              <ul class="space-y-2 text-xs text-slate-600 border-t border-slate-100 pt-3">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-primary-600"></i> Peta Leaflet.js interaktif</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-primary-600"></i> Integrasi GeoJSON wilayah</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-primary-600"></i> Popup data atribut detail</li>
+              </ul>
+            </div>
+            <div class="pt-5 mt-4 border-t border-slate-100">
+              <a href="https://t.me/piantsa" target="_blank" class="text-xs font-bold text-primary-600 hover:text-primary-700 flex items-center gap-1">
+                <span>Konsultasi WebGIS</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Layanan 3: Pembuatan Buku Ajar & Modul -->
+          <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 flex flex-col justify-between">
+            <div>
+              <div class="w-11 h-11 rounded-xl bg-blue-50 text-primary-600 flex items-center justify-center mb-5">
+                <i data-lucide="book-open" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 mb-2">Pembuatan Buku Ajar</h3>
+              <p class="text-slate-600 text-xs leading-relaxed mb-4">
+                Penyusunan naskah buku ajar perkuliahan, modul pembelajaran, dan telaah pustaka secara runtut dan sistematis.
+              </p>
+              <ul class="space-y-2 text-xs text-slate-600 border-t border-slate-100 pt-3">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-primary-600"></i> Struktur hierarki bab rapi</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-primary-600"></i> Integrasi tabel & bagan</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-primary-600"></i> Siap cetak & siap ajar</li>
+              </ul>
+            </div>
+            <div class="pt-5 mt-4 border-t border-slate-100">
+              <a href="https://t.me/piantsa" target="_blank" class="text-xs font-bold text-primary-600 hover:text-primary-700 flex items-center gap-1">
+                <span>Konsultasi Buku</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Layanan 4: Penyusunan Makalah & Format -->
+          <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 flex flex-col justify-between">
+            <div>
+              <div class="w-11 h-11 rounded-xl bg-blue-50 text-primary-600 flex items-center justify-center mb-5">
+                <i data-lucide="file-text" class="w-5 h-5"></i>
+              </div>
+              <h3 class="text-base font-bold text-slate-900 mb-2">Makalah & Formatting</h3>
+              <p class="text-slate-600 text-xs leading-relaxed mb-4">
+                Bantuan penyusunan makalah ilmiah, skripsi, dan perapian tata letak dokumen formal sesuai gaya selingkung.
+              </p>
+              <ul class="space-y-2 text-xs text-slate-600 border-t border-slate-100 pt-3">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-primary-600"></i> Daftar isi otomatis (TOC)</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-primary-600"></i> Sitasi & daftar pustaka</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-primary-600"></i> Standar PUEBI / EYD</li>
+              </ul>
+            </div>
+            <div class="pt-5 mt-4 border-t border-slate-100">
+              <a href="https://t.me/piantsa" target="_blank" class="text-xs font-bold text-primary-600 hover:text-primary-700 flex items-center gap-1">
+                <span>Konsultasi Naskah</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== TENTANG SAYA & BIODATA ==================== -->
+    <section id="tentang" class="py-20 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        
+        <div class="max-w-2xl mx-auto text-center space-y-3 mb-16">
+          <span class="text-xs font-bold uppercase tracking-wider text-primary-600 bg-blue-50 px-4 py-1 rounded-full border border-blue-100">Profil Singkat</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Mengenal Sufyan Tsaury</h2>
+          <p class="text-slate-600 text-sm sm:text-base">
+            Menggabungkan keahlian koding aplikasi web dengan ketelitian metodologis penyusunan naskah.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-12 gap-8 items-start">
+          
+          <!-- Cerita Singkat (Kiri) -->
+          <div class="md:col-span-7 bg-slate-50/70 p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+            <h3 class="text-xl font-bold text-slate-900">Teknologi Web yang Fungsional & Kerapian Struktur</h3>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              Dengan latar belakang pendidikan Teknik Komputer dan Jaringan (TKJ) serta studi di bidang ilmu hukum, saya memiliki pendekatan yang sistematis: mampu merancang sistem web modern yang cepat dan fungsional, sekaligus menjaga ketelitian logika dan kerapian tata letak dokumen akademik.
+            </p>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              Saya berpengalaman mengembangkan portal web kelas menggunakan Next.js dan Supabase, membuat peta interaktif WebGIS dengan Leaflet, hingga menyusun dokumen buku ajar dan modul akademik siap terbit.
+            </p>
+            <div class="pt-4 border-t border-slate-200 flex items-center gap-3">
+              <span class="text-xs font-bold text-primary-600 bg-blue-50 px-3 py-1 rounded-full">Prinsip:</span>
+              <span class="text-xs text-slate-600 font-medium">"Koding yang bersih, performa cepat, dan naskah terstruktur rapi."</span>
+            </div>
+          </div>
+
+          <!-- Biodata Terstruktur (Kanan) -->
+          <div class="md:col-span-5 bg-slate-50/70 p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
+            <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-2">Informasi Personal</h4>
+
+            <div class="flex justify-between items-center p-3 rounded-xl bg-white border border-slate-100 text-xs">
+              <span class="text-slate-500 font-medium flex items-center gap-2">
+                <i data-lucide="graduation-cap" class="w-4 h-4 text-primary-600"></i> Status Akademik
+              </span>
+              <span class="font-bold text-slate-800 text-right">S1 Hukum Keluarga (UIN SSC)</span>
+            </div>
+
+            <div class="flex justify-between items-center p-3 rounded-xl bg-white border border-slate-100 text-xs">
+              <span class="text-slate-500 font-medium flex items-center gap-2">
+                <i data-lucide="network" class="w-4 h-4 text-primary-600"></i> Background
+              </span>
+              <span class="font-bold text-slate-800">TKJ SMKN 7 Garut (2025)</span>
+            </div>
+
+            <div class="flex justify-between items-center p-3 rounded-xl bg-white border border-slate-100 text-xs">
+              <span class="text-slate-500 font-medium flex items-center gap-2">
+                <i data-lucide="map-pin" class="w-4 h-4 text-primary-600"></i> Domisili
+              </span>
+              <span class="font-bold text-slate-800">Sumedang, Jawa Barat</span>
+            </div>
+
+            <div class="flex justify-between items-center p-3 rounded-xl bg-white border border-slate-100 text-xs">
+              <span class="text-slate-500 font-medium flex items-center gap-2">
+                <i data-lucide="calendar" class="w-4 h-4 text-primary-600"></i> Usia
+              </span>
+              <span class="font-bold text-slate-800">20 Tahun</span>
+            </div>
+
+            <div class="pt-2 flex gap-2">
+              <a href="mailto:sufyantsaury.id@gmail.com" class="flex-1 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 border border-slate-200">
+                <i data-lucide="mail" class="w-3.5 h-3.5"></i> Email
+              </a>
+              <a href="https://t.me/piantsa" target="_blank" class="flex-1 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm">
+                <i data-lucide="send" class="w-3.5 h-3.5"></i> Telegram
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== ALUR KERJA (4 TAHAP) ==================== -->
+    <section id="alur" class="py-20 bg-slate-50/70 border-t border-slate-100">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        
+        <div class="max-w-2xl mx-auto text-center space-y-3 mb-16">
+          <span class="text-xs font-bold uppercase tracking-wider text-primary-600 bg-blue-50 px-4 py-1 rounded-full border border-blue-100">Sistematika Kolaborasi</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">4 Tahap Menuju Hasil Maksimal</h2>
+          <p class="text-slate-600 text-sm sm:text-base">Proses kolaborasi yang transparan untuk proyek web maupun penulisan materi.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm card-hover">
+            <div class="w-10 h-10 rounded-xl bg-primary-600 text-white font-extrabold flex items-center justify-center mb-4 shadow-md shadow-primary-600/20">
+              1
+            </div>
+            <h3 class="font-bold text-slate-900 mb-2">Konsultasi & Brief</h3>
+            <p class="text-slate-600 text-xs leading-relaxed">
+              Diskusi kebutuhan fitur website atau naskah buku ajar, tenggat waktu, dan spesifikasi teknologi.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm card-hover">
+            <div class="w-10 h-10 rounded-xl bg-primary-600 text-white font-extrabold flex items-center justify-center mb-4 shadow-md shadow-primary-600/20">
+              2
+            </div>
+            <h3 class="font-bold text-slate-900 mb-2">Pengerjaan & Koding</h3>
+            <p class="text-slate-600 text-xs leading-relaxed">
+              Aplikasi web mulai dikoding secara modular atau naskah disusun sistematis sesuai pedoman.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm card-hover">
+            <div class="w-10 h-10 rounded-xl bg-primary-600 text-white font-extrabold flex items-center justify-center mb-4 shadow-md shadow-primary-600/20">
+              3
+            </div>
+            <h3 class="font-bold text-slate-900 mb-2">Review & Uji Coba</h3>
+            <p class="text-slate-600 text-xs leading-relaxed">
+              Pengujian fungsi web atau pengecekan draf naskah bersama Anda untuk penyempurnaan menyeluruh.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm card-hover">
+            <div class="w-10 h-10 rounded-xl bg-primary-600 text-white font-extrabold flex items-center justify-center mb-4 shadow-md shadow-primary-600/20">
+              4
+            </div>
+            <h3 class="font-bold text-slate-900 mb-2">Deployment & Serah File</h3>
+            <p class="text-slate-600 text-xs leading-relaxed">
+              Peluncuran web langsung online (live production) atau pengiriman file dokumen siap pakai.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== HUBUNGI SAYA (KONTAK) ==================== -->
+    <section id="kontak" class="py-20 bg-slate-900 text-white relative overflow-hidden">
+      <!-- Ambient Glow Decorators -->
+      <div class="absolute -top-24 -left-24 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 relative z-10 text-center space-y-8">
+        <span class="text-xs font-bold uppercase tracking-wider text-primary-400 bg-primary-950/60 px-4 py-1.5 rounded-full border border-primary-500/30">
+          Mari Berkolaborasi
+        </span>
+
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+          Punya Ide Proyek Web atau Kebutuhan Naskah?
+        </h2>
+
+        <p class="text-slate-400 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
+          Diskusikan pembuatan website, peta digital WebGIS, buku ajar, maupun penyusunan makalah Anda bersama saya. Siap membantu dengan dedikasi penuh dan komunikasi cepat.
+        </p>
+
+        <!-- Kartu Kontak Cepat -->
+        <div class="inline-flex flex-col sm:flex-row items-center gap-4 bg-slate-800/80 p-3 rounded-2xl border border-slate-700/60 backdrop-blur-md">
+          <div class="px-5 py-2 text-sm text-slate-300 font-mono" id="emailText">
+            sufyantsaury.id@gmail.com
+          </div>
+          <button onclick="copyEmail()" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-primary-600 hover:bg-primary-500 text-white font-bold text-sm flex items-center justify-center gap-2 transition-all">
+            <i data-lucide="copy" class="w-4 h-4"></i>
+            <span id="footerCopyBtn">Salin Email</span>
+          </button>
+        </div>
+
+        <div class="pt-4 flex flex-wrap justify-center items-center gap-6 text-slate-400 text-sm font-semibold">
+          <a href="https://t.me/piantsa" target="_blank" class="hover:text-primary-400 flex items-center gap-1.5 transition-colors">
+            <i data-lucide="send" class="w-4 h-4 text-primary-400"></i> Telegram (@piantsa)
+          </a>
+          <span>•</span>
+          <a href="mailto:sufyantsaury.id@gmail.com" class="hover:text-primary-400 flex items-center gap-1.5 transition-colors">
+            <i data-lucide="mail" class="w-4 h-4 text-primary-400"></i> Email Langsung
+          </a>
+          <span>•</span>
+          <span class="text-slate-400 flex items-center gap-1.5">
+            <i data-lucide="map-pin" class="w-4 h-4 text-primary-400"></i> Sumedang & Online
+          </span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-slate-950 text-slate-500 text-xs py-8 border-t border-slate-900">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>© 2026 Sufyan Tsaury. Web Developer & Digital Specialist.</p>
+      <div class="flex items-center gap-5">
+        <a href="#beranda" class="hover:text-slate-300 transition-colors">Beranda</a>
+        <a href="#portofolio" class="hover:text-slate-300 transition-colors">Proyek Web</a>
+        <a href="#statistik" class="hover:text-slate-300 transition-colors">Statistik</a>
+        <a href="#layanan" class="hover:text-slate-300 transition-colors">Layanan</a>
+        <a href="#tentang" class="hover:text-slate-300 transition-colors">Tentang</a>
+        <a href="#kontak" class="hover:text-slate-300 transition-colors">Kontak</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notifikasi Salin Email -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3">
+      <div class="w-7 h-7 rounded-full bg-primary-500/20 text-primary-400 flex items-center justify-center">
+        <i data-lucide="check" class="w-4 h-4"></i>
+      </div>
+      <p class="text-sm font-semibold">Email berhasil disalin ke clipboard!</p>
+    </div>
   </div>
 
-  <!-- INTERACTIVE SCRIPTS -->
+  <!-- SCRIPT INTERAKTIF & RUNNING NUMBER COUNTER -->
   <script>
-    // Theme Management
-    const themeToggleBtn = document.getElementById('themeToggleBtn');
-    const themeIconSun = document.getElementById('themeIconSun');
-    const themeIconMoon = document.getElementById('themeIconMoon');
-    const htmlEl = document.documentElement;
+    // Inisialisasi ikon Lucide
+    lucide.createIcons();
 
-    function getSavedTheme() {
-      const saved = localStorage.getItem('theme_preference');
-      if (saved) return saved;
-      return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    }
-
-    function applyTheme(theme) {
-      htmlEl.setAttribute('data-theme', theme);
-      if (theme === 'dark') {
-        themeIconSun.style.display = 'inline-block';
-        themeIconMoon.style.display = 'none';
-      } else {
-        themeIconSun.style.display = 'none';
-        themeIconMoon.style.display = 'inline-block';
-      }
-      localStorage.setItem('theme_preference', theme);
-    }
-
-    applyTheme(getSavedTheme());
-
-    themeToggleBtn.addEventListener('click', () => {
-      const current = htmlEl.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      applyTheme(next);
-      showToast(`Tema berganti ke mode ${next === 'dark' ? 'Gelap' : 'Terang'}`);
+    // Toggle Menu Mobile
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
     });
 
-    // Mobile Drawer
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const mobileDrawer = document.getElementById('mobileDrawer');
-    const closeDrawerBtn = document.getElementById('closeDrawerBtn');
-    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-
-    hamburgerBtn.addEventListener('click', () => mobileDrawer.classList.add('open'));
-    closeDrawerBtn.addEventListener('click', () => mobileDrawer.classList.remove('open'));
-    mobileDrawer.addEventListener('click', (e) => {
-      if (e.target === mobileDrawer) mobileDrawer.classList.remove('open');
-    });
-
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', () => mobileDrawer.classList.remove('open'));
-    });
-
-    // Active Nav Link on Scroll
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    window.addEventListener('scroll', () => {
-      let scrollY = window.pageYOffset;
-      sections.forEach(current => {
-        const sectionHeight = current.offsetHeight;
-        const sectionTop = current.offsetTop - 120;
-        const sectionId = current.getAttribute('id');
-
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-          navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${sectionId}`) {
-              link.classList.add('active');
-            }
-          });
-        }
-      });
-    });
-
-    // Toast Notification & Clipboard
-    function showToast(message) {
-      const container = document.getElementById('toastContainer');
-      const toast = document.createElement('div');
-      toast.className = 'toast';
-      toast.innerHTML = `<svg class="icon icon-sm" viewBox="0 0 24 24" style="color:var(--primary);"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>${message}</span>`;
-      container.appendChild(toast);
-
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(20px)';
-        toast.style.transition = '0.3s ease';
-        setTimeout(() => toast.remove(), 300);
-      }, 3000);
-    }
-
+    // Salin Email Interaktif & Tampilkan Toast
     function copyEmail() {
       const email = 'sufyantsaury.id@gmail.com';
       navigator.clipboard.writeText(email).then(() => {
-        showToast('Email berhasil disalin ke papan klip!');
-      }).catch(() => {
-        showToast('Gagal menyalin email otomatis.');
+        const toast = document.getElementById('toast');
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        
+        const footerBtn = document.getElementById('footerCopyBtn');
+        if(footerBtn) footerBtn.innerText = 'Tersalin!';
+        const quickText = document.getElementById('quickCopyEmailText');
+        if(quickText) quickText.innerText = 'Email Tersalin!';
+
+        setTimeout(() => {
+          toast.classList.add('translate-y-20', 'opacity-0');
+          if(footerBtn) footerBtn.innerText = 'Salin Email';
+          if(quickText) quickText.innerText = 'sufyantsaury.id@gmail.com';
+        }, 2500);
       });
+    }
+
+    // INTERAKSI KLIK KARTU STATISTIK (HIGHLIGHT SAAT DIKLIK, BUKAN HIJAU PERMANEN)
+    function selectStatCard(clickedCard) {
+      document.querySelectorAll('.stat-card').forEach(card => {
+        if (card !== clickedCard) card.classList.remove('active');
+      });
+      clickedCard.classList.toggle('active');
+    }
+
+    // ANIMASI ANGKA STATISTIK BERJALAN (0 SAMPAI TARGET)
+    let hasAnimatedCounters = false;
+
+    function animateCounters() {
+      if (hasAnimatedCounters) return;
+      hasAnimatedCounters = true;
+
+      const counters = document.querySelectorAll('.stat-counter');
+      counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'), 10);
+        const isRaw = counter.getAttribute('data-raw') === 'true';
+        const duration = 1800; // 1.8 detik animasi halus
+        const startTime = performance.now();
+
+        function update(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          
+          // Easing Cubic Out agar melambat elegan di akhir
+          const easeProgress = 1 - Math.pow(1 - progress, 3);
+          const currentVal = Math.floor(easeProgress * target);
+          
+          counter.innerText = isRaw ? currentVal : currentVal.toLocaleString('id-ID');
+
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            counter.innerText = isRaw ? target : target.toLocaleString('id-ID');
+          }
+        }
+        requestAnimationFrame(update);
+      });
+    }
+
+    // Jalankan animasi saat halaman dimuat
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(animateCounters, 200);
+    });
+
+    // Jalankan juga saat di-scroll ke area statistik
+    const statSection = document.getElementById('statistik');
+    if ('IntersectionObserver' in window && statSection) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounters();
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.2 });
+      observer.observe(statSection);
     }
   </script>
 </body>
