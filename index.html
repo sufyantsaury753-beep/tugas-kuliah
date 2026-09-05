@@ -61,10 +61,22 @@
     .card-hover:hover {
       transform: translateY(-4px);
     }
-    /* State aktif saat kartu diklik */
-    .stat-card.active {
+    /* State aktif saat kartu diklik dengan aksen warna masing-masing */
+    .stat-card.active-blue {
       border-color: #2563eb !important;
-      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.15) !important;
+      box-shadow: 0 12px 25px -5px rgba(37, 99, 235, 0.2) !important;
+    }
+    .stat-card.active-emerald {
+      border-color: #059669 !important;
+      box-shadow: 0 12px 25px -5px rgba(5, 150, 105, 0.2) !important;
+    }
+    .stat-card.active-violet {
+      border-color: #7c3aed !important;
+      box-shadow: 0 12px 25px -5px rgba(124, 58, 237, 0.2) !important;
+    }
+    .stat-card.active-amber {
+      border-color: #d97706 !important;
+      box-shadow: 0 12px 25px -5px rgba(217, 119, 6, 0.2) !important;
     }
   </style>
 </head>
@@ -92,10 +104,10 @@
       <!-- Menu Desktop -->
       <nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600">
         <a href="#beranda" class="hover:text-primary-600">Beranda</a>
-        <a href="#portofolio" class="hover:text-primary-600">Proyek Web</a>
-        <a href="#statistik" class="hover:text-primary-600">Statistik</a>
-        <a href="#layanan" class="hover:text-primary-600">Layanan</a>
         <a href="#tentang" class="hover:text-primary-600">Tentang</a>
+        <a href="#statistik" class="hover:text-primary-600">Statistik</a>
+        <a href="#portofolio" class="hover:text-primary-600">Proyek Web</a>
+        <a href="#layanan" class="hover:text-primary-600">Layanan</a>
         <a href="#alur" class="hover:text-primary-600">Alur Kerja</a>
         <a href="#kontak" class="hover:text-primary-600">Kontak</a>
       </nav>
@@ -117,10 +129,10 @@
     <!-- Dropdown Mobile Menu -->
     <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-100 px-6 py-5 flex flex-col gap-4 font-semibold text-slate-700 shadow-xl">
       <a href="#beranda" class="hover:text-primary-600">Beranda</a>
-      <a href="#portofolio" class="hover:text-primary-600">Proyek Web & Karya</a>
-      <a href="#statistik" class="hover:text-primary-600">Statistik</a>
-      <a href="#layanan" class="hover:text-primary-600">Layanan</a>
       <a href="#tentang" class="hover:text-primary-600">Tentang Saya</a>
+      <a href="#statistik" class="hover:text-primary-600">Statistik</a>
+      <a href="#portofolio" class="hover:text-primary-600">Proyek Web & Karya</a>
+      <a href="#layanan" class="hover:text-primary-600">Layanan</a>
       <a href="#alur" class="hover:text-primary-600">Alur Kerja</a>
       <a href="#kontak" class="hover:text-primary-600">Hubungi Saya</a>
       <div class="pt-2 border-t border-slate-100 flex flex-col gap-2">
@@ -223,7 +235,162 @@
     </section>
 
 
-    <!-- ==================== PORTOFOLIO PROYEK UTAMA (WEB & DIGITAL) ==================== -->
+    <!-- ==================== HALAMAN 2: MENGENAL SUFYAN TSAURY ==================== -->
+    <section id="tentang" class="py-20 bg-slate-50/70 border-t border-slate-100">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        
+        <div class="max-w-2xl mx-auto text-center space-y-3 mb-16">
+          <span class="text-xs font-bold uppercase tracking-wider text-primary-600 bg-blue-50 px-4 py-1 rounded-full border border-blue-100">Profil Singkat</span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Mengenal Sufyan Tsaury</h2>
+          <p class="text-slate-600 text-sm sm:text-base">
+            Menggabungkan keahlian koding aplikasi web dengan ketelitian metodologis penyusunan naskah.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-12 gap-8 items-start">
+          
+          <!-- Cerita Singkat (Kiri) -->
+          <div class="md:col-span-7 bg-white p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
+            <h3 class="text-xl font-bold text-slate-900">Teknologi Web yang Fungsional & Kerapian Struktur</h3>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              Dengan latar belakang pendidikan Teknik Komputer dan Jaringan (TKJ) serta studi di bidang ilmu hukum, saya memiliki pendekatan yang sistematis: mampu merancang sistem web modern yang cepat dan fungsional, sekaligus menjaga ketelitian logika dan kerapian tata letak dokumen akademik.
+            </p>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              Saya berpengalaman mengembangkan portal web kelas menggunakan Next.js dan Supabase, membuat peta interaktif WebGIS dengan Leaflet, hingga menyusun dokumen buku ajar dan modul akademik siap terbit.
+            </p>
+            <div class="pt-4 border-t border-slate-200 flex items-center gap-3">
+              <span class="text-xs font-bold text-primary-600 bg-blue-50 px-3 py-1 rounded-full">Prinsip:</span>
+              <span class="text-xs text-slate-600 font-medium">"Koding yang bersih, performa cepat, dan naskah terstruktur rapi."</span>
+            </div>
+          </div>
+
+          <!-- Biodata Terstruktur (Kanan) -->
+          <div class="md:col-span-5 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
+            <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-2">Informasi Personal</h4>
+
+            <div class="flex justify-between items-center p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+              <span class="text-slate-500 font-medium flex items-center gap-2">
+                <i data-lucide="graduation-cap" class="w-4 h-4 text-primary-600"></i> Status Akademik
+              </span>
+              <span class="font-bold text-slate-800 text-right">S1 Hukum Keluarga (UIN SSC)</span>
+            </div>
+
+            <div class="flex justify-between items-center p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+              <span class="text-slate-500 font-medium flex items-center gap-2">
+                <i data-lucide="network" class="w-4 h-4 text-primary-600"></i> Background
+              </span>
+              <span class="font-bold text-slate-800">TKJ SMKN 7 Garut (2025)</span>
+            </div>
+
+            <div class="flex justify-between items-center p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+              <span class="text-slate-500 font-medium flex items-center gap-2">
+                <i data-lucide="map-pin" class="w-4 h-4 text-primary-600"></i> Domisili
+              </span>
+              <span class="font-bold text-slate-800">Sumedang, Jawa Barat</span>
+            </div>
+
+            <div class="flex justify-between items-center p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+              <span class="text-slate-500 font-medium flex items-center gap-2">
+                <i data-lucide="calendar" class="w-4 h-4 text-primary-600"></i> Usia
+              </span>
+              <span class="font-bold text-slate-800">20 Tahun</span>
+            </div>
+
+            <div class="pt-2 flex gap-2">
+              <a href="mailto:sufyantsaury.id@gmail.com" class="flex-1 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 border border-slate-200">
+                <i data-lucide="mail" class="w-3.5 h-3.5"></i> Email
+              </a>
+              <a href="https://t.me/piantsa" target="_blank" class="flex-1 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm">
+                <i data-lucide="send" class="w-3.5 h-3.5"></i> Telegram
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== HALAMAN 3: STATISTIK PROYEK & STANDAR KERJA ==================== -->
+    <section id="statistik" class="py-20 bg-white border-t border-slate-100">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        
+        <div class="max-w-2xl mx-auto text-center space-y-3 mb-12">
+          <span class="text-xs font-bold uppercase tracking-wider text-primary-600 bg-blue-50 px-4 py-1 rounded-full border border-blue-100">
+            Data & Rekam Jejak
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Statistik Proyek & Standar Kerja
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base">
+            Metrik pengerjaan proyek web, kepatuhan struktur dokumen, serta dedikasi komunikasi cepat.
+          </p>
+        </div>
+
+        <!-- 4 Kartu Statistik dengan warna berbeda (Biru, Emerald, Violet, Amber) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Card 1 (Biru / Proyek Web) -->
+          <div class="stat-card bg-white rounded-3xl p-7 text-center border border-slate-200/80 shadow-sm card-hover hover:border-blue-500 hover:shadow-lg hover:shadow-blue-500/10 cursor-pointer flex flex-col items-center justify-center group" data-color="blue" onclick="selectStatCard(this)">
+            <div class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all">
+              <i data-lucide="code-2" class="w-7 h-7"></i>
+            </div>
+            <div class="flex items-baseline justify-center mb-2">
+              <span class="stat-counter text-4xl sm:text-5xl font-extrabold text-blue-600" data-target="5">0</span>
+              <span class="text-3xl font-extrabold text-blue-600">+</span>
+            </div>
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              Proyek Web & Digital
+            </p>
+          </div>
+
+          <!-- Card 2 (Emerald / Kualitas & Format) -->
+          <div class="stat-card bg-white rounded-3xl p-7 text-center border border-slate-200/80 shadow-sm card-hover hover:border-emerald-500 hover:shadow-lg hover:shadow-emerald-500/10 cursor-pointer flex flex-col items-center justify-center group" data-color="emerald" onclick="selectStatCard(this)">
+            <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+              <i data-lucide="check-circle-2" class="w-7 h-7"></i>
+            </div>
+            <div class="flex items-baseline justify-center mb-2">
+              <span class="stat-counter text-4xl sm:text-5xl font-extrabold text-emerald-600" data-target="100">0</span>
+              <span class="text-3xl font-extrabold text-emerald-600">%</span>
+            </div>
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              Ketepatan Format & Kualitas
+            </p>
+          </div>
+
+          <!-- Card 3 (Violet / Standar Modern) -->
+          <div class="stat-card bg-white rounded-3xl p-7 text-center border border-slate-200/80 shadow-sm card-hover hover:border-violet-500 hover:shadow-lg hover:shadow-violet-500/10 cursor-pointer flex flex-col items-center justify-center group" data-color="violet" onclick="selectStatCard(this)">
+            <div class="w-14 h-14 rounded-2xl bg-violet-50 text-violet-600 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-violet-600 group-hover:text-white transition-all">
+              <i data-lucide="layers" class="w-7 h-7"></i>
+            </div>
+            <div class="flex items-baseline justify-center mb-2">
+              <span class="stat-counter text-4xl sm:text-5xl font-extrabold text-violet-600" data-target="2026" data-raw="true">0</span>
+            </div>
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              Standar Web Modern
+            </p>
+          </div>
+
+          <!-- Card 4 (Amber / Komunikasi Responsif) -->
+          <div class="stat-card bg-white rounded-3xl p-7 text-center border border-slate-200/80 shadow-sm card-hover hover:border-amber-500 hover:shadow-lg hover:shadow-amber-500/10 cursor-pointer flex flex-col items-center justify-center group" data-color="amber" onclick="selectStatCard(this)">
+            <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:bg-amber-600 group-hover:text-white transition-all">
+              <i data-lucide="message-square" class="w-7 h-7"></i>
+            </div>
+            <div class="flex items-baseline justify-center mb-2">
+              <span class="stat-counter text-4xl sm:text-5xl font-extrabold text-amber-600" data-target="24">0</span>
+              <span class="text-3xl font-extrabold text-amber-600">/7</span>
+            </div>
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">
+              Komunikasi Responsif
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== HALAMAN 4: PORTOFOLIO PROYEK UTAMA (WEB & DIGITAL) ==================== -->
     <section id="portofolio" class="py-20 bg-slate-50/70 border-t border-slate-100">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
         
@@ -233,10 +400,8 @@
             <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Koleksi Proyek Web & Karya</h2>
             <p class="text-slate-600 text-sm sm:text-base">Pengembangan aplikasi web terintegrasi, visualisasi geospasial, serta penyusunan buku ajar.</p>
           </div>
-          <a href="https://kelas-hk-a-uinssc-2025.vercel.app" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-primary-600 hover:text-primary-700">
-            <span>Buka Web Kelas HK A</span>
-            <i data-lucide="external-link" class="w-4 h-4"></i>
-          </a>
+    
+          
         </div>
 
         <div class="grid md:grid-cols-2 gap-8">
@@ -358,87 +523,11 @@
     </section>
 
 
-    <!-- ==================== STATISTIK DENGAN BORDER NETRAL & EFEK KLIK/HOVER ==================== -->
-    <section id="statistik" class="py-16 bg-white border-b border-slate-100">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        
-        <div class="max-w-2xl mx-auto text-center space-y-3 mb-12">
-          <span class="text-xs font-bold uppercase tracking-wider text-primary-600 bg-blue-50 px-4 py-1 rounded-full border border-blue-100">
-            Data & Rekam Jejak
-          </span>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            Statistik Proyek & Standar Kerja
-          </h2>
-          <p class="text-slate-600 text-sm sm:text-base">
-            Metrik pengerjaan proyek web, kepatuhan struktur dokumen, serta dedikasi komunikasi cepat.
-          </p>
-        </div>
 
-        <!-- 4 Kartu Statistik (SEMUA BORDER AWALNYA NETRAL, TIDAK HIJAU TERUS-MENERUS) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          
-          <!-- Card 1 -->
-          <div class="stat-card bg-white rounded-3xl p-7 text-center border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 cursor-pointer flex flex-col items-center justify-center group" onclick="selectStatCard(this)">
-            <div class="w-14 h-14 rounded-2xl bg-blue-50 text-primary-600 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-              <i data-lucide="code" class="w-7 h-7"></i>
-            </div>
-            <div class="flex items-baseline justify-center mb-2">
-              <span class="stat-counter text-4xl sm:text-5xl font-extrabold text-primary-600" data-target="5">0</span>
-              <span class="text-3xl font-extrabold text-primary-600">+</span>
-            </div>
-            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">
-              Proyek Web & Digital
-            </p>
-          </div>
-
-          <!-- Card 2 (Border Bersih Netral, Hanya Highlight saat Hover / Klik) -->
-          <div class="stat-card bg-white rounded-3xl p-7 text-center border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 cursor-pointer flex flex-col items-center justify-center group" onclick="selectStatCard(this)">
-            <div class="w-14 h-14 rounded-2xl bg-blue-50 text-primary-600 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-              <i data-lucide="check-circle-2" class="w-7 h-7"></i>
-            </div>
-            <div class="flex items-baseline justify-center mb-2">
-              <span class="stat-counter text-4xl sm:text-5xl font-extrabold text-primary-600" data-target="100">0</span>
-              <span class="text-3xl font-extrabold text-primary-600">%</span>
-            </div>
-            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">
-              Ketepatan Format & Kualitas
-            </p>
-          </div>
-
-          <!-- Card 3 (Tahun 2026 Bersih Tanpa Titik) -->
-          <div class="stat-card bg-white rounded-3xl p-7 text-center border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 cursor-pointer flex flex-col items-center justify-center group" onclick="selectStatCard(this)">
-            <div class="w-14 h-14 rounded-2xl bg-blue-50 text-primary-600 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-              <i data-lucide="layers" class="w-7 h-7"></i>
-            </div>
-            <div class="flex items-baseline justify-center mb-2">
-              <span class="stat-counter text-4xl sm:text-5xl font-extrabold text-primary-600" data-target="2026" data-raw="true">0</span>
-            </div>
-            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">
-              Standar Web Modern
-            </p>
-          </div>
-
-          <!-- Card 4 -->
-          <div class="stat-card bg-white rounded-3xl p-7 text-center border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 cursor-pointer flex flex-col items-center justify-center group" onclick="selectStatCard(this)">
-            <div class="w-14 h-14 rounded-2xl bg-blue-50 text-primary-600 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-              <i data-lucide="message-square" class="w-7 h-7"></i>
-            </div>
-            <div class="flex items-baseline justify-center mb-2">
-              <span class="stat-counter text-4xl sm:text-5xl font-extrabold text-primary-600" data-target="24">0</span>
-              <span class="text-3xl font-extrabold text-primary-600">/7</span>
-            </div>
-            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">
-              Komunikasi Responsif
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
 
 
     <!-- ==================== LAYANAN (DENGAN PRIORITAS WEB DEVELOPMENT) ==================== -->
-    <section id="layanan" class="py-20 bg-slate-50/70 border-b border-slate-100">
+    <section id="layanan" class="py-20 bg-white border-t border-slate-100">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
         
         <div class="max-w-2xl mx-auto text-center space-y-3 mb-16">
@@ -457,7 +546,7 @@
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           
           <!-- Layanan 1: Web Development (FOKUS UTAMA) -->
-          <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 flex flex-col justify-between">
+          <div class="bg-slate-50/70 p-7 rounded-2xl border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 flex flex-col justify-between">
             <div>
               <div class="w-11 h-11 rounded-xl bg-blue-50 text-primary-600 flex items-center justify-center mb-5">
                 <i data-lucide="layout" class="w-5 h-5"></i>
@@ -480,7 +569,7 @@
           </div>
 
           <!-- Layanan 2: WebGIS & Peta Spasial -->
-          <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 flex flex-col justify-between">
+          <div class="bg-slate-50/70 p-7 rounded-2xl border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 flex flex-col justify-between">
             <div>
               <div class="w-11 h-11 rounded-xl bg-blue-50 text-primary-600 flex items-center justify-center mb-5">
                 <i data-lucide="map-pin" class="w-5 h-5"></i>
@@ -503,7 +592,7 @@
           </div>
 
           <!-- Layanan 3: Pembuatan Buku Ajar & Modul -->
-          <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 flex flex-col justify-between">
+          <div class="bg-slate-50/70 p-7 rounded-2xl border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 flex flex-col justify-between">
             <div>
               <div class="w-11 h-11 rounded-xl bg-blue-50 text-primary-600 flex items-center justify-center mb-5">
                 <i data-lucide="book-open" class="w-5 h-5"></i>
@@ -526,7 +615,7 @@
           </div>
 
           <!-- Layanan 4: Penyusunan Makalah & Format -->
-          <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 flex flex-col justify-between">
+          <div class="bg-slate-50/70 p-7 rounded-2xl border border-slate-200/80 shadow-sm card-hover hover:border-primary-600 hover:shadow-lg hover:shadow-primary-600/5 flex flex-col justify-between">
             <div>
               <div class="w-11 h-11 rounded-xl bg-blue-50 text-primary-600 flex items-center justify-center mb-5">
                 <i data-lucide="file-text" class="w-5 h-5"></i>
@@ -553,80 +642,7 @@
     </section>
 
 
-    <!-- ==================== TENTANG SAYA & BIODATA ==================== -->
-    <section id="tentang" class="py-20 bg-white">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        
-        <div class="max-w-2xl mx-auto text-center space-y-3 mb-16">
-          <span class="text-xs font-bold uppercase tracking-wider text-primary-600 bg-blue-50 px-4 py-1 rounded-full border border-blue-100">Profil Singkat</span>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Mengenal Sufyan Tsaury</h2>
-          <p class="text-slate-600 text-sm sm:text-base">
-            Menggabungkan keahlian koding aplikasi web dengan ketelitian metodologis penyusunan naskah.
-          </p>
-        </div>
 
-        <div class="grid md:grid-cols-12 gap-8 items-start">
-          
-          <!-- Cerita Singkat (Kiri) -->
-          <div class="md:col-span-7 bg-slate-50/70 p-8 rounded-3xl border border-slate-200/80 shadow-sm space-y-4">
-            <h3 class="text-xl font-bold text-slate-900">Teknologi Web yang Fungsional & Kerapian Struktur</h3>
-            <p class="text-slate-600 text-sm leading-relaxed">
-              Dengan latar belakang pendidikan Teknik Komputer dan Jaringan (TKJ) serta studi di bidang ilmu hukum, saya memiliki pendekatan yang sistematis: mampu merancang sistem web modern yang cepat dan fungsional, sekaligus menjaga ketelitian logika dan kerapian tata letak dokumen akademik.
-            </p>
-            <p class="text-slate-600 text-sm leading-relaxed">
-              Saya berpengalaman mengembangkan portal web kelas menggunakan Next.js dan Supabase, membuat peta interaktif WebGIS dengan Leaflet, hingga menyusun dokumen buku ajar dan modul akademik siap terbit.
-            </p>
-            <div class="pt-4 border-t border-slate-200 flex items-center gap-3">
-              <span class="text-xs font-bold text-primary-600 bg-blue-50 px-3 py-1 rounded-full">Prinsip:</span>
-              <span class="text-xs text-slate-600 font-medium">"Koding yang bersih, performa cepat, dan naskah terstruktur rapi."</span>
-            </div>
-          </div>
-
-          <!-- Biodata Terstruktur (Kanan) -->
-          <div class="md:col-span-5 bg-slate-50/70 p-6 rounded-3xl border border-slate-200/80 shadow-sm space-y-3">
-            <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-2">Informasi Personal</h4>
-
-            <div class="flex justify-between items-center p-3 rounded-xl bg-white border border-slate-100 text-xs">
-              <span class="text-slate-500 font-medium flex items-center gap-2">
-                <i data-lucide="graduation-cap" class="w-4 h-4 text-primary-600"></i> Status Akademik
-              </span>
-              <span class="font-bold text-slate-800 text-right">S1 Hukum Keluarga (UIN SSC)</span>
-            </div>
-
-            <div class="flex justify-between items-center p-3 rounded-xl bg-white border border-slate-100 text-xs">
-              <span class="text-slate-500 font-medium flex items-center gap-2">
-                <i data-lucide="network" class="w-4 h-4 text-primary-600"></i> Background
-              </span>
-              <span class="font-bold text-slate-800">TKJ SMKN 7 Garut (2025)</span>
-            </div>
-
-            <div class="flex justify-between items-center p-3 rounded-xl bg-white border border-slate-100 text-xs">
-              <span class="text-slate-500 font-medium flex items-center gap-2">
-                <i data-lucide="map-pin" class="w-4 h-4 text-primary-600"></i> Domisili
-              </span>
-              <span class="font-bold text-slate-800">Sumedang, Jawa Barat</span>
-            </div>
-
-            <div class="flex justify-between items-center p-3 rounded-xl bg-white border border-slate-100 text-xs">
-              <span class="text-slate-500 font-medium flex items-center gap-2">
-                <i data-lucide="calendar" class="w-4 h-4 text-primary-600"></i> Usia
-              </span>
-              <span class="font-bold text-slate-800">20 Tahun</span>
-            </div>
-
-            <div class="pt-2 flex gap-2">
-              <a href="mailto:sufyantsaury.id@gmail.com" class="flex-1 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-800 font-bold text-xs flex items-center justify-center gap-1.5 border border-slate-200">
-                <i data-lucide="mail" class="w-3.5 h-3.5"></i> Email
-              </a>
-              <a href="https://t.me/piantsa" target="_blank" class="flex-1 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm">
-                <i data-lucide="send" class="w-3.5 h-3.5"></i> Telegram
-              </a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
 
 
     <!-- ==================== ALUR KERJA (4 TAHAP) ==================== -->
@@ -736,13 +752,13 @@
   <!-- ==================== FOOTER ==================== -->
   <footer class="bg-slate-950 text-slate-500 text-xs py-8 border-t border-slate-900">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p>© 2026 Sufyan Tsaury. Web Developer & Digital Specialist.</p>
+      <p>© 2026 Sufyan Tsaury. Web Developer & Digital .</p>
       <div class="flex items-center gap-5">
         <a href="#beranda" class="hover:text-slate-300 transition-colors">Beranda</a>
-        <a href="#portofolio" class="hover:text-slate-300 transition-colors">Proyek Web</a>
-        <a href="#statistik" class="hover:text-slate-300 transition-colors">Statistik</a>
-        <a href="#layanan" class="hover:text-slate-300 transition-colors">Layanan</a>
         <a href="#tentang" class="hover:text-slate-300 transition-colors">Tentang</a>
+        <a href="#statistik" class="hover:text-slate-300 transition-colors">Statistik</a>
+        <a href="#portofolio" class="hover:text-slate-300 transition-colors">Proyek Web</a>
+        <a href="#layanan" class="hover:text-slate-300 transition-colors">Layanan</a>
         <a href="#kontak" class="hover:text-slate-300 transition-colors">Kontak</a>
       </div>
     </div>
@@ -790,15 +806,23 @@
       });
     }
 
-    // INTERAKSI KLIK KARTU STATISTIK (HIGHLIGHT SAAT DIKLIK, BUKAN HIJAU PERMANEN)
+    // INTERAKSI KLIK KARTU STATISTIK DENGAN AKSEN WARNA MASING-MASING
     function selectStatCard(clickedCard) {
+      const color = clickedCard.getAttribute('data-color') || 'blue';
+      const activeClass = `active-${color}`;
+      const isAlreadyActive = clickedCard.classList.contains(activeClass);
+
       document.querySelectorAll('.stat-card').forEach(card => {
-        if (card !== clickedCard) card.classList.remove('active');
+        const c = card.getAttribute('data-color') || 'blue';
+        card.classList.remove(`active-${c}`, 'active');
       });
-      clickedCard.classList.toggle('active');
+
+      if (!isAlreadyActive) {
+        clickedCard.classList.add(activeClass, 'active');
+      }
     }
 
-    // ANIMASI ANGKA STATISTIK BERJALAN (0 SAMPAI TARGET)
+    // ANIMASI ANGKA STATISTIK BERJALAN DARI NOL
     let hasAnimatedCounters = false;
 
     function animateCounters() {
@@ -809,10 +833,11 @@
       counters.forEach(counter => {
         const target = parseInt(counter.getAttribute('data-target'), 10);
         const isRaw = counter.getAttribute('data-raw') === 'true';
-        const duration = 1800; // 1.8 detik animasi halus
-        const startTime = performance.now();
+        const duration = 1600; // 1.6 detik animasi berjalan jelas dari 0
+        let startTime = null;
 
         function update(currentTime) {
+          if (!startTime) startTime = currentTime;
           const elapsed = currentTime - startTime;
           const progress = Math.min(elapsed / duration, 1);
           
@@ -820,24 +845,19 @@
           const easeProgress = 1 - Math.pow(1 - progress, 3);
           const currentVal = Math.floor(easeProgress * target);
           
-          counter.innerText = isRaw ? currentVal : currentVal.toLocaleString('id-ID');
+          counter.textContent = isRaw ? currentVal : currentVal.toLocaleString('id-ID');
 
           if (progress < 1) {
             requestAnimationFrame(update);
           } else {
-            counter.innerText = isRaw ? target : target.toLocaleString('id-ID');
+            counter.textContent = isRaw ? target : target.toLocaleString('id-ID');
           }
         }
         requestAnimationFrame(update);
       });
     }
 
-    // Jalankan animasi saat halaman dimuat
-    window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(animateCounters, 200);
-    });
-
-    // Jalankan juga saat di-scroll ke area statistik
+    // Observer: Jalankan animasi saat bagian statistik pertama kali terlihat di layar
     const statSection = document.getElementById('statistik');
     if ('IntersectionObserver' in window && statSection) {
       const observer = new IntersectionObserver((entries) => {
@@ -847,8 +867,11 @@
             observer.disconnect();
           }
         });
-      }, { threshold: 0.2 });
+      }, { threshold: 0.15 });
       observer.observe(statSection);
+    } else {
+      // Fallback jika tidak mendukung IntersectionObserver
+      setTimeout(animateCounters, 500);
     }
   </script>
 </body>
